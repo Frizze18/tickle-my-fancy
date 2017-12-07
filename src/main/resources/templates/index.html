@@ -273,7 +273,7 @@
                     <p>
                         <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
                     </p>
-                    <p th:text="${product.image}"></p>
+                    <img class="productpic" th:src="${product.image}" />
                     <p th:text="${product.price +' kr'}">kr</p>
                     <p th:text="${product.description}"></p>
 
