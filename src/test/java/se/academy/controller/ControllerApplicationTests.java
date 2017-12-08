@@ -81,7 +81,7 @@ public class ControllerApplicationTests {
         quantities.add(8);
         quantities.add(42);
 
-        boolean success = repository.registerCustomer(new Customer("test@test.com", "test", " ", " ", " ", " ", " ", " "));
+        boolean success = repository.registerCustomer(new Customer("test@test.com", "test", " ", " ", " ", " ", " ", " ",));
         Assert.isTrue(success, "Registration must be successful");
 
         Customer customer = repository.loginCustomer("test@test.com", "test");
