@@ -55,7 +55,7 @@
 
 
         <div id="mainPage">
-            <td>
+            <table>
                 <tr class="productlist" th:each="product : ${products}">
                     <td>
                         <p th:text="${product.name}"></p>
@@ -67,7 +67,7 @@
                         <p th:text="${product.inStorage}"></p>
                     </td>
                 </tr>
-            </td>
+            </table>
         </div>
     </section>
     <section id="foot">
