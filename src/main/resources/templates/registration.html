@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="Stylesheet" href="./css/registration.css"/>
-    <style>@import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');</style>
+    <link rel="Stylesheet" href="./css/style.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
+    </style>
     <title>Beauty and the beasts</title>
 
 </head>
@@ -17,24 +21,22 @@
     <div id="menubar">
         <div id="searchbar">
             <input type="text" class="searchTerm" placeholder="What are you looking for?"/>
-            <button type="submit" class="searchButton"> </button>
+            <button type="submit" class="searchButton"></button>
         </div>
         <div id="menu">
-            <span >category1</span>
-            <span >category2</span>
-            <span >category3</span>
-            <span >category4</span>
-            <span >category5</span>
-            <span >category6</span>
+            <span>category1</span>
+            <span>category2</span>
+            <span>category3</span>
+            <span>category4</span>
+            <span>category5</span>
+            <span>category6</span>
         </div>
     </div>
     <div id="cartbox">
-        <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
-        <div id="login"><a href="registration.html"><img src="../static/img/mypagelogo.png" id="mypagelogo"/></a></div>
-        <div id="cart" ><img src="../static/img/shopping-cart.png" id="cartlogo"/></div>
+        <div id="login"><a href="customerpage.html"><img src="/img/mypagelogo.png" id="mypagelogo"/></a></div>
+        <div id="cart"><img src="/img/shopping-cart.png" id="cartlogo"/></div>
     </div>
 </header>
-
 <section id="pageContent">
 
     <div id="subcategoryMenu">
@@ -42,8 +44,10 @@
             Here will we display a menu with subcategories
         </p>
     </div>
-    <div id="mainpage">
 
+
+    <div id="mainPage">
+        <div id="registrationWithForm">
             <div id="regtext">
                 <h1>Registrera</h1>
                 <div class="input">Email</div>
@@ -62,9 +66,9 @@
                     <h1> ny Kund</h1>
                     <form action="#" th:action="@{/registration}" th:object="${customer}" method="post">
                         <div class="input">
-                            <input type="text" th:field="*{email}" />
+                            <input type="text" th:field="*{email}"/>
                             <span th:if="${#fields.hasErrors('email')}">Måste ange e-post</span>
-                            <span th:text="${occupied}" ></span>
+                            <span th:text="${occupied}"></span>
                         </div>
                         <div class="input">
                             <input type="password" th:field="*{password}"/>
@@ -99,18 +103,49 @@
                     </form>
                 </div>
             </div>
-
+        </div>
     </div>
-
     <div id="topsellers">
-        <p>here we will have a list of our topsellers</p>
+        <p> Our topsellers</p>
+        <div th:each="product : ${nails}">
+            <p>
+                <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
+            </p>
+            <img class="productpic" th:src="${product.image}"/>
+            <p th:text="${product.price +' kr'}">kr</p>
+
+        </div>
     </div>
-
 </section>
-<div id="footer">
-    <p>some information about us</p>
-
-</div>
+<section id="foot">
+    <div class="shopsection">
+        <ul id="shop">SHOP</ul>
+        <li>Women</li>
+        <li>Men</li>
+        <li>Makeup</li>
+        <li>lipstift</li>
+    </div>
+    <div class="informationsection">
+        <ul>information</ul>
+        <li>carrer at Beauty and the beast</li>
+        <li>aboute Beauty and the beast</li>
+        <li>information</li>
+    </div>
+    <div class="helpsection">
+        <ul>help</ul>
+        <li>customer service</li>
+        <li>My profile</li>
+        <li>Gift Card</li>
+        <li>FAQ</li>
+    </div>
+    <div class="socialsection">
+        <ul>social</ul>
+        <li>Facebook</li>
+        <li>Instagram</li>
+        <li>Twitter</li>
+        <li>Mail</li>
+    </div>
+</section>
 <script src="./script/bundle.js"></script>
 </body>
 </html>
