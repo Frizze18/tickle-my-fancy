@@ -23,9 +23,9 @@ public class DbRepository {
 
     }
 
-    public boolean registerCustomer(Customer customer) {
+    public boolean registerCustomer(Customer customer, java.sql.Timestamp regTime) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement statement = conn.prepareStatement("INSERT INTO customer(email,password,firstName,lastName,address,zip,city,phone) VALUES (?,?,?,?,?,?,?,?);")) {
+             PreparedStatement statement = conn.prepareStatement("INSERT INTO customer(email,password,firstName,lastName,address,zip,city,phone,regTime) VALUES (?,?,?,?,?,?,?,?,?);")) {
             statement.setString(1, customer.getEmail());
             statement.setString(2, customer.getPassword());
             statement.setString(3, customer.getFirstname());
@@ -34,6 +34,7 @@ public class DbRepository {
             statement.setString(6, customer.getZip());
             statement.setString(7, customer.getCity());
             statement.setString(8, customer.getPhone());
+            statement.setTimestamp(9, regTime);
             int result = statement.executeUpdate();
 
             if (result == 1) {
@@ -43,7 +44,7 @@ public class DbRepository {
             System.err.println("ERROR IN registerCustomer");
         }
         return false;
-    }   
+    }
 
     public Customer loginCustomer(String email, String password) {
         try (Connection conn = dataSource.getConnection();
