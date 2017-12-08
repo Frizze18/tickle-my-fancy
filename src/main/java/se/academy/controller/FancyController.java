@@ -16,7 +16,11 @@ import se.academy.domain.ShoppingCart;
 import se.academy.repository.DbRepository;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.sql.*;
+import java.util.Calendar;
 import java.util.List;
+
 
 @Controller
 public class FancyController {
@@ -114,7 +118,8 @@ public class FancyController {
             String emailOccupied = "Email redan registrerat.";
             return  new ModelAndView("registration").addObject("customer", customer).addObject("occupied",emailOccupied);
         }
-        repository.registerCustomer(customer);
+
+        repository.registerCustomer(customer, new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()));
         return new ModelAndView("index");
     }
 
