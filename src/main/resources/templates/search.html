@@ -59,6 +59,7 @@
                 <tr class="productlist" th:each="product : ${products}">
                     <td>
                         <p th:text="${product.name}"></p>
+                        <img class="productpic" th:src="${product.image}"/>
                         <p th:text="${product.price}"></p>
                         <p th:text="${product.description}"></p>
                     </td>
@@ -69,10 +70,35 @@
             </td>
         </div>
     </section>
-    <div id="footer">
-        <p>some information about us</p>
-
-    </div>
+    <section id="foot">
+        <div class="shopsection">
+            <ul id="shop">SHOP</ul>
+            <li>Women</li>
+            <li>Men</li>
+            <li>Makeup</li>
+            <li>lipstift</li>
+        </div>
+        <div class="informationsection">
+            <ul>information</ul>
+            <li>carrer at Beauty and the beast</li>
+            <li>aboute Beauty and the beast</li>
+            <li>information</li>
+        </div>
+        <div class="helpsection">
+            <ul>help</ul>
+            <li>customer service</li>
+            <li>My profile</li>
+            <li>Gift Card</li>
+            <li>FAQ</li>
+        </div>
+        <div class="socialsection">
+            <ul>social</ul>
+            <li>Facebook</li>
+            <li>Instagram</li>
+            <li>Twitter</li>
+            <li>Mail</li>
+        </div>
+    </section>
     <script src="./script/bundle.js"></script>
 </body>
 

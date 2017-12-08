@@ -121,10 +121,10 @@ public class DbRepository {
     }
 
 
-    public Queue <Product> getBySubCategory(String category){
-            Queue<Product> products = getHelper("SELECT * FROM products WHERE subcategory = (?)", category);
-            return products;
-        }
+    public Queue <Product> getBySubcategory(String category) {
+        Queue<Product> products = getHelper("SELECT * FROM products WHERE subcategory = (?)", category);
+        return products;
+    }
 
     public Queue <Product> getHelper(String sqlStatement, String category) {
 
