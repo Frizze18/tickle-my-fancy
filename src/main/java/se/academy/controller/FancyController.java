@@ -122,6 +122,7 @@ public class FancyController {
     @GetMapping("/productinfo")
     public String productInfo (Model model, HttpSession session, @RequestParam int productID){
         model.addAttribute("product", repository.getProduct(productID));
+        model.addAttribute("nails", repository.getBySubCategoryTop3("läppstift"));
 
         return "productinfo";
     }
