@@ -13,6 +13,7 @@ import se.academy.domain.SubOrder;
 import se.academy.repository.DbRepository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Queue;
 
@@ -81,7 +82,7 @@ public class ControllerApplicationTests {
         quantities.add(8);
         quantities.add(42);
 
-        boolean success = repository.registerCustomer(new Customer("test@test.com", "test", " ", " ", " ", " ", " ", " ",));
+        boolean success = repository.registerCustomer(new Customer("test@test.com", "test", " ", " ", " ", " ", " ", " "), new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()));
         Assert.isTrue(success, "Registration must be successful");
 
         Customer customer = repository.loginCustomer("test@test.com", "test");
