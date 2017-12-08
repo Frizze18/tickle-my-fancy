@@ -44,6 +44,23 @@ public class ControllerApplicationTests {
 		Assert.notEmpty(products, "Productlist must not be empty");
 	}
 
+//	@Test
+//	public void customerTests() {
+//		boolean success = repository.registerCustomer(new Customer("test@test.com", "test", " ", " ", " ", " ", " ", " "));
+//		Assert.isTrue(success, "Registration must be successful");
+//
+//		Customer customer = repository.loginCustomer("test@test.com", "test");
+//
+//		Assert.notNull(customer, "Customer must not be null");
+//		Assert.isTrue(customer.getEmail().equals("test@test.com"), "Customer email must equal input email");
+//
+//		success = repository.removeCustomer("test@test.com");
+//		customer = repository.loginCustomer("test@test.com", "test");
+//
+//		Assert.isTrue(success, "Removal must be successful");
+//		Assert.isTrue(customer == null, "Removed customer must not be found");
+//	}
+
 	@Test
 	public void dbTests() {
         List<Product> products = new ArrayList<>();
@@ -88,7 +105,6 @@ public class ControllerApplicationTests {
 	    Assert.isNull(order, "Should not find order");
         subOrders = repository.getWholeOrder(orderID);
         Assert.isTrue(subOrders.isEmpty(), "Should not find suborders");
-
 
         success = repository.removeCustomer("test@test.com");
         customer = repository.loginCustomer("test@test.com", "test");
