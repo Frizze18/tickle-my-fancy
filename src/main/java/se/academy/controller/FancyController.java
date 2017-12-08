@@ -108,7 +108,7 @@ public class FancyController {
             return new ModelAndView("registration").addObject("customer", customer);
         }
         if(repository.checkIfCustomerExist(customer)) {
-            String emailOccupied = "Email redan registrerat";
+            String emailOccupied = "Email redan registrerat.";
             return  new ModelAndView("registration").addObject("customer", customer).addObject("occupied",emailOccupied);
         }
         repository.registerCustomer(customer);

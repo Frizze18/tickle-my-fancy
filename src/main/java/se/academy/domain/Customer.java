@@ -7,18 +7,17 @@ public class Customer {
     private String email;
     @Size(min=5, max=15)
     private String password;
-    @Size(min=5, max=20)
+    @Size(min=2, max=20)
     private String firstname;
-    @Size(min=5, max=20)
+    @Size(min=2, max=20)
     private String lastname;
-    @Size(min=5, max=50)
+    @Size(min=3, max=50)
     private String address;
     @Digits(integer = 5, fraction = 0)
     private String zip;
-    @Size(min=3, max=50)
+    @Size(min=2, max=50)
     private String city;
-    @Size(min=7, max=10)
-
+    @Size(min=1, max=30)
     private String phone;
 
     public Customer(){

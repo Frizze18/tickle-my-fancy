@@ -72,31 +72,31 @@
                         </div>
                         <div class="input">
                             <input type="password" th:field="*{password}"/>
-                            <span th:if="${#fields.hasErrors('password')}">Lösenordet ska innehålla 5-15 tecken.</span>
+                            <span th:if="${#fields.hasErrors('password')}">5-15 tecken</span>
                         </div>
                         <div class="input">
                             <input type="text" th:field="*{firstname}"/>
-                            <span th:if="${#fields.hasErrors('firstname')}"></span>
+                            <span th:if="${#fields.hasErrors('firstname')}">2-20 tecken</span>
                         </div>
                         <div class="input">
                             <input type="text" th:field="*{lastname}"/>
-                            <span th:if="${#fields.hasErrors('lastname')}">Lastname Wrong!</span>
+                            <span th:if="${#fields.hasErrors('lastname')}">2-20 tecken</span>
                         </div>
                         <div class="input">
                             <input type="text" th:field="*{address}"/>
-                            <span th:if="${#fields.hasErrors('address')}">Address Wrong!</span>
+                            <span th:if="${#fields.hasErrors('address')}">Minst 3 tecken</span>
                         </div>
                         <div class="input">
                             <input type="text" th:field="*{zip}"/>
-                            <span th:if="${#fields.hasErrors('zip')}">Zip Wrong!</span>
+                            <span th:if="${#fields.hasErrors('zip')}">Ange 5 siffror</span>
                         </div>
                         <div class="input">
                             <input type="text" th:field="*{city}"/>
-                            <span th:if="${#fields.hasErrors('city')}">Wrong!</span>
+                            <span th:if="${#fields.hasErrors('city')}">Ange minst 2 tecken</span>
                         </div>
                         <div class="input">
                             <input type="text" th:field="*{phone}"/>
-                            <span th:if="${#fields.hasErrors('phone')}">City Wrong!</span>
+                            <span th:if="${#fields.hasErrors('phone')}">Ange telefonnummer</span>
                         </div>
                         <input type="submit" value="registrera"/>
 
