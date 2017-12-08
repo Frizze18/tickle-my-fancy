@@ -30,3 +30,4 @@ node_modules
 *.css
 bundle.js
 bundle.js.map
+christmas.js

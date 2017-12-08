@@ -1,76 +1,103 @@
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <link rel="Stylesheet" href="/css/productinfo.css"/>
-    <style>@import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');</style>
+    <link rel="Stylesheet" href="./css/style.css"/>
+    <link rel="Stylesheet" href="./css/productinfo.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
+    </style>
     <title>Beauty and the beasts</title>
 
 </head>
+
 <body>
-
-<header id="header">
-    <div id="logoDiv">
-        <img src="https://i.ytimg.com/vi/e3Nl_TCQXuw/maxresdefault.jpg" id="logo"/>
-    </div>
-    <div id="menubar">
-        <div id="searchbar">
-            <input type="text" class="searchTerm" placeholder="What are you looking for?"/>
-            <button type="submit" class="searchButton"></button>
-
+    <header id="header">
+        <div id="logoDiv">
+            <!--<img src="https://i.ytimg.com/vi/e3Nl_TCQXuw/maxresdefault.jpg" id="logo"/>-->
+            <img src="./img/logo.png" id="logo"/>
         </div>
-        <div id="menu">
-            <span>Fransar</span>
-            <span>category2</span>
-            <span>category3</span>
-            <span>category4</span>
-            <span>category5</span>
-            <span>category6</span>
-        </div>
-    </div>
-    <div id="cartbox">
-        <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
-        <div id="login"><a href="registration.html"><img src="/img/loginlogo.png" id="loginlogo"/></a></div>
-        <div id="cart"><img src="/img/shopping-cart.png" id="cartlogo"/></div>
-    </div>
-</header>
+        <div id="menubar">
+            <div id="searchbar">
+                <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
+                <button type="submit" id="searchButton"></button>
 
-<section id="pageContent">
-
-    <div id="subcategoryMenu">
-        <p>
-            Here will we display a menu with subcategories
-        </p>
-    </div>
-
-
-    <div id="mainPage">
-        <div id="julkalender">
-            <p>julkalender!</p>
-            <p>Lucka </p> <span> Datum</span>
-            <p>Ny lucka varjedag!</p>
-            <div>
-                <img src="" id="bildPaJulklappenForDagen"/>
+            </div>
+            <div id="menu">
+                <span>Fransar</span>
+                <span>category2</span>
+                <span>category3</span>
+                <span>category4</span>
+                <span>category5</span>
             </div>
         </div>
-        <div class="productinfo">
-                <h2 id="productTitle" th:text ="${product.name}"></h2>
-                <p id="productPrice" th:text="${product.price + ' kr ' }" >price</p>
-                <p id="productQuantity" th:text="${product.quantity + ' pcs '}">in stock</p>
-                <p id="productDescription" th:text="${product.description}"></p>
+        <div id="cartbox">
+            <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
+            <div th:if="${isLogedIn} == false">
+                <form action="/login" method="post">
+                    <div>E-postadress:</div>
+                    <input name="email" type="text"/>
+                    <div>Lösenord:</div>
+                    <input name="password" type="password"/>
+                    <input type="submit" value="Logga in"/>
+                    <div th:text="${loginFail}"></div>
+                    <div>
+                        <a href="registration.html">Skapa nytt konto</a>
+                    </div>
+                </form>
+            </div>
+            <div th:if="${isLogedIn} == true" id="login">
+                <a href="customerpage.html">
+                    <img src="/img/mypagelogo.png" id="mypagelogo"/>
+                </a>
+            </div>
+            <div th:if="${isLogedIn} == true" id="cart">
+                <img src="/img/shopping-cart.png" id="cartlogo"/>
+            </div>
+            <div th:if="${isLogedIn} == true" id="logoutbutton">
+                <form action="/logout" method="post">
+                    <input type="submit" value="logout"/>
+                </form>
+            </div>
         </div>
-    </div>
-<div id="topsellers">
-        <p>Our topsellers</p>
-</div>
+    </header>
+    <section id="pageContent">
+        <div id="subcategoryMenu">
+            <p>
+                Here will we display a menu with subcategories
+            </p>
+        </div>
+        <div id="mainPage">
+            <div class="productinfo">
+                    <h2 id="productTitle" th:text ="${product.name}"></h2>
+                    <p id="productPrice" th:text="${product.price + ' kr ' }" >price</p>
+                    <p id="productQuantity" th:text="${product.quantity + ' pcs '}">in stock</p>
+                    <p id="productDescription" th:text="${product.description}"></p>
+            </div>
+            <div class="addProduct">
+                <form action="/addProduct" method="post">
+                    <input type="hidden" name="productID" th:value="${product.productID}" />
+                    <input type="submit" value="Lägg till i varukorg"/>
+                </form>
+            </div>
+        </div>
+        <div id="topsellers">
+            <p> Our topsellers</p>
+            <div th:each="product : ${nails}">
+                <p>
+                    <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
+                </p>
+                <img class="productpic" th:src="${product.image}"/>
+                <p th:text="${product.price +' kr'}">kr</p>
+            </div>
+        </div>
+
 
 </section>
-<div id="footer">
-    <section class="foot">
+<section id="foot">
         <div class="shopsection">
             <ul id="shop">SHOP</ul>
             <li>Women</li>
@@ -78,14 +105,12 @@
             <li>Makeup</li>
             <li>lipstift</li>
         </div>
-
         <div class="informationsection">
             <ul>information</ul>
             <li>carrer at Beauty and the beast</li>
             <li>aboute Beauty and the beast</li>
             <li>information</li>
         </div>
-
         <div class="helpsection">
             <ul>help</ul>
             <li>customer service</li>
@@ -93,7 +118,6 @@
             <li>Gift Card</li>
             <li>FAQ</li>
         </div>
-
         <div class="socialsection">
             <ul>social</ul>
             <li>Facebook</li>
@@ -101,14 +125,7 @@
             <li>Twitter</li>
             <li>Mail</li>
         </div>
-
     </section>
-
-</div>
-
-  <!--  <script src="./script/bundle.js"></script> -->
-
+<script src="./script/bundle.js"></script>
 </body>
 </html>
-
-
