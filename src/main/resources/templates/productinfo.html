@@ -77,6 +77,12 @@
                     <p id="productQuantity" th:text="${product.quantity + ' pcs '}">in stock</p>
                     <p id="productDescription" th:text="${product.description}"></p>
             </div>
+            <div class="addProduct">
+                <form action="/addProduct" method="post">
+                    <input type="hidden" name="productID" th:value="${product.productID}" />
+                    <input type="submit" value="Lägg till i varukorg"/>
+                </form>
+            </div>
         </div>
         <div id="topsellers">
             <p> Our topsellers</p>
@@ -89,17 +95,7 @@
             </div>
         </div>
 
-  
-    
 
-        <div class="addProduct">
-            <form action="/addProduct" method="post">
-                <input type="hidden" name="productID" th:value="${product.productID}" />
-                <input type="submit" value="Lägg till i varukorg"/>
-            </form>
-        </div>
-
-    </div>
 </section>
 <section id="foot">
         <div class="shopsection">
