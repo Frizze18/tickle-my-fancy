@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.academy.domain.Customer;
+import se.academy.domain.Product;
+import se.academy.domain.ShoppingCart;
 import se.academy.repository.DbRepository;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class FancyController {
@@ -122,4 +125,31 @@ public class FancyController {
 
         return "productinfo";
     }
+
+    @PostMapping("/addProduct")
+    public String addProductToShoppingCart(HttpSession session,@RequestParam int productID){
+        System.out.println("Klick på lägg till produkt nr:"+productID);
+        if(session.getAttribute("shoppingCart") == null){
+            ShoppingCart shoppingCart = new ShoppingCart();
+            session.setAttribute("shoppingCart", shoppingCart);
+        }
+        Product product = repository.getProduct(productID);
+        ShoppingCart shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
+        shoppingCart.addProduct(product);
+        return "redirect:/productinfo?productID="+productID;
+    }
+
+    @GetMapping("/shoppingcart")
+    public String shoppingcart(Model model, HttpSession session){
+        if(session.getAttribute("shoppingCart") != null){
+            ShoppingCart shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
+            model.addAttribute("shoppingCart",shoppingCart);
+
+            return "shoppingcart";
+        }
+        else{
+            return "redirect:/";
+        }
+    }
+
 }

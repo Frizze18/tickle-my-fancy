@@ -88,8 +88,20 @@
                 <p th:text="${product.price +' kr'}">kr</p>
             </div>
         </div>
-    </section>
-    <section id="foot">
+
+  
+    
+
+        <div class="addProduct">
+            <form action="/addProduct" method="post">
+                <input type="hidden" name="productID" th:value="${product.productID}" />
+                <input type="submit" value="Lägg till i varukorg"/>
+            </form>
+        </div>
+
+    </div>
+</section>
+<section id="foot">
         <div class="shopsection">
             <ul id="shop">SHOP</ul>
             <li>Women</li>
