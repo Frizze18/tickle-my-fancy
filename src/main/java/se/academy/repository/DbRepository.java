@@ -123,6 +123,7 @@ public class DbRepository {
     }
 
 
+
     public Queue<Product> getBySubCategory(String category) {
         Queue<Product> products = getHelper("SELECT * FROM products WHERE subcategory = (?)", category);
         return products;
