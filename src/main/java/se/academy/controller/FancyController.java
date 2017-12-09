@@ -147,15 +147,16 @@ public class FancyController {
 
     @GetMapping("/shoppingcart")
     public String shoppingcart(Model model, HttpSession session){
+        ShoppingCart shoppingCart;
         if(session.getAttribute("shoppingCart") != null){
-            ShoppingCart shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
-            model.addAttribute("shoppingCart",shoppingCart);
-
-            return "shoppingcart";
+            shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
         }
         else{
-            return "redirect:/";
+            shoppingCart = new ShoppingCart();
+            session.setAttribute("shoppingCart",shoppingCart);
         }
+        model.addAttribute("shoppingCart",shoppingCart);
+        return "shoppingcart";
     }
 
 }
