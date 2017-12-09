@@ -5,7 +5,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <link rel="Stylesheet" href="./css/registration.css"/>
+    <link rel="Stylesheet" href="./css/shoppingcart.css"/>
     <link rel="Stylesheet" href="./css/style.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
@@ -48,10 +48,12 @@
 
     <div id="mainPage">
         <h1>Varukorg Testsida</h1>
+        <div class="shoppincart">
+            <tr th:each="item : ${shoppingCart.shoppingmap}">
+                <div><td th:text="${item.key}"></td><td th:text="${item.value}"></td></div>
+            </tr>
+        </div>
 
-        <tr th:each="item : ${shoppingCart.shoppingmap}">
-            <div><td th:text="${item.key}"></td><td th:text="${item.value}"></td></div>
-        </tr>
     </div>
 
     <div id="topsellers">
