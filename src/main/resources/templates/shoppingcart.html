@@ -1,20 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="Stylesheet" href="./css/registration.css"/>
-    <style>@import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');</style>
+    <link rel="Stylesheet" href="./css/style.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
+    </style>
     <title>Beauty and the beasts</title>
 
 </head>
 <body>
-    <h1>Varukorg Testsida</h1>
-    <tr th:each="product : ${shoppingCart.shoppinglist}">
-        <div><td th:text="${product.name}"></td></div>
-    </tr>
+<header id="header">
+    <div id="logoDiv">
+        <img src="./img/logo.png" id="logo"/>
+    </div>
+    <div id="menubar">
+        <div id="searchbar">
+            <input type="text" class="searchTerm" placeholder="What are you looking for?"/>
+            <button type="submit" class="searchButton"></button>
+        </div>
+        <div id="menu">
+            <span>category1</span>
+            <span>category2</span>
+            <span>category3</span>
+            <span>category4</span>
+            <span>category5</span>
+            <span>category6</span>
+        </div>
+    </div>
+    <div id="cartbox">
+        <div id="login"><a href="customerpage.html"><img src="/img/mypagelogo.png" id="mypagelogo"/></a></div>
+        <div id="cart"><img src="/img/shopping-cart.png" id="cartlogo"/></div>
+    </div>
+</header>
+<section id="pageContent">
+
+    <div id="subcategoryMenu">
+        <p>
+            Here will we display a menu with subcategories
+        </p>
+    </div>
 
 
+    <div id="mainPage">
+        <h1>Varukorg Testsida</h1>
+
+        <tr th:each="item : ${shoppingCart.shoppingmap}">
+            <div><td th:text="${item.key}"></td><td th:text="${item.value}"></td></div>
+        </tr>
+    </div>
+
+    <div id="topsellers">
+        <p> Our topsellers</p>
+        <div th:each="product : ${nails}">
+            <p>
+                <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
+            </p>
+            <img class="productpic" th:src="${product.image}"/>
+            <p th:text="${product.price +' kr'}">kr</p>
+
+        </div>
+    </div>
+</section>
+<section id="foot">
+    <div class="shopsection">
+        <ul id="shop">SHOP</ul>
+        <li>Women</li>
+        <li>Men</li>
+        <li>Makeup</li>
+        <li>lipstift</li>
+    </div>
+    <div class="informationsection">
+        <ul>information</ul>
+        <li>carrer at Beauty and the beast</li>
+        <li>aboute Beauty and the beast</li>
+        <li>information</li>
+    </div>
+    <div class="helpsection">
+        <ul>help</ul>
+        <li>customer service</li>
+        <li>My profile</li>
+        <li>Gift Card</li>
+        <li>FAQ</li>
+    </div>
+    <div class="socialsection">
+        <ul>social</ul>
+        <li>Facebook</li>
+        <li>Instagram</li>
+        <li>Twitter</li>
+        <li>Mail</li>
+    </div>
+</section>
+<script src="./script/bundle.js"></script>
 </body>
 </html>
+
+
+
+
