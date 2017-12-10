@@ -41,6 +41,7 @@ public class FancyController {
     @RequestMapping("/customerpage")
     public String showPersonalPage(Model model, HttpSession session){
         Customer customer = (Customer) session.getAttribute("sessionCustomer");
+        handleLoginStatus(session, model);
         if(customer == null){
             return "redirect:/";
         }
@@ -66,11 +67,13 @@ public class FancyController {
     @GetMapping("/search")
     public String search(Model model, HttpSession session, @RequestParam String srch) {
         model.addAttribute("products", repository.search(srch));
+        handleLoginStatus(session, model);
         return "search";
     }
 
     @GetMapping("/p")
     public String product(Model model, HttpSession session, @RequestParam int id) {
+        handleLoginStatus(session, model);
 
         return "index"; //TODO make it product with ID id
     }
@@ -89,8 +92,9 @@ public class FancyController {
     }
 
     @GetMapping("/registration")
-    public ModelAndView registration(){
+    public ModelAndView registration(HttpSession session, Model model){
         Customer customer = new Customer();
+        handleLoginStatus(session, model);
         return new ModelAndView("registration").addObject("customer", customer);
     }
 
@@ -113,6 +117,7 @@ public class FancyController {
     public String productInfo (Model model, HttpSession session, @RequestParam int productID){
         model.addAttribute("product", repository.getProduct(productID));
         model.addAttribute("nails", repository.getBySubCategoryTop3("läppstift"));
+        handleLoginStatus(session, model);
 
         return "productinfo";
     }
