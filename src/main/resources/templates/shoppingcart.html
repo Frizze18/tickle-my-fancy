@@ -45,17 +45,21 @@
         </p>
     </div>
 
-
+<!--=============================================================-->
     <div id="mainPage">
         <h1>Varukorg Testsida</h1>
         <div class="shoppincart">
-            <tr th:each="item : ${shoppingCart.shoppingmap}">
-                <div><td th:text="${item.key}"></td><td th:text="${item.value}"></td></div>
-            </tr>
+            <form >
+                <tr th:each="item : ${shoppingCart.shoppingmap}">
+                    <div>
+                        <td th:text="${item.key}"></td><input type="number" th:value="${item.value}"/>
+                    </div>
+                </tr>
+            </form>
         </div>
 
     </div>
-
+<!--==============================================================-->
     <div id="topsellers">
         <p> Our topsellers</p>
         <div th:each="product : ${nails}">
