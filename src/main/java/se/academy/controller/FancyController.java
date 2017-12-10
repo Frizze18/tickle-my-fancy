@@ -48,12 +48,6 @@ public class FancyController {
         return "customerpage";
     }
 
-    @GetMapping("/login")
-    public String logintest(HttpSession session){
-        //TODO move login to indexpage?
-        return "login";
-    }
-
     @PostMapping("/login")
     public String login(Model model, HttpSession session, @RequestParam String email, @RequestParam String password) {
         Customer customer = repository.loginCustomer(email,password);
