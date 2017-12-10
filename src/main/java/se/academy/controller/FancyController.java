@@ -33,17 +33,8 @@ public class FancyController {
         model.addAttribute("makeUp", repository.getBySubCategoryTop3("Fransar"));
         model.addAttribute("nails", repository.getBySubCategoryTop3("läppstift"));
         model.addAttribute("eyes", repository.getBySubCategoryTop3("Fransar"));
+        handleLoginStatus(session, model);
 
-        boolean isLogedIn;
-        if(session.getAttribute("sessionCustomer") == null){
-            isLogedIn = false;
-        }else{
-            isLogedIn = true;
-        }
-        if(session.getAttribute("loginFail") != null){
-            model.addAttribute("loginFail",session.getAttribute("loginFail"));
-        }
-        model.addAttribute("isLogedIn",isLogedIn);
         return "index";
     }
 
@@ -156,6 +147,19 @@ public class FancyController {
         else{
             return "redirect:/";
         }
+    }
+
+    private void handleLoginStatus(HttpSession session, Model model){
+        boolean isLogedIn;
+        if(session.getAttribute("sessionCustomer") == null){
+            isLogedIn = false;
+        }else{
+            isLogedIn = true;
+        }
+        if(session.getAttribute("loginFail") != null){
+            model.addAttribute("loginFail",session.getAttribute("loginFail"));
+        }
+        model.addAttribute("isLogedIn",isLogedIn);
     }
 
 }
