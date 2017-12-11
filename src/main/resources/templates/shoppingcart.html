@@ -78,6 +78,8 @@
                 <tr th:each="item : ${shoppingCart.shoppingmap}">
                     <div>
                         <td th:text="${item.value.product.name}+':  '+${item.value.quantity}+' st  '+${item.value.priceOfProducts}+'kr'"></td>
+                        <a th:href="@{'/addProductInCart?productID=' + ${item.value.product.productID}}">+</a>
+                        <a th:href="@{'/removeProductInCart?productID=' + ${item.value.product.productID}}">-</a>
                     </div>
                 </tr>
             <div>== == == == == ==</div>

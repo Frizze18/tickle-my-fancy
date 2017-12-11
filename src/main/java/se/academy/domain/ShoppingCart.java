@@ -43,4 +43,14 @@ public class ShoppingCart {
         totalPrice = totalPrice + product.getPrice();
     }
 
+    public void removeProduct(Product product){
+        ProductWrapper productWrapper;
+        if(shoppingmap.get(product.getProductID()).getQuantity() > 0){
+            productWrapper = new ProductWrapper(product,shoppingmap.get(product.getProductID()).getQuantity()-1);
+            shoppingmap.put(product.getProductID(),productWrapper);
+            totalPrice = totalPrice - product.getPrice();
+        }
+
+    }
+
 }

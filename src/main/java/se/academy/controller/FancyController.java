@@ -135,6 +135,22 @@ public class FancyController {
         return "redirect:/productinfo?productID="+productID;
     }
 
+    @GetMapping("/addProductInCart")
+    public String plusShoppingCart(HttpSession session,@RequestParam int productID){
+        Product product = repository.getProduct(productID);
+        ShoppingCart shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
+        shoppingCart.addProduct(product);
+        return "redirect:shoppingcart";
+    }
+
+    @GetMapping("/removeProductInCart")
+    public String minusShoppingCart(HttpSession session,@RequestParam int productID){
+        Product product = repository.getProduct(productID);
+        ShoppingCart shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
+        shoppingCart.removeProduct(product);
+        return "redirect:shoppingcart";
+    }
+
     @GetMapping("/shoppingcart")
     public String shoppingcart(Model model, HttpSession session){
         handleLoginStatus(session,model);
