@@ -67,14 +67,15 @@
 <section id="pageContent">
     <div id="subcategoryMenu">
         <p>
-            Here will we display a menu with subcategories
+            annons
         </p>
+        <img src="/img/banner.jpg" id="annonsbildHöjden"/>
     </div>
     <div id="mainPage">
 
         <div id="product">
             <div id="productpicture">
-                <img class="productpic" th:src="@{/img/logo.png}"/>
+                <img class="productpic" th:src="${product.image}"/>
             </div>
             <div class="productinfo">
 
@@ -82,7 +83,7 @@
                 <h2 id="productTitle" th:text="${product.name}"></h2>
                 <p id="productPrice" th:text="${product.price + ' kr ' }">price</p>
                 <p id="productQuantity" th:text="${product.quantity + ' pcs '}">in stock</p>
-                <p id="productDescription" th:text="${product.description}"></p>
+                <p id="productDescription" th:text="${product.shortDescription}"></p>
 
                 <div class="addProduct">
                     <form action="/addProduct" method="post">
@@ -92,50 +93,60 @@
                 </div>
             </div>
         </div>
+        <h2> annons</h2>
+        <div id="annons">
+            <a href="http://www.weatheryoulikeit.com/" target="_blank">
+            <img src="/img/banner.jpg" id="annonsbild"/>
+            </a>
+        </div>
 
-        <div id="moreInfo">
-            <div id="information">
-                <h3>
-                    more information
-                </h3>
-                <div id="userReview">
-                    <form action="#" th:action="@{/addreview}" th:object="${review}" method="post">
-                        <input th:field="*{productID}" th:text="${productID}" class="hidden"/>
-                        <input th:field="*{score}" id="score" class="hidden"/>
-                        <div id="stars">
-                            <span id="star1" value="1">&#9733;</span>
-                            <span id="star2" value="2">&#9733;</span>
-                            <span id="star3" value="3">&#9733;</span>
-                            <span id="star4" value="4">&#9733;</span>
-                            <span id="star5" value="5">&#9733;</span>
-                        </div>
-                        <div>
-                            Recension:
-                        </div>
-                        <input name="recension" type="text" th:field="*{userReview}"/>
-                        <input type="submit"/>
-                    </form>
+
+            <div id="moreInfo">
+                <div id="information">
+                    <h3>
+                        more information
+                    </h3>
+                    <p id="Description" th:text="${product.description}"></p>
+                    <div id="userReview">
+                        <form action="#" th:action="@{/addreview}" th:object="${review}" method="post">
+                            <input th:field="*{productID}" th:text="${productID}" class="hidden"/>
+                            <input th:field="*{score}" id="score" class="hidden"/>
+                            <div id="stars">
+                                <span id="star1" value="1">&#9733;</span>
+                                <span id="star2" value="2">&#9733;</span>
+                                <span id="star3" value="3">&#9733;</span>
+                                <span id="star4" value="4">&#9733;</span>
+                                <span id="star5" value="5">&#9733;</span>
+                            </div>
+                            <div>
+                                Recension:
+                            </div>
+                            <input name="recension" type="text" th:field="*{userReview}"/>
+                            <input type="submit"/>
+                        </form>
+                    </div>
+
                 </div>
+                <div id="Recensioner">
+                    <h3>
+                        Recensioner
+                    </h3>
+                    <div id="reviews">
+                        <div th:if="${review!=null}">
+                            <div th:each="review : ${reviews}">
+                                <span th:text="anonym+':'"> </span>
+                                <span th:text="${review.userReview}"> </span>
 
-            </div>
-            <div id="Recensioner">
-                <h3>
-                    Recensioner
-                </h3>
-                <div id="reviews">
-                    <div th:if="${review!=null}">
-                        <div th:each="review : ${reviews}">
-                            <p th:text="${review.userReview}"> </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         <h2>
             Otters has bought
         </h2>
         <div id="othersHasBougth">
-            <div th:each="product : ${nails}">
+            <div th:each="product:${makeUp}">
                 <p>
                     <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
                 </p>
