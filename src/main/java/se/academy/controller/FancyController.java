@@ -113,12 +113,15 @@ public class FancyController {
         return new ModelAndView("index");
     }
 
-    // HAR JAG TÄNKT RÄTT HÄR?,
     @GetMapping("/productinfo")
     public String productInfo (Model model, HttpSession session, @RequestParam int productID){
         model.addAttribute("product", repository.getProduct(productID));
         model.addAttribute("nails", repository.getBySubCategoryTop3("läppstift"));
+        model.addAttribute("review", new Review());
+        model.addAttribute("productID", productID);
+
         handleLoginStatus(session, model);
+
 
         return "productinfo";
     }
