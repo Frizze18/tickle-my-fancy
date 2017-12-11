@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Queue;
 
 
 @Controller
@@ -147,6 +148,23 @@ public class FancyController {
             return "redirect:/";
         }
     }
+  
+    @GetMapping("/subcategory")
+    public String getSubcategory(Model model, HttpSession session, @RequestParam String sc) {
+
+        Queue<Product> products = repository.getBySubCategory(sc);
+        if (products.isEmpty()) {
+            //Should never happen
+            return "redirect:/";
+        }
+        Queue<Product> topThree = repository.getBySubCategoryTop3(sc);
+
+        model.addAttribute("category", topThree.peek().getSubcategory());
+        model.addAttribute("topProducts", topThree);
+        model.addAttribute("productsInSubcategory", products);
+
+        return "subcategory";
+    }
 
     private void handleLoginStatus(HttpSession session, Model model){
         boolean isLogedIn;
@@ -160,5 +178,4 @@ public class FancyController {
         }
         model.addAttribute("isLogedIn",isLogedIn);
     }
-
 }
