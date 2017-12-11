@@ -1,10 +1,11 @@
 
- @deepPurple: white;
- @lightPurple: white;
- @yellow: white;
- @brown: white;
- @dirtyWhite: white;
- @white: whitesmoke;
+ //@deepPurple: white;
+ //@lightPurple: white;
+ //@yellow: white;
+ //@brown: white;
+ //@dirtyWhite: white;
+ @maincolor: white;
+ @whitesmoke: whitesmoke;
  @font-color: black;
  @font-one: 'Vollkorn SC', serif;
  @font-size: 15px;
@@ -20,12 +21,12 @@
 #header{
     display: flex;
     max-height: 10%;
-    background: @white; //linear-gradient(to bottom right,@lightPurple 20% , @deepPurple, @yellow 95%);
-    color: @dirtyWhite;
+    background: @whitesmoke; //linear-gradient(to bottom right,@lightPurple 20% , @deepPurple, @yellow 95%);
+    color: @maincolor;
     
 }
 #logoDiv{
-    color: white;
+    color: @maincolor;
     width: 20%;
     margin: auto;
     max-height: 100%;
@@ -54,26 +55,26 @@
 #searchTerm {
     float: left;
     width: 85%;
-    border: 3px solid @lightPurple;
+    border: 3px solid @maincolor;
     border-radius: 5px;
     padding: 5px;
     height: 20px;
     outline: none;
-    color: @dirtyWhite;
+    color: @font-color;
   }
   #searchTerm:focus{
-    color: @deepPurple;
+    color: @font-color;
   }
   #searchButton {
     cursor: pointer;
     width: 40px;
     height: 36px;
 
-    border: 1px solid @deepPurple;
+    border: 1px solid @maincolor;
     border-radius: 5px;
     text-align: center;
     background-color: @button-color;
-    color: @brown;
+    color: @maincolor;
     font-size: 20px;
     background-size: 85%;
     background-position: center;
@@ -121,21 +122,24 @@
     flex-direction: row;
     font-family: Arial, Helvetica, sans-serif; //our type!!!!!
     font-size: 18px;
-    background-color: @dirtyWhite;
+    background-color: @maincolor;
     min-height: 800px;
 }
 #subcategoryMenu{
    order: 1;
    flex: 1;
-    background-color: @dirtyWhite;
-    border: 2px solid @lightPurple;
+    background-color: @maincolor;
+    border: 2px solid @maincolor;
 
 }
 #mainPage{
    order: 2;
    flex: 3;
-    background-color: @dirtyWhite;
-    border: 2px solid @lightPurple;
+    background-color: @maincolor;
+    border: 2px solid @maincolor;
+}
+.productpic{
+  height: 200px;
 }
 
 .fontOne {
@@ -156,8 +160,8 @@
 #topsellers{
     order: 3;
     flex: 1;
-    background-color: @dirtyWhite;
-    border: 2px solid @lightPurple;
+    background-color: @maincolor;
+    border: 2px solid @maincolor;
 }
 
 .hidden {
@@ -168,8 +172,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    background-color: @white;
-    border: 1px solid @dirtyWhite;
+    background-color: @whitesmoke;
+    border: 1px solid @maincolor;
     padding: 40px 0px;
     width: 100%;
     max-height: 5%;
