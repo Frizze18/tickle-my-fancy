@@ -3,7 +3,7 @@ package se.academy.domain;
 public class Product {
     private int productID;
     private String name;
-    private double price;
+    private int price;
     private String description;
     private String image;
     private String category;
@@ -11,14 +11,14 @@ public class Product {
     private int quantity;
     private boolean inStorage;
 
-    public Product(int productID, String name, double price, String desciption, String image, String category, String subcategory, int quantity) {
+    public Product(int productID, String name, int price, String desciption, String image, String category, String subcategory, int quantity) {
         this.productID = productID;
         this.name = name;
         this.price = price;
         this.description = desciption;
         this.image = image;
         this.category = category;
-        this.subcategory = category;
+        this.subcategory = subcategory;
         this.quantity = quantity;
         if (quantity > 0) {
             this.inStorage = true;
@@ -44,12 +44,20 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getShortDescription() {
+        int length = 30;
+        if (this.description.length() < 30) {
+            length = this.description.length();
+        }
+        return this.description.substring(0, length);
     }
 
     public String getDescription() {

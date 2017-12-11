@@ -1,32 +1,56 @@
 package se.academy.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import se.academy.repository.DbRepository;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShoppingCart {
 
-    @Autowired
-    private DbRepository repository;
-
-    private List<Product> shoppinglist;
+    private Map<Integer,ProductWrapper> shoppingmap; //key = productID is Integer
+    private double totalPrice;
 
     public ShoppingCart(){
-        this.shoppinglist = new ArrayList<>();
-
+        this.shoppingmap = new HashMap<>();
+        this.totalPrice = 0;
     }
 
-    public List<Product> getShoppinglist() {
-        return shoppinglist;
+    public Map<Integer, ProductWrapper> getShoppingmap() {
+        return shoppingmap;
     }
 
-    public void setShoppinglist(List<Product> shoppinglist) {
-        this.shoppinglist = shoppinglist;
+    public void setShoppingmap(Map<Integer,ProductWrapper> shoppingmap) {
+        this.shoppingmap = shoppingmap;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public void addProduct(Product product){
-        shoppinglist.add(product);
+        ProductWrapper productWrapper;
+        if(shoppingmap.get(product.getProductID()) == null){
+            productWrapper = new ProductWrapper(product,1);
+            shoppingmap.put(product.getProductID(),productWrapper);
+        }
+        else{
+            productWrapper = new ProductWrapper(product,shoppingmap.get(product.getProductID()).getQuantity()+1);
+            shoppingmap.put(product.getProductID(),productWrapper);
+        }
+        totalPrice = totalPrice + product.getPrice();
     }
+
+    public void removeProduct(Product product){
+        ProductWrapper productWrapper;
+        if(shoppingmap.get(product.getProductID()).getQuantity() > 0){
+            productWrapper = new ProductWrapper(product,shoppingmap.get(product.getProductID()).getQuantity()-1);
+            shoppingmap.put(product.getProductID(),productWrapper);
+            totalPrice = totalPrice - product.getPrice();
+        }
+
+    }
+
 }

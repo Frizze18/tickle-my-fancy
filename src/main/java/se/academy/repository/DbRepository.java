@@ -2,10 +2,7 @@ package se.academy.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import se.academy.domain.Customer;
-import se.academy.domain.Order;
-import se.academy.domain.Product;
-import se.academy.domain.SubOrder;
+import se.academy.domain.*;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -99,7 +96,7 @@ public class DbRepository {
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM products WHERE [name] = (?)");
             statement.setString(1, searchString);
             searchHelper(products, statement.executeQuery());
-            statement = conn.prepareStatement("SELECT * FROM products WHERE [name] = (?)");
+            statement = conn.prepareStatement("SELECT * FROM products WHERE [name] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
             searchHelper(products, statement.executeQuery());
             statement = conn.prepareStatement("SELECT * FROM products WHERE [subcategory] = (?)");
@@ -108,10 +105,10 @@ public class DbRepository {
             statement = conn.prepareStatement("SELECT * FROM products WHERE [category] = (?)");
             statement.setString(1, searchString);
             searchHelper(products, statement.executeQuery());
-            statement = conn.prepareStatement("SELECT * FROM products WHERE [subcategory] = (?)");
+            statement = conn.prepareStatement("SELECT * FROM products WHERE [subcategory] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
             searchHelper(products, statement.executeQuery());
-            statement = conn.prepareStatement("SELECT * FROM products WHERE [category] = (?)");
+            statement = conn.prepareStatement("SELECT * FROM products WHERE [category] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
             searchHelper(products, statement.executeQuery());
 
@@ -122,7 +119,6 @@ public class DbRepository {
         }
         return null;
     }
-
 
 
     public Queue<Product> getBySubCategory(String category) {
@@ -142,7 +138,7 @@ public class DbRepository {
                 Product product = new Product(
                         resultSet.getInt("productID"),
                         resultSet.getString("name"),
-                        resultSet.getDouble("price"),
+                        resultSet.getInt("price"),
                         resultSet.getString("description"),
                         resultSet.getString("image"),
                         resultSet.getString("category"),
@@ -175,7 +171,7 @@ public class DbRepository {
 
     public Queue<Product> getBySubCategoryTop3(String category) {
 
-        Queue<Product> products = getHelper("SELECT TOP (3) products.[productID],[name],[price],[quantity],[subcategory],[category],[dbo].[imagetest].[image], [description] FROM products INNER JOIN imagetest ON [dbo].[products].[productID] = [dbo].[imagetest].[productID] WHERE subcategory = (?)", category);
+        Queue<Product> products = getHelper("SELECT TOP (3) products.[productID],[name],[price],[quantity],[subcategory],[category],[image],[info],[description] FROM products WHERE subcategory = (?)", category);
         return products;
 
     }
@@ -185,12 +181,13 @@ public class DbRepository {
         return products;
     }
 
+
     public void searchHelper(Queue<Product> products, ResultSet rs) throws SQLException {
         while (rs.next()) {
             Product product = new Product
                     (rs.getInt("productID"),
                             rs.getString("name"),
-                            rs.getDouble("price"),
+                            rs.getInt("price"),
                             rs.getString("description"),
                             rs.getString("image"),
                             rs.getString("category"),
@@ -210,7 +207,7 @@ public class DbRepository {
                 product = new Product(
                         rs.getInt("productID"),
                         rs.getString("name"),
-                        rs.getDouble("price"),
+                        rs.getInt("price"),
                         rs.getString("description"),
                         rs.getString("image"),
                         rs.getString("category"),
@@ -361,5 +358,41 @@ public class DbRepository {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public Queue<Review> getReviews(int productID) {
+        try (Connection conn = dataSource.getConnection()) {
+            Queue<Review> reviews = new LinkedList<>();
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM userreviews WHERE [productID] = (?) ORDER BY DESCENDING");
+            statement.setInt(1, productID);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                reviews.add(new Review(
+                        resultSet.getInt("productID"),
+                        resultSet.getInt("score"),
+                        resultSet.getString("review")
+                ));
+            }
+            return reviews;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void addReview(Review review) {
+        try (Connection conn = dataSource.getConnection()) {
+            Queue<Review> reviews = new LinkedList<>();
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO userreviews(productID, score, review) VALUES (?,?,?)");
+            statement.setInt(1, review.getProductID());
+            statement.setInt(2, review.getScore());
+            statement.setString(3, review.getUserReview());
+            int result = statement.executeUpdate();
+            if (result < 1) {
+                throw new SQLException("Failed to add review");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
