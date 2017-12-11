@@ -33,8 +33,34 @@
         </div>
     </div>
     <div id="cartbox">
-        <div id="login"><a href="customerpage.html"><img src="/img/mypagelogo.png" id="mypagelogo"/></a></div>
-        <div id="cart"><img src="/img/shopping-cart.png" id="cartlogo"/></div>
+        <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
+        <div th:if="${isLogedIn} == false">
+            <form action="/login" method="post">
+                <div>E-postadress:</div>
+                <input name="email" type="text"/>
+                <div>Lösenord:</div>
+                <input name="password" type="password"/>
+                <input type="submit" value="Logga in"/>
+                <div th:text="${loginFail}"></div>
+                <div>
+                    <a href="registration.html">Skapa nytt konto</a>
+                </div>
+            </form>
+
+        </div>
+        <div th:if="${isLogedIn} == true" id="login">
+            <a href="customerpage.html">
+                <img src="./img/mypagelogo.png" id="mypagelogo"/>
+            </a>
+        </div>
+        <div th:if="${isLogedIn} == true" id="cart">
+            <img src="./img/shopping-cart.png" id="cartlogo"/>
+        </div>
+        <div th:if="${isLogedIn} == true" id="logoutbutton">
+            <form action="/logout" method="post">
+                <input type="submit" value="logout"/>
+            </form>
+        </div>
     </div>
 </header>
 <section id="pageContent">
@@ -49,15 +75,18 @@
     <div id="mainPage">
         <h1>Varukorg Testsida</h1>
         <div class="shoppincart">
-            <form >
                 <tr th:each="item : ${shoppingCart.shoppingmap}">
                     <div>
-                        <td th:text="${item.key}"></td><input type="number" th:value="${item.value}"/>
+                        <td th:text="${item.value.product.name}+':  '+${item.value.quantity}+' st'"></td>
                     </div>
                 </tr>
-            </form>
         </div>
-
+        <form action="/buyShoppingCart" method="post">
+            <input type="submit" value="KÖP!"/>
+        </form>
+        <form action="/emptyShoppingCart" method="post">
+            <input type="submit" value="Töm varukorg!"/>
+        </form>
     </div>
 <!--==============================================================-->
     <div id="topsellers">
