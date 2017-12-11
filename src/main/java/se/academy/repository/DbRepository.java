@@ -96,7 +96,7 @@ public class DbRepository {
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM products WHERE [name] = (?)");
             statement.setString(1, searchString);
             searchHelper(products, statement.executeQuery());
-            statement = conn.prepareStatement("SELECT * FROM products WHERE [name] = (?)");
+            statement = conn.prepareStatement("SELECT * FROM products WHERE [name] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
             searchHelper(products, statement.executeQuery());
             statement = conn.prepareStatement("SELECT * FROM products WHERE [subcategory] = (?)");
@@ -105,10 +105,10 @@ public class DbRepository {
             statement = conn.prepareStatement("SELECT * FROM products WHERE [category] = (?)");
             statement.setString(1, searchString);
             searchHelper(products, statement.executeQuery());
-            statement = conn.prepareStatement("SELECT * FROM products WHERE [subcategory] = (?)");
+            statement = conn.prepareStatement("SELECT * FROM products WHERE [subcategory] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
             searchHelper(products, statement.executeQuery());
-            statement = conn.prepareStatement("SELECT * FROM products WHERE [category] = (?)");
+            statement = conn.prepareStatement("SELECT * FROM products WHERE [category] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
             searchHelper(products, statement.executeQuery());
 
