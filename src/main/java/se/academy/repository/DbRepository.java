@@ -363,7 +363,7 @@ public class DbRepository {
     public Queue<Review> getReviews(int productID) {
         try (Connection conn = dataSource.getConnection()) {
             Queue<Review> reviews = new LinkedList<>();
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM reviews WHERE [productID] = (?)");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM reviews WHERE [productID] = (?) ORDER BY DESCENDING");
             statement.setInt(1, productID);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
