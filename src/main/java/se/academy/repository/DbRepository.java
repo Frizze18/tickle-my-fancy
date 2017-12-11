@@ -368,7 +368,6 @@ public class DbRepository {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 reviews.add(new Review(
-                        resultSet.getInt("reviewID"),
                         resultSet.getInt("productID"),
                         resultSet.getInt("score"),
                         resultSet.getString("review")
@@ -387,7 +386,7 @@ public class DbRepository {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO reviews(productID, score, review) VALUES (?,?,?)");
             statement.setInt(1, review.getProductID());
             statement.setInt(2, review.getScore());
-            statement.setString(3, review.getReview());
+            statement.setString(3, review.getUserReview());
             int result = statement.executeUpdate();
             if (result < 1) {
                 throw new SQLException("Failed to add review");

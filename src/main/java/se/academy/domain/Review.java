@@ -1,25 +1,16 @@
 package se.academy.domain;
 
 public class Review {
-    private int reviewID;
     private int productID;
     private int score;
-    private String review;
+    private String userReview;
 
-    public Review(int reviewID, int productID, int score, String review) {
-        this.reviewID = reviewID;
+    public Review(int productID, int score, String review) {
         this.productID = productID;
         this.score = score;
-        this.review = review;
+        this.userReview = review;
     }
 
-    public int getReviewID() {
-        return reviewID;
-    }
-
-    public void setReviewID(int reviewID) {
-        this.reviewID = reviewID;
-    }
 
     public int getProductID() {
         return productID;
@@ -37,12 +28,12 @@ public class Review {
         this.score = score;
     }
 
-    public String getReview() {
-        return review;
+    public String getUserReview() {
+        return userReview;
     }
 
-    public void setReview(String review) {
-        this.review = review;
+    public void setUserReview(String userReview) {
+        this.userReview = userReview;
     }
 }
 
