@@ -7,9 +7,11 @@ import java.util.Map;
 public class ShoppingCart {
 
     private Map<Integer,ProductWrapper> shoppingmap; //key = productID is Integer
+    private double totalPrice;
 
     public ShoppingCart(){
         this.shoppingmap = new HashMap<>();
+        this.totalPrice = 0;
     }
 
     public Map<Integer, ProductWrapper> getShoppingmap() {
@@ -18,6 +20,14 @@ public class ShoppingCart {
 
     public void setShoppingmap(Map<Integer,ProductWrapper> shoppingmap) {
         this.shoppingmap = shoppingmap;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public void addProduct(Product product){
@@ -30,6 +40,7 @@ public class ShoppingCart {
             productWrapper = new ProductWrapper(product,shoppingmap.get(product.getProductID()).getQuantity()+1);
             shoppingmap.put(product.getProductID(),productWrapper);
         }
+        totalPrice = totalPrice + product.getPrice();
     }
 
 }

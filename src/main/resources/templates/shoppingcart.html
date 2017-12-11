@@ -77,10 +77,13 @@
         <div class="shoppincart">
                 <tr th:each="item : ${shoppingCart.shoppingmap}">
                     <div>
-                        <td th:text="${item.value.product.name}+':  '+${item.value.quantity}+' st'"></td>
+                        <td th:text="${item.value.product.name}+':  '+${item.value.quantity}+' st  '+${item.value.priceOfProducts}+'kr'"></td>
                     </div>
                 </tr>
+            <div>== == == == == ==</div>
+            <div th:text="'Totalpris:  '+${shoppingCart.totalPrice}+'Kr'"></div>
         </div>
+
         <form action="/buyShoppingCart" method="post">
             <input type="submit" value="KÖP!"/>
         </form>
