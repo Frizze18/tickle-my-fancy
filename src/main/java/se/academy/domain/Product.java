@@ -18,7 +18,7 @@ public class Product {
         this.description = desciption;
         this.image = image;
         this.category = category;
-        this.subcategory = category;
+        this.subcategory = subcategory;
         this.quantity = quantity;
         if (quantity > 0) {
             this.inStorage = true;

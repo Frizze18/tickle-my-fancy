@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Queue;
 
 
 @Controller
@@ -157,6 +158,33 @@ public class FancyController {
         }
         model.addAttribute("shoppingCart",shoppingCart);
         return "shoppingcart";
+    }
+
+    @GetMapping("/subcategory")
+    public String getSubcategory(Model model, HttpSession session, @RequestParam String sc) {
+        boolean isLogedIn;
+        if(session.getAttribute("sessionCustomer") == null){
+            isLogedIn = false;
+        }else{
+            isLogedIn = true;
+        }
+        if(session.getAttribute("loginFail") != null){
+            model.addAttribute("loginFail",session.getAttribute("loginFail"));
+        }
+        model.addAttribute("isLogedIn",isLogedIn);
+
+        Queue<Product> products = repository.getBySubCategory(sc);
+        if (products.isEmpty()) {
+            //Should never happen
+            return "redirect:/";
+        }
+        Queue<Product> topThree = repository.getBySubCategoryTop3(sc);
+
+        model.addAttribute("category", topThree.peek().getSubcategory());
+        model.addAttribute("topProducts", topThree);
+        model.addAttribute("productsInSubcategory", products);
+
+        return "subcategory";
     }
 
 }
