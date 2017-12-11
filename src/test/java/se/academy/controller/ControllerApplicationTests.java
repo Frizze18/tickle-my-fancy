@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
 import se.academy.domain.Customer;
@@ -18,52 +19,33 @@ import java.util.List;
 import java.util.Queue;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ControllerApplicationTests {
-	@Autowired
-	private DbRepository repository;
+    @Autowired
+    private DbRepository repository;
+    @Autowired
+    TestRestTemplate restTemplate;
 
-	@Test
-	public void contextLoads() {
-	}
+    @Test
+    public void contextLoads() {
+    }
 
-	@Test
-	public void getProductCategoryTest() {
-		//TODO category test
-	}
+    @Test
+    public void searchTest() {
+        Queue<Product> products = repository.search("fransar");
 
-	@Test
-	public void getProductSubcategoryTest() {
-		//TODO subcategory test
-	}
+        Assert.notNull(products, "Must get a productlist");
+        Assert.notEmpty(products, "Productlist must not be empty");
+    }
 
-	@Test
-	public void searchTest() {
-		Queue<Product> products = repository.search("fransar");
+    @Test
+    public void getBySubcategoryTest() {
+        String result = restTemplate.getForObject("/subcategory?sc=fransar", String.class);
+        Assert.isTrue(result.contains("Fransar"), "Must contain category header");
+    }
 
-		Assert.notNull(products, "Must get a productlist");
-		Assert.notEmpty(products, "Productlist must not be empty");
-	}
-
-//	@Test
-//	public void customerTests() {
-//		boolean success = repository.registerCustomer(new Customer("test@test.com", "test", " ", " ", " ", " ", " ", " "));
-//		Assert.isTrue(success, "Registration must be successful");
-//
-//		Customer customer = repository.loginCustomer("test@test.com", "test");
-//
-//		Assert.notNull(customer, "Customer must not be null");
-//		Assert.isTrue(customer.getEmail().equals("test@test.com"), "Customer email must equal input email");
-//
-//		success = repository.removeCustomer("test@test.com");
-//		customer = repository.loginCustomer("test@test.com", "test");
-//
-//		Assert.isTrue(success, "Removal must be successful");
-//		Assert.isTrue(customer == null, "Removed customer must not be found");
-//	}
-
-	@Test
-	public void dbTests() {
+    @Test
+    public void dbTests() {
         List<Product> products = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
         Product product = repository.getProduct(2);
@@ -90,20 +72,20 @@ public class ControllerApplicationTests {
         Assert.notNull(customer, "Customer must not be null");
         Assert.isTrue(customer.getEmail().equals("test@test.com"), "Customer email must equal input email");
 
-	    int orderID = repository.addOrder(products, quantities, customer.getEmail());
-	    Assert.isTrue(orderID != 0, "Must get a valid orderID");
+        int orderID = repository.addOrder(products, quantities, customer.getEmail());
+        Assert.isTrue(orderID != 0, "Must get a valid orderID");
 
-	    Order order = repository.getOrder(orderID);
-	    Assert.notNull(order, "Order must not be null");
+        Order order = repository.getOrder(orderID);
+        Assert.notNull(order, "Order must not be null");
 
-	    List<SubOrder> subOrders = repository.getWholeOrder(orderID);
-	    Assert.notNull(subOrders, "Suborders must not be null");
-	    Assert.notEmpty(subOrders, "SubOrders msut not be empty");
+        List<SubOrder> subOrders = repository.getWholeOrder(orderID);
+        Assert.notNull(subOrders, "Suborders must not be null");
+        Assert.notEmpty(subOrders, "SubOrders msut not be empty");
 
-	    success = repository.removeOrder(orderID);
-	    Assert.isTrue(success, "Removal must be successful");
-	    order = repository.getOrder(orderID);
-	    Assert.isNull(order, "Should not find order");
+        success = repository.removeOrder(orderID);
+        Assert.isTrue(success, "Removal must be successful");
+        order = repository.getOrder(orderID);
+        Assert.isNull(order, "Should not find order");
         subOrders = repository.getWholeOrder(orderID);
         Assert.isTrue(subOrders.isEmpty(), "Should not find suborders");
 

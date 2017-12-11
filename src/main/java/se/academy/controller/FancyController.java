@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Queue;
 
 
 @Controller
@@ -33,34 +34,18 @@ public class FancyController {
         model.addAttribute("makeUp", repository.getBySubCategoryTop3("Herrdoft"));
         model.addAttribute("nails", repository.getBySubCategoryTop3("Damdoft"));
         model.addAttribute("eyes", repository.getBySubCategoryTop3("Hudvård"));
-
-        boolean isLogedIn;
-        if(session.getAttribute("sessionCustomer") == null){
-            isLogedIn = false;
-        }else{
-            isLogedIn = true;
-        }
-        if(session.getAttribute("loginFail") != null){
-            model.addAttribute("loginFail",session.getAttribute("loginFail"));
-        }
-        model.addAttribute("isLogedIn",isLogedIn);
         return "index";
     }
 
     @RequestMapping("/customerpage")
     public String showPersonalPage(Model model, HttpSession session){
         Customer customer = (Customer) session.getAttribute("sessionCustomer");
+        handleLoginStatus(session, model);
         if(customer == null){
             return "redirect:/";
         }
         model.addAttribute("customer",customer);
         return "customerpage";
-    }
-
-    @GetMapping("/login")
-    public String logintest(HttpSession session){
-        //TODO move login to indexpage?
-        return "login";
     }
 
     @PostMapping("/login")
@@ -81,11 +66,13 @@ public class FancyController {
     @GetMapping("/search")
     public String search(Model model, HttpSession session, @RequestParam String srch) {
         model.addAttribute("products", repository.search(srch));
+        handleLoginStatus(session, model);
         return "search";
     }
 
     @GetMapping("/p")
     public String product(Model model, HttpSession session, @RequestParam int id) {
+        handleLoginStatus(session, model);
 
         return "index"; //TODO make it product with ID id
     }
@@ -104,8 +91,9 @@ public class FancyController {
     }
 
     @GetMapping("/registration")
-    public ModelAndView registration(){
+    public ModelAndView registration(HttpSession session, Model model){
         Customer customer = new Customer();
+        handleLoginStatus(session, model);
         return new ModelAndView("registration").addObject("customer", customer);
     }
 
@@ -128,6 +116,7 @@ public class FancyController {
     public String productInfo (Model model, HttpSession session, @RequestParam int productID){
         model.addAttribute("product", repository.getProduct(productID));
         model.addAttribute("nails", repository.getBySubCategoryTop3("läppstift"));
+        handleLoginStatus(session, model);
 
         return "productinfo";
     }
@@ -147,15 +136,45 @@ public class FancyController {
 
     @GetMapping("/shoppingcart")
     public String shoppingcart(Model model, HttpSession session){
+        ShoppingCart shoppingCart;
         if(session.getAttribute("shoppingCart") != null){
-            ShoppingCart shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
-            model.addAttribute("shoppingCart",shoppingCart);
-
-            return "shoppingcart";
+            shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
         }
         else{
+            shoppingCart = new ShoppingCart();
+            session.setAttribute("shoppingCart",shoppingCart);
+        }
+        model.addAttribute("shoppingCart",shoppingCart);
+        return "shoppingcart";
+    }
+  
+    @GetMapping("/subcategory")
+    public String getSubcategory(Model model, HttpSession session, @RequestParam String sc) {
+
+        Queue<Product> products = repository.getBySubCategory(sc);
+        if (products.isEmpty()) {
+            //Should never happen
             return "redirect:/";
         }
+        Queue<Product> topThree = repository.getBySubCategoryTop3(sc);
+
+        model.addAttribute("category", topThree.peek().getSubcategory());
+        model.addAttribute("topProducts", topThree);
+        model.addAttribute("productsInSubcategory", products);
+
+        return "subcategory";
     }
 
+    private void handleLoginStatus(HttpSession session, Model model){
+        boolean isLogedIn;
+        if(session.getAttribute("sessionCustomer") == null){
+            isLogedIn = false;
+        }else{
+            isLogedIn = true;
+        }
+        if(session.getAttribute("loginFail") != null){
+            model.addAttribute("loginFail",session.getAttribute("loginFail"));
+        }
+        model.addAttribute("isLogedIn",isLogedIn);
+    }
 }
