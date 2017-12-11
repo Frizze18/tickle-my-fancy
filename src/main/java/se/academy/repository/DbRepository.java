@@ -121,7 +121,6 @@ public class DbRepository {
     }
 
 
-
     public Queue<Product> getBySubCategory(String category) {
         Queue<Product> products = getHelper("SELECT * FROM products WHERE subcategory = (?)", category);
         return products;
@@ -380,5 +379,21 @@ public class DbRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void addReview(Review review) {
+        try (Connection conn = dataSource.getConnection()) {
+            Queue<Review> reviews = new LinkedList<>();
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO reviews(productID, score, review) VALUES (?,?,?)");
+            statement.setInt(1, review.getProductID());
+            statement.setInt(2, review.getScore());
+            statement.setString(3, review.getReview());
+            int result = statement.executeUpdate();
+            if (result < 1) {
+                throw new SQLException("Failed to add review");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
