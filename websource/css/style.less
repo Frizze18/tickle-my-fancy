@@ -1,9 +1,15 @@
 
- @deepPurple:#7B008D;
- @lightPurple:#C18DB2;
- @yellow:#F3B606;
- @brown:#56320F;
- @dirtyWhite:#D8C5AA;
+ @deepPurple: white;
+ @lightPurple: white;
+ @yellow: white;
+ @brown: white;
+ @dirtyWhite: white;
+ @white: whitesmoke;
+ @font-color: black;
+ @font-one: 'Vollkorn SC', serif;
+ @font-size: 15px;
+ @button-color: gray;
+ @button-font-color: white;
 
  body{
     margin: auto;
@@ -14,7 +20,7 @@
 #header{
     display: flex;
     max-height: 10%;
-    background: linear-gradient(to bottom right,@lightPurple 20% , @deepPurple, @yellow 95%);
+    background: @white; //linear-gradient(to bottom right,@lightPurple 20% , @deepPurple, @yellow 95%);
     color: @dirtyWhite;
     
 }
@@ -66,19 +72,24 @@
     border: 1px solid @deepPurple;
     border-radius: 5px;
     text-align: center;
-    background: @lightPurple;
+    background-color: @button-color;
     color: @brown;
-
     font-size: 20px;
-    background-image: url(https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/search-128.png);
     background-size: 85%;
     background-position: center;
 }
+  #searclogo {
+    width: 32px;
+    height: 32px;
+  }
 #menu{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
+  color: @font-color;
+  font-family: @font-one;
+  font-size: @font-size;
 
 }
 #cartbox{
@@ -87,6 +98,7 @@
    width: 20%;
    margin: auto;
    max-height: 100%;
+  font-size: @font-size;
   
 }
 #mypagelogo{
@@ -125,25 +137,21 @@
     background-color: @dirtyWhite;
     border: 2px solid @lightPurple;
 }
-.recommendedProduct{
-  display: flex;
-  justify-content: space-around;
-  text-align: center;
+
+.fontOne {
+  font-family: @font-one;
 }
-.recommendedCategory{
-  display: flex;
-  justify-content: center;
-}
-.productpic{
-    max-width: 200px;
-    max-height:150px;
-    border-radius: 10px;
-    border: @deepPurple solid 1px;
-}
-.productdescription{
-    text-align: center;
-    width: 50%;
-    margin: auto;
+
+.button {
+ border-radius: 5px;
+  border: 2px @button-color;
+  background-color: @button-color;
+  color: white;
+  width: 90px;
+  height: 20px;
+  font-family: @font-one;
+  margin-top: 5px;
+
 }
 #topsellers{
     order: 3;
@@ -160,8 +168,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    background-color: @brown;
-    border: 1px solid @brown;
+    background-color: @white;
+    border: 1px solid @dirtyWhite;
     padding: 40px 0px;
     width: 100%;
     max-height: 5%;
