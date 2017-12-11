@@ -185,6 +185,7 @@ public class DbRepository {
         return products;
     }
 
+
     public void searchHelper(Queue<Product> products, ResultSet rs) throws SQLException {
         while (rs.next()) {
             Product product = new Product
