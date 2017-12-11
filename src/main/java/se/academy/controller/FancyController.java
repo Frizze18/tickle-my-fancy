@@ -6,19 +6,17 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import se.academy.domain.Customer;
 import se.academy.domain.Product;
 import se.academy.domain.Review;
+import se.academy.domain.ProductWrapper;
 import se.academy.domain.ShoppingCart;
 import se.academy.repository.DbRepository;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.sql.*;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 
 @Controller
@@ -29,11 +27,9 @@ public class FancyController {
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
 
-        model.addAttribute("makeUp", repository.getBySubCategoryTop3("Fransar"));
-        model.addAttribute("nails", repository.getBySubCategoryTop3("läppstift"));
-        model.addAttribute("eyes", repository.getBySubCategoryTop3("Fransar"));
-        handleLoginStatus(session, model);
-
+        model.addAttribute("makeUp", repository.getBySubCategoryTop3("Herrdoft"));
+        model.addAttribute("nails", repository.getBySubCategoryTop3("Damdoft"));
+        model.addAttribute("eyes", repository.getBySubCategoryTop3("Hudvård"));
         return "index";
     }
 
@@ -141,8 +137,25 @@ public class FancyController {
         return "redirect:/productinfo?productID="+productID;
     }
 
+    @GetMapping("/addProductInCart")
+    public String plusShoppingCart(HttpSession session,@RequestParam int productID){
+        Product product = repository.getProduct(productID);
+        ShoppingCart shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
+        shoppingCart.addProduct(product);
+        return "redirect:shoppingcart";
+    }
+
+    @GetMapping("/removeProductInCart")
+    public String minusShoppingCart(HttpSession session,@RequestParam int productID){
+        Product product = repository.getProduct(productID);
+        ShoppingCart shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
+        shoppingCart.removeProduct(product);
+        return "redirect:shoppingcart";
+    }
+
     @GetMapping("/shoppingcart")
     public String shoppingcart(Model model, HttpSession session){
+        handleLoginStatus(session,model);
         ShoppingCart shoppingCart;
         if(session.getAttribute("shoppingCart") != null){
             shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
@@ -153,6 +166,27 @@ public class FancyController {
         }
         model.addAttribute("shoppingCart",shoppingCart);
         return "shoppingcart";
+    }
+
+    @PostMapping("/buyShoppingCart")
+    public String buyShoppingCart(Model model, HttpSession session){
+        List<Product> products = new ArrayList<>();
+        List<Integer> quantities = new ArrayList<>();
+        Customer customer = (Customer) session.getAttribute("sessionCustomer");
+        String email = customer.getEmail();
+        ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
+        for(Map.Entry<Integer, ProductWrapper> entry : shoppingCart.getShoppingmap().entrySet()) {
+            products.add(entry.getValue().getProduct());
+            quantities.add(entry.getValue().getQuantity());
+        }
+        repository.addOrder(products,quantities,email);
+        return "redirect:shoppingcart";
+    }
+
+    @PostMapping("/emptyShoppingCart")
+    public String emptyShoppingCart(HttpSession session){
+        session.removeAttribute("shoppingCart");
+        return "redirect:shoppingcart";
     }
   
     @GetMapping("/subcategory")
