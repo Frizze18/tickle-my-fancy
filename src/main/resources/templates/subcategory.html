@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="Stylesheet" href="./css/style.css" />
+    <link rel="Stylesheet" href="./css/subcategory.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
+    </style>
+    <title>Beauty and the beasts</title>
+
+</head>
+
+<body>
+    <header id="header">
+        <div id="logoDiv">
+            <!--<img src="https://i.ytimg.com/vi/e3Nl_TCQXuw/maxresdefault.jpg" id="logo"/>-->
+            <img src="./img/logo.png" id="logo" />
+        </div>
+
+        <div id="menubar">
+            <div id="searchbar">
+                <input type="text" id="searchTerm" placeholder="What are you looking for?" />
+                <button type="submit" id="searchButton"></button>
+
+            </div>
+            <div id="menu">
+                <nav id="primary_nav_wrap">
+                    <ul>
+                        <li class="current-menu-item">
+                            <a href="#">Smink</a>
+                            <ul>
+                                <li>
+                                    <a href="/subcategory?sc=fransar">Fransar</a>
+                                    <ul>
+                                        <li>
+                                            <a href="/search?srch=ninjafransar">Ninjafransar</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="/subcategory?sc=läppstift">Läppstift</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Category 2</a>
+                            <ul>
+                                <li>
+                                    <a href="#">Flowers</a>
+                                </li>
+                                <li>
+                                    <a href="#">and</a>
+                                </li>
+                                <li>
+                                    <a href="#">stuff</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Category 3</a>
+                            <ul>
+                                <li>
+                                    <a href="#">Cool</a>
+                                </li>
+                                <li>
+                                    <a href="#">Stuff</a>
+                                    <ul>
+                                        <li>
+                                            <a href="#">And stuff</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">And more stuff</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Category 4</a>
+                        </li>
+                        <li>
+                            <a href="#">Category 5</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div id="cartbox">
+            <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
+            <div th:if="${isLogedIn} == false">
+                <form action="/login" method="post">
+                    <div>E-postadress:</div>
+                    <input name="email" type="text" />
+                    <div>Lösenord:</div>
+                    <input name="password" type="password" />
+                    <input type="submit" value="Logga in" />
+                    <div th:text="${loginFail}"></div>
+                    <div>
+                        <a href="registration.html">Skapa nytt konto</a>
+                    </div>
+                </form>
+
+            </div>
+            <div th:if="${isLogedIn} == true" id="login">
+                <a href="customerpage.html">
+                    <img src="./img/mypagelogo.png" id="mypagelogo" />
+                </a>
+            </div>
+            <div th:if="${isLogedIn} == true" id="cart">
+                <img src="./img/shopping-cart.png" id="cartlogo" />
+            </div>
+            <div th:if="${isLogedIn} == true" id="logoutbutton">
+                <form action="/logout" method="post">
+                    <input type="submit" value="logout" />
+                </form>
+            </div>
+        </div>
+    </header>
+    <section id="pageContent">
+
+        <div id="subcategoryMenu">
+            <p>Menu stuff</p>>
+        </div>
+
+
+        <div id="mainPage">
+            <div>
+                <h3 th:text="${category}"></h3>
+            </div>
+            <div class="topIncategory">
+                <div class="topProducts" th:each="product: ${topProducts}">
+                    <p>
+                        <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
+                    </p>
+                    <img class="productpic" th:src="${product.image}" />
+                    <p th:text="${product.price +' kr'}">kr</p>
+                    <p class="productdescription" th:text="${product.description}"></p>
+                </div>
+            </div>
+
+            <table>
+                <tr th:each="product: ${productsInSubcategory}">
+                    <td>
+                        <p>
+                            <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
+                        </p>
+                        <img class="productpic" th:src="${product.image}" />
+                        <p th:text="${product.price +' kr'}">kr</p>
+                        <p class="productdescription" th:text="${product.description}"></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div id="topsellers">
+            <p> Our topsellers</p>
+            <div th:each="product : ${nails}">
+                <p>
+                    <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
+                </p>
+                <img class="productpic" th:src="${product.image}" />
+                <p th:text="${product.price +' kr'}">kr</p>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="foot">
+        <div class="shopsection">
+            <ul id="shop">SHOP</ul>
+            <li>Women</li>
+            <li>Men</li>
+            <li>Makeup</li>
+            <li>lipstift</li>
+        </div>
+
+        <div class="informationsection">
+            <ul>information</ul>
+            <li>carrer at Beauty and the beast</li>
+            <li>aboute Beauty and the beast</li>
+            <li>information</li>
+        </div>
+        <div class="helpsection">
+            <ul>help</ul>
+            <li>customer service</li>
+            <li>My profile</li>
+            <li>Gift Card</li>
+            <li>FAQ</li>
+        </div>
+
+        <div class="socialsection">
+            <ul>social</ul>
+            <li>Facebook</li>
+            <li>Instagram</li>
+            <li>Twitter</li>
+            <li>Mail</li>
+        </div>
+    </section>
+
+    <script src="./script/bundle.js"></script>
+
+</body>
+
+</html>
