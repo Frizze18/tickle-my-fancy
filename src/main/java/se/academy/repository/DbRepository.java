@@ -2,10 +2,7 @@ package se.academy.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import se.academy.domain.Customer;
-import se.academy.domain.Order;
-import se.academy.domain.Product;
-import se.academy.domain.SubOrder;
+import se.academy.domain.*;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -362,5 +359,26 @@ public class DbRepository {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public Queue<Review> getReviews(int productID) {
+        try (Connection conn = dataSource.getConnection()) {
+            Queue<Review> reviews = new LinkedList<>();
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM reviews WHERE [productID] = (?)");
+            statement.setInt(1, productID);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                reviews.add(new Review(
+                        resultSet.getInt("reviewID"),
+                        resultSet.getInt("productID"),
+                        resultSet.getInt("score"),
+                        resultSet.getString("review")
+                ));
+            }
+            return reviews;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
