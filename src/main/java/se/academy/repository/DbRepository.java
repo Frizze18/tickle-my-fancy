@@ -138,7 +138,7 @@ public class DbRepository {
                 Product product = new Product(
                         resultSet.getInt("productID"),
                         resultSet.getString("name"),
-                        resultSet.getDouble("price"),
+                        resultSet.getInt("price"),
                         resultSet.getString("description"),
                         resultSet.getString("image"),
                         resultSet.getString("category"),
@@ -171,7 +171,7 @@ public class DbRepository {
 
     public Queue<Product> getBySubCategoryTop3(String category) {
 
-        Queue<Product> products = getHelper("SELECT TOP (3) products.[productID],[name],[price],[quantity],[subcategory],[category],[dbo].[imagetest].[image], [description] FROM products INNER JOIN imagetest ON [dbo].[products].[productID] = [dbo].[imagetest].[productID] WHERE subcategory = (?)", category);
+        Queue<Product> products = getHelper("SELECT TOP (3) products.[productID],[name],[price],[quantity],[subcategory],[category],[image],[info],[description] FROM products WHERE subcategory = (?)", category);
         return products;
 
     }
@@ -187,7 +187,7 @@ public class DbRepository {
             Product product = new Product
                     (rs.getInt("productID"),
                             rs.getString("name"),
-                            rs.getDouble("price"),
+                            rs.getInt("price"),
                             rs.getString("description"),
                             rs.getString("image"),
                             rs.getString("category"),
@@ -207,7 +207,7 @@ public class DbRepository {
                 product = new Product(
                         rs.getInt("productID"),
                         rs.getString("name"),
-                        rs.getDouble("price"),
+                        rs.getInt("price"),
                         rs.getString("description"),
                         rs.getString("image"),
                         rs.getString("category"),
