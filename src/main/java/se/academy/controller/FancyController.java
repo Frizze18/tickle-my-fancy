@@ -30,9 +30,9 @@ public class FancyController {
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
 
-        model.addAttribute("makeUp", repository.getBySubCategoryTop3("Fransar"));
-        model.addAttribute("nails", repository.getBySubCategoryTop3("läppstift"));
-        model.addAttribute("eyes", repository.getBySubCategoryTop3("Fransar"));
+        model.addAttribute("makeUp", repository.getBySubCategoryTop3("Herrdoft"));
+        model.addAttribute("nails", repository.getBySubCategoryTop3("Damdoft"));
+        model.addAttribute("eyes", repository.getBySubCategoryTop3("Hudvård"));
 
         boolean isLogedIn;
         if(session.getAttribute("sessionCustomer") == null){
