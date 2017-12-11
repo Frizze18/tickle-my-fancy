@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.academy.domain.Customer;
 import se.academy.domain.Product;
+import se.academy.domain.Review;
 import se.academy.domain.ShoppingCart;
 import se.academy.repository.DbRepository;
 import javax.servlet.http.HttpSession;
@@ -117,13 +115,17 @@ public class FancyController {
     public String productInfo (Model model, HttpSession session, @RequestParam int productID){
         model.addAttribute("product", repository.getProduct(productID));
         model.addAttribute("nails", repository.getBySubCategoryTop3("läppstift"));
-        model.addAttribute("review", new Review());
+        model.addAttribute("review", new Review(productID, 0, ""));
         model.addAttribute("productID", productID);
+        model.addAttribute("reviews", repository.getReviews(productID));
 
         handleLoginStatus(session, model);
-
-
         return "productinfo";
+    }
+    @PostMapping("/addreview")
+    public String addReview (@ModelAttribute Review review){
+        repository.addReview(review);
+        return "redirect:/productinfo?productID="+review.getProductID();
     }
 
     @PostMapping("/addProduct")

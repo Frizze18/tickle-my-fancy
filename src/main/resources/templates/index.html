@@ -70,6 +70,7 @@
     <section id="pageContent">
 
         <div id="subcategoryMenu">
+            <img src="./img/banner.psd"/>
             <p>
                 Here will we display a menu with subcategories
             </p>
@@ -235,6 +236,7 @@
                 <h3>Makeup</h3>
             </div>
             <div class="recommendedProduct" id="makeup">
+
                 <div th:each="product : ${makeUp}">
                     <p>
                         <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
