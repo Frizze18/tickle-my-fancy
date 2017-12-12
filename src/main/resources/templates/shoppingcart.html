@@ -95,7 +95,7 @@
     </div>
 <!--==============================================================-->
     <div id="topsellers">
-        <p> OUR TOPPSELLERS</p>
+        <h3> OUR TOPPSELLERS</h3>
         <div th:each="product : ${nails}">
             <img class="productpic" th:src="${product.image}"/>
             <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
