@@ -94,7 +94,8 @@ public class FancyController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView registration(@Valid Customer customer, BindingResult bindingResult, HttpSession session){
+    public ModelAndView registration(@Valid Customer customer, BindingResult bindingResult, Model model, HttpSession session){
+        handleLoginStatus(session, model);
         if(bindingResult.hasErrors()) {
             return new ModelAndView("registration").addObject("customer", customer);
         }
