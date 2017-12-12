@@ -7,9 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="Stylesheet" href="./css/shoppingcart.css"/>
     <link rel="Stylesheet" href="./css/style.css"/>
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
-    </style>
+    <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet"/>
+    <style>@import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');</style>
     <title>Beauty and the beasts</title>
 
 </head>
@@ -20,8 +19,8 @@
     </div>
     <div id="menubar">
         <div id="searchbar">
-            <input type="text" class="searchTerm" placeholder="What are you looking for?"/>
-            <button type="submit" class="searchButton"></button>
+            <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
+            <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
         <div id="menu">
             <span>category1</span>
@@ -40,7 +39,7 @@
                 <input name="email" type="text"/>
                 <div>Lösenord:</div>
                 <input name="password" type="password"/>
-                <input type="submit" value="Logga in"/>
+                <input class="button" type="submit" value="Logga in"/>
                 <div th:text="${loginFail}"></div>
                 <div>
                     <a href="registration.html">Skapa nytt konto</a>
@@ -58,7 +57,7 @@
         </div>
         <div th:if="${isLogedIn} == true" id="logoutbutton">
             <form action="/logout" method="post">
-                <input type="submit" value="logout"/>
+                <input class="button" type="submit" value="logout"/>
             </form>
         </div>
     </div>
@@ -73,36 +72,35 @@
 
 <!--=============================================================-->
     <div id="mainPage">
-        <h1>Varukorg Testsida</h1>
-        <div class="shoppincart">
+        <h1>Varukorg</h1>
+        <div th:if="${emptyCart} == true">Din varukorg är tom!</div>
+        <div class="shoppincart" th:if="${emptyCart} == false">
                 <tr th:each="item : ${shoppingCart.shoppingmap}">
                     <div>
                         <td th:text="${item.value.product.name}+':  '+${item.value.quantity}+' st  '+${item.value.priceOfProducts}+'kr'"></td>
-                        <a th:href="@{'/addProductInCart?productID=' + ${item.value.product.productID}}">+</a>
-                        <a th:href="@{'/removeProductInCart?productID=' + ${item.value.product.productID}}">-</a>
+                        <a th:href="@{'/addProductInCart?productID=' + ${item.value.product.productID}}"><input class="button" type="submit" value="+"/></a>
+                        <a th:href="@{'/removeProductInCart?productID=' + ${item.value.product.productID}}"><input class="button" type="submit" value="-"/></a>
                     </div>
                 </tr>
-            <div>== == == == == ==</div>
-            <div th:text="'Totalpris:  '+${shoppingCart.totalPrice}+'Kr'"></div>
+            <span id="pricebox" th:text="'Totalpris:  '+${shoppingCart.totalPrice}+'Kr'"></span>
+            <div th:if="${emptyCart} == false">
+                <form action="/buyShoppingCart" method="post">
+                    <input class="buybutton" type="submit" value="KÖP!"/>
+                </form>
+                <form action="/emptyShoppingCart" method="post">
+                    <input class="button" type="submit" value="Töm varukorg"/>
+                </form>
+            </div>
         </div>
-
-        <form action="/buyShoppingCart" method="post">
-            <input type="submit" value="KÖP!"/>
-        </form>
-        <form action="/emptyShoppingCart" method="post">
-            <input type="submit" value="Töm varukorg!"/>
-        </form>
     </div>
 <!--==============================================================-->
     <div id="topsellers">
-        <p> Our topsellers</p>
+        <p> OUR TOPPSELLERS</p>
         <div th:each="product : ${nails}">
-            <p>
-                <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
-            </p>
             <img class="productpic" th:src="${product.image}"/>
+            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
             <p th:text="${product.price +' kr'}">kr</p>
-
+            <p>&#x2767;</p>
         </div>
     </div>
 </section>

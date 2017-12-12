@@ -156,6 +156,7 @@ public class FancyController {
     @GetMapping("/shoppingcart")
     public String shoppingcart(Model model, HttpSession session){
         handleLoginStatus(session,model);
+        handleAddSubCategories(model);
         ShoppingCart shoppingCart;
         if(session.getAttribute("shoppingCart") != null){
             shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
@@ -164,6 +165,8 @@ public class FancyController {
             shoppingCart = new ShoppingCart();
             session.setAttribute("shoppingCart",shoppingCart);
         }
+        boolean isEmpty = (shoppingCart.getShoppingmap().isEmpty())? true : false;
+        model.addAttribute("emptyCart",isEmpty);
         model.addAttribute("shoppingCart",shoppingCart);
         return "shoppingcart";
     }
@@ -218,4 +221,11 @@ public class FancyController {
         }
         model.addAttribute("isLogedIn",isLogedIn);
     }
+
+    private void handleAddSubCategories(Model model){
+        model.addAttribute("makeUp", repository.getBySubCategoryTop3("Herrdoft"));
+        model.addAttribute("nails", repository.getBySubCategoryTop3("Damdoft"));
+        model.addAttribute("eyes", repository.getBySubCategoryTop3("Hudvård"));
+    }
+
 }
