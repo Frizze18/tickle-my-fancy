@@ -1,14 +1,14 @@
 var rating = 0;
 
-/*for (var i = 1; i <= 5; i++) {
-    var star = document.getElementById("star" + i);
+for (var i = 1; i <= 5; i++) {
+    var star = document.getElementById("" + i);
     star.addEventListener("click", function () {
-        rating = i;
-        document.getElementById("score").innerText="" + rating;
-        changeStarRating(i);
+        rating = parseInt(this.id, 10);
+        document.getElementById("score").value= rating;
+        changeStarRating(rating);
     });
-    star.addEventListener("mouseenter", function () {
-        changeStarRating(i);
+    star.addEventListener("mouseenter", function (e) {
+        changeStarRating(parseInt((this.id), 10));
     });
     star.addEventListener("mouseleave", function () {
         changeStarRating(rating);
@@ -18,36 +18,12 @@ var rating = 0;
 function changeStarRating(grade) {
 
     for (var i = 1; i <= 5; i++) {
-        const star = document.getElementById("star" + i);
+        const star = document.getElementById("" + i);
         if (i <= grade) {
-            star.classList.add("filledstars");
+            star.classList.add("filled");
         } else {
-            star.classList.remove("filledstars");
+            star.classList.remove("filled");
         }
     }
-}*/
-
-
-function changeStarRating(rating){
-    $(".filled").removeClass("filled");
-    for(var i=1; i<=rating; i++){
-        ui.stars[i-1].addClass("filled");
-    }
 }
-var ui = {
-    rating: $(".stars"),
-    stars: [
-        $("[data-rating-id='1']"),
-        $("[data-rating-id='2']"),
-        $("[data-rating-id='3']"),
-        $("[data-rating-id='4']"),
-        $("[data-rating-id='5']")
-    ]
-};
-ui.rating.on("click", "span", function(e){
-    var star = $(e.target);
-    var rating = parseInt(star.attr("data-rating-id"));
-    changeStarRating(rating);
-    $("#score").val(rating);
-});
 
