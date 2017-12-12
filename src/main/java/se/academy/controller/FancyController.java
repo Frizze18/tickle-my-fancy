@@ -36,6 +36,7 @@ public class FancyController {
     @RequestMapping("/customerpage")
     public String showPersonalPage(Model model, HttpSession session){
         Customer customer = (Customer) session.getAttribute("sessionCustomer");
+        handleAddSubCategories(model);
         handleLoginStatus(session, model);
         if(customer == null){
             return "redirect:/";
