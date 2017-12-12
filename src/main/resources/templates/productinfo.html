@@ -49,14 +49,14 @@
                 </div>
             </form>
         </div>
-        <!--<div th:if="${isLogedIn} == true" id="login">-->
+        <div th:if="${isLogedIn} == true" id="login">
         <a href="customerpage.html">
             <img src="/img/mypagelogo.png" id="mypagelogo"/>
         </a>
-        <!--</div>-->
-        <!--<div th:if="${isLogedIn} == true" id="cart">-->
+        </div>
+        <div th:if="${isLogedIn} == true" id="cart">
         <img src="/img/shopping-cart.png" id="cartlogo"/>
-        <!--</div>-->
+        </div>
         <div th:if="${isLogedIn} == true" id="logoutbutton">
             <form action="/logout" method="post">
                 <input type="submit" value="logout"/>
@@ -84,6 +84,7 @@
                 <p id="productPrice" th:text="${product.price + ' kr ' }">price</p>
                 <p id="productQuantity" th:text="${product.quantity + ' pcs '}">in stock</p>
                 <p id="productDescription" th:text="${product.shortDescription}"></p>
+                <!--<p id="productRating" th:text="${avg.score}"></p>-->
 
                 <div class="addProduct">
                     <form action="/addProduct" method="post">
@@ -109,14 +110,14 @@
                     <p id="Description" th:text="${product.description}"></p>
                     <div id="userReview">
                         <form action="#" th:action="@{/addreview}" th:object="${review}" method="post">
-                            <input th:field="*{productID}" th:text="${productID}" class="hidden"/>
+                            <input th:field="*{productID}" class="hidden" type="hidden"/>
                             <input th:field="*{score}" id="score" class="hidden"/>
-                            <div id="stars">
-                                <span id="star1" value="1">&#9733;</span>
-                                <span id="star2" value="2">&#9733;</span>
-                                <span id="star3" value="3">&#9733;</span>
-                                <span id="star4" value="4">&#9733;</span>
-                                <span id="star5" value="5">&#9733;</span>
+                            <div class="stars">
+                                <span data-rating-id="1" value="1">&#9733;</span>
+                                <span data-rating-id="2" value="2">&#9733;</span>
+                                <span data-rating-id="3" value="3">&#9733;</span>
+                                <span data-rating-id="4" value="4">&#9733;</span>
+                                <span data-rating-id="5" value="5">&#9733;</span>
                             </div>
                             <div>
                                 Recension:
@@ -134,9 +135,8 @@
                     <div id="reviews">
                         <div th:if="${review!=null}">
                             <div th:each="review : ${reviews}">
-                                <span th:text="anonym+':'"> </span>
+                                <span th:text="user+':'"> </span>
                                 <span th:text="${review.userReview}"> </span>
-
                             </div>
                         </div>
                     </div>
@@ -159,16 +159,22 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
     <div id="topsellers">
-        <p> Our topsellers</p>
+        <p> OUR TOPPSELLERS</p>
         <div th:each="product : ${nails}">
-            <p>
-                <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
-            </p>
             <img class="productpic" th:src="${product.image}"/>
+            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
             <p th:text="${product.price +' kr'}">kr</p>
+            <div class="addProduct">
+                <form action="/addProduct" method="post">
+                    <input type="hidden" name="productID" th:value="${product.productID}"/>
+                    <input type="submit" value="Lägg till i varukorg"/>
+                </form>
+            </div>
+            <p>&#x2767;</p>
         </div>
     </div>
 </section>
@@ -201,6 +207,7 @@
         <li>Mail</li>
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="./script/bundle.js"></script>
 <script src="./script/stars.js"></script>
 </body>
