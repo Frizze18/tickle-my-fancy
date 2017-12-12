@@ -1,34 +1,77 @@
-
-@deepPurple:#7B008D;
-@lightPurple:#C18DB2;
-@yellow:#F3B606;
-@brown:#56320F;
-@dirtyWhite:#D8C5AA;
+@maincolor: white;
+@whitesmoke: whitesmoke;
+@font-color: black;
+@font-one: 'Vollkorn SC', serif;
+@font-size: 15px;
+@button-color: gray;
+@button-font-color: white;
 
 #registrationWithForm{
-  //max-width:100%;
-  //background-color: @dirtyWhite;
-  //border: 2px solid @lightPurple;
-  //flex: 4;
-  //order: 2;
   display: flex;
 }
 
 #mainpage>div{
-  background-color: @yellow;
+  background-color: @maincolor;
 }
+
+#searchTerm {
+  float: left;
+  width: 85%;
+  border: 3px solid @maincolor;
+  border-radius: 5px;
+  padding: 5px;
+  height: 20px;
+  outline: none;
+  color: @font-color;
+}
+
+#searchTerm:focus {
+  color: @font-color;
+}
+
 #regtext{
   width: 50%;
   text-align: right;
+  font-family: @font-one;
 }
+
+#regtext-two {
+  width: 50%;
+  text-align: left;
+  font-family: @font-one;
+}
+
 #generateForm{
   width: 50%;
   text-align: left;
+
 }
 .input{
   min-height: 40px;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+#searchbar{
+  width: 100%;
+  position: relative;
+  top: 0;
+}
+
+.button {
+  border-radius: 5px;
+  border: 2px @button-color;
+  background-color: @button-color;
+  color: white;
+  width: 90px;
+  height: 20px;
+  font-family: @font-one;
+  margin-top: 5px;
+
+}
+
+#logoutbutton{
+  padding-right: 10px;
 }
 
 h1{
