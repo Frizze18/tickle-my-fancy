@@ -105,7 +105,7 @@ public class FancyController {
         }
 
         repository.registerCustomer(customer, new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()));
-        return new ModelAndView("index");
+        return new ModelAndView("redirect:/");
     }
 
     @GetMapping("/productinfo")
