@@ -379,6 +379,22 @@ public class DbRepository {
         }
         return null;
     }
+    public String getAvg(int productID) {
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("SELECT AVG (score) FROM userreviews WHERE [productID] = (?)");
+            statement.setInt(1, productID);
+            String avgStar="";
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                avgStar = resultSet.getString("score");
+            }
+            return avgStar;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public void addReview(Review review) {
         try (Connection conn = dataSource.getConnection()) {

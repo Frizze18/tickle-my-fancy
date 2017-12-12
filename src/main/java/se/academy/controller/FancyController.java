@@ -114,6 +114,8 @@ public class FancyController {
         model.addAttribute("review", new Review(productID, 0, ""));
         model.addAttribute("productID", productID);
         model.addAttribute("reviews", repository.getReviews(productID));
+        model.addAttribute("nails", repository.getBySubCategoryTop3("Damdoft"));
+//        model.addAttribute("avg",repository.getAvg(productID));
 
         handleLoginStatus(session, model);
         return "productinfo";
