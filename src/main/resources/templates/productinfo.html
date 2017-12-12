@@ -71,7 +71,11 @@
         <p>
             annons
         </p>
-        <img src="/img/banner.jpg" id="annonsbildHöjden"/>
+        <div id="annonshög">
+            <a href="http://www.weatheryoulikeit.com/" target="_blank">
+                <img class="bannerhög" src="https://cdn.discordapp.com/attachments/378129316447256577/390133481344335872/wyli.png"/>
+            </a>
+        </div>
     </div>
     <div id="mainPage">
 
@@ -170,10 +174,12 @@
             <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
             <p th:text="${product.price +' kr'}">kr</p>
             <div class="addProduct">
-                <form action="/addProduct" method="post">
-                    <input type="hidden" name="productID" th:value="${product.productID}"/>
-                    <input type="submit" value="Lägg till i varukorg"/>
-                </form>
+                <span class="addProduct">
+                    <form action="/addProduct" method="post">
+                        <input type="hidden" name="productID" th:value="${product.productID}"/>
+                        <input class="button" type="submit" value="&#128722;"/>
+                    </form>
+                </span>
             </div>
             <p>&#x2767;</p>
         </div>
