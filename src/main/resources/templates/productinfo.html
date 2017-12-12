@@ -102,51 +102,63 @@
         <h2> annons</h2>
         <div id="annons">
             <a href="http://www.weatheryoulikeit.com/" target="_blank">
-            <img src="/img/banner.jpg" id="annonsbild"/>
+                <img src="/img/banner.jpg" id="annonsbild"/>
             </a>
         </div>
 
 
-            <div id="moreInfo">
-                <div id="information">
-                    <h3>
-                        more information
-                    </h3>
-                    <p id="Description" th:text="${product.description}"></p>
-                    <div id="userReview">
-                        <form action="#" th:action="@{/addreview}" th:object="${review}" method="post">
-                            <input th:field="*{productID}" class="hidden" type="hidden"/>
-                            <input th:field="*{score}" id="score" class="hidden"/>
-                            <div class="stars">
-                                <span data-rating-id="1" value="1">&#9733;</span>
-                                <span data-rating-id="2" value="2">&#9733;</span>
-                                <span data-rating-id="3" value="3">&#9733;</span>
-                                <span data-rating-id="4" value="4">&#9733;</span>
-                                <span data-rating-id="5" value="5">&#9733;</span>
-                            </div>
-                            <div>
-                                Recension:
-                            </div>
-                            <input name="recension" type="text" th:field="*{userReview}"/>
-                            <input type="submit"/>
-                        </form>
-                    </div>
-
+        <div id="moreInfo">
+            <div id="information">
+                <h3>
+                    more information
+                </h3>
+                <p id="Description" th:text="${product.description}"></p>
+                <div id="userReview">
+                    <form action="#" th:action="@{/addreview}" th:object="${review}" method="post">
+                        <input th:field="*{productID}" class="hidden" type="hidden"/>
+                        <input th:field="*{score}" id="score" class="hidden"/>
+                        <div class="stars">
+                            <span id="1">&#9733;</span>
+                            <span id="2">&#9733;</span>
+                            <span id="3">&#9733;</span>
+                            <span id="4">&#9733;</span>
+                            <span id="5">&#9733;</span>
+                        </div>
+                        <div>
+                            Recension:
+                        </div>
+                        <textarea name="recension" type="text" th:field="*{userReview}" cols="40" rows="5"></textarea>
+                        <input type="submit"/>
+                    </form>
                 </div>
-                <div id="Recensioner">
-                    <h3>
-                        Recensioner
-                    </h3>
-                    <div id="reviews">
-                        <div th:if="${review!=null}">
-                            <div th:each="review : ${reviews}">
-                                <span th:text="user+':'"> </span>
-                                <span th:text="${review.userReview}"> </span>
+
+            </div>
+            <div id="Recensioner">
+                <h3>
+                    Recensioner
+                </h3>
+                <div id="reviews">
+                    <div th:if="${review!=null}">
+                        <div th:each="review : ${reviews}">
+                            <div class="stars">
+                                <span th:if="${review.score &gt; 0}" class="filled">&#9733;</span>
+                                <span th:if="${review.score &lt; 1}">&#9733;</span>
+                                <span th:if="${review.score &gt; 1}" class="filled">&#9733;</span>
+                                <span th:if="${review.score &lt; 2}">&#9733;</span>
+                                <span th:if="${review.score &gt; 2}" class="filled">&#9733;</span>
+                                <span th:if="${review.score &lt; 3}">&#9733;</span>
+                                <span th:if="${review.score &gt; 3}" class="filled">&#9733;</span>
+                                <span th:if="${review.score &lt; 4}">&#9733;</span>
+                                <span th:if="${review.score &gt; 4}" class="filled">&#9733;</span>
+                                <span th:if="${review.score &lt; 5}">&#9733;</span>
                             </div>
+                            <p th:text="${review.userReview}"></p>
+                            <p> </p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         <h2>
             Otters has bought
         </h2>
@@ -171,7 +183,8 @@
         <p> OUR TOPPSELLERS</p>
         <div th:each="product : ${nails}">
             <img class="productpic" th:src="${product.image}"/>
-            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
+            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}"
+                  th:text="${product.name}"></a></p>
             <p th:text="${product.price +' kr'}">kr</p>
             <div class="addProduct">
                 <span class="addProduct">
@@ -214,7 +227,6 @@
         <li>Mail</li>
     </div>
 </section>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="./script/bundle.js"></script>
 <script src="./script/stars.js"></script>
 </body>

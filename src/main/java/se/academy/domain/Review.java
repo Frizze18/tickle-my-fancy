@@ -3,6 +3,7 @@ package se.academy.domain;
 public class Review {
     private int productID;
     private int score;
+    private String userName;
     private String userReview;
 
     public Review() {
@@ -37,6 +38,14 @@ public class Review {
 
     public void setUserReview(String userReview) {
         this.userReview = userReview;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
 

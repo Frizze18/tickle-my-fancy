@@ -6,10 +6,7 @@ import se.academy.domain.*;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 @Component
 public class DbRepository {
@@ -363,7 +360,7 @@ public class DbRepository {
     public Queue<Review> getReviews(int productID) {
         try (Connection conn = dataSource.getConnection()) {
             Queue<Review> reviews = new LinkedList<>();
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM userreviews WHERE [productID] = (?)");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM userreviews WHERE [productID] = (?) ORDER BY reviewID DESC");
             statement.setInt(1, productID);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
