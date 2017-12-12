@@ -18,6 +18,18 @@
     max-width: 1200px;
 }
 
+  a{
+    text-decoration: none;
+    font-family: @font-one;
+    font-size: 18px;
+    color: black;
+  }
+
+a:hover{
+  cursor: hand;
+  color: #7B008D;
+}
+
 #header{
     display: flex;
     max-height: 10%;
@@ -138,9 +150,20 @@
     background-color: @maincolor;
     border: 2px solid @maincolor;
 }
-.productpic{
+ .recommendedProduct > div > .productpic{
   height: 200px;
 }
+
+ #topsellers > div > .productpic{
+   height: 120px;
+ }
+
+ .linksToTheRight{
+   text-decoration: none;
+   font-family: @font-one;
+   font-size: 12px;
+   color: black;
+ }
 
 .fontOne {
   font-family: @font-one;
@@ -162,6 +185,8 @@
     flex: 1;
     background-color: @maincolor;
     border: 2px solid @maincolor;
+    border-left: 1px solid black;
+    text-align: center;
 }
 
 .hidden {

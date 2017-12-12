@@ -274,14 +274,12 @@
             </div>
         </div>
         <div id="topsellers">
-            <p> Our topsellers</p>
+            <p> OUR TOPPSELLERS</p>
             <div th:each="product : ${nails}">
-                <p>
-                    <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
-                </p>
                 <img class="productpic" th:src="${product.image}"/>
+                <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
                 <p th:text="${product.price +' kr'}">kr</p>
-                
+                <p>&#x2767;</p>
             </div>
         </div>
     </section>
