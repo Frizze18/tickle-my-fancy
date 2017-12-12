@@ -14,36 +14,57 @@
 </head>
 
 <body>
-    <header id="header">
-        <div id="logoDiv">
-            <img src="https://i.ytimg.com/vi/e3Nl_TCQXuw/maxresdefault.jpg" id="logo" />
+<header id="header">
+    <div id="logoDiv">
+        <!--<img src="https://i.ytimg.com/vi/e3Nl_TCQXuw/maxresdefault.jpg" id="logo"/>-->
+        <img src="./img/logo.png" id="logo"/>
+    </div>
+
+    <div id="menubar">
+        <div id="searchbar">
+            <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
+            <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
-        <div id="menubar">
-            <div id="searchbar">
-                <input type="text" id="searchTerm" placeholder="What are you looking for?" />
-                <button type="submit" id="searchButton"> </button>
-            </div>
-            <div id="menu">
-                <span>category1</span>
-                <span>category2</span>
-                <span>category3</span>
-                <span>category4</span>
-                <span>category5</span>
-                <span>category6</span>
-            </div>
+        <div id="menu">
+            <span>Fransar</span>
+            <span>category2</span>
+            <span>category3</span>
+            <span>category4</span>
+            <span>category5</span>
         </div>
-        <div id="cartbox">
-            <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
-            <div id="login">
-                <a href="registration.html">
-                    <img src="./img/loginlogo.png" id="loginlogo" />
-                </a>
-            </div>
-            <div id="cart">
-                <img src="./img/shopping-cart.png" id="cartlogo" />
-            </div>
+    </div>
+
+    <div id="cartbox">
+        <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
+        <div th:if="${isLogedIn} == false">
+            <form action="/login" method="post">
+                <div class="fontOne">E-postadress:</div>
+                <input name="email" type="text"/>
+                <div class="fontOne">Lösenord:</div>
+                <input name="password" type="password"/>
+                <input class="button" type="submit" value="Logga in"/>
+                <div th:text="${loginFail}"></div>
+                <div>
+                    <a class="fontOne" href="registration.html" style="text-decoration:none">Skapa nytt konto</a>
+                </div>
+            </form>
+
         </div>
-    </header>
+        <div th:if="${isLogedIn} == true" id="login">
+            <a href="customerpage.html">
+                <img src="./img/mypagelogo.png" id="mypagelogo"/>
+            </a>
+        </div>
+        <div th:if="${isLogedIn} == true" id="cart">
+            <img src="./img/shopping-cart.png" id="cartlogo"/>
+        </div>
+        <div th:if="${isLogedIn} == true" id="logoutbutton">
+            <form action="/logout" method="post">
+                <input type="submit" value="logout"/>
+            </form>
+        </div>
+    </div>
+</header>
 
     <section id="pageContent">
 
@@ -58,16 +79,42 @@
             <table>
                 <tr class="productlist" th:each="product : ${products}">
                     <td>
-                        <p th:text="${product.name}"></p>
-                        <img class="productpic" th:src="${product.image}"/>
-                        <p th:text="${product.price}"></p>
-                        <p th:text="${product.description}"></p>
+
+                        <div id="product">
+                            <div id="productpicture">
+                                <img class="searchproductpic" th:src="${product.image}"/>
+                            </div>
+                            <div class="productinfo">
+
+                                <!--<img class="productpic" th:src="${product.image}"/>-->
+                                <h2><a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></h2>
+                                <p id="productPrice" th:text="${product.price + ' kr ' }">price</p>
+                                <p id="productQuantity" th:text="${product.quantity + ' pcs '}">in stock</p>
+                                <p id="productDescription" th:text="${product.shortDescription}"></p>
+
+                            </div>
+                        </div>
                     </td>
                     <td>
-                        <p th:text="${product.inStorage}"></p>
+                        <!--<p th:text="${product.inStorage}"></p>-->
                     </td>
                 </tr>
             </table>
+        </div>
+        <div id="topsellers">
+            <p> OUR TOPPSELLERS</p>
+            <div th:each="product : ${eyes}">
+                <img class="productpic" th:src="${product.image}"/>
+                <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
+                <p th:text="${product.price +' kr'}">kr</p>
+                <div class="addProduct">
+                    <form action="/addProduct" method="post">
+                        <input type="hidden" name="productID" th:value="${product.productID}"/>
+                        <input type="submit" value="Lägg till i varukorg"/>
+                    </form>
+                </div>
+                <p>&#x2767;</p>
+            </div>
         </div>
     </section>
     <section id="foot">
