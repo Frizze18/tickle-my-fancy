@@ -75,7 +75,7 @@
 
         <div id="product">
             <div id="productpicture">
-                <img class="productpic" th:src="${product.image}"/>
+                <img class="bigproductpic" th:src="${product.image}"/>
             </div>
             <div class="productinfo">
 
@@ -152,6 +152,12 @@
                 </p>
                 <img class="productpic" th:src="${product.image}"/>
                 <p th:text="${product.price +' kr'}">kr</p>
+                <div class="addProduct">
+                    <form action="/addProduct" method="post">
+                        <input type="hidden" name="productID" th:value="${product.productID}"/>
+                        <input type="submit" value="Lägg till i varukorg"/>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
