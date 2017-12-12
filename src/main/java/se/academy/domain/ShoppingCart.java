@@ -50,7 +50,6 @@ public class ShoppingCart {
             shoppingmap.put(product.getProductID(),productWrapper);
             totalPrice = totalPrice - product.getPrice();
         }
-
     }
 
 }
