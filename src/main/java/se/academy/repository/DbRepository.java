@@ -363,7 +363,7 @@ public class DbRepository {
     public Queue<Review> getReviews(int productID) {
         try (Connection conn = dataSource.getConnection()) {
             Queue<Review> reviews = new LinkedList<>();
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM userreviews WHERE [productID] = (?) ORDER BY DESCENDING");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM userreviews WHERE [productID] = (?)");
             statement.setInt(1, productID);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -382,7 +382,6 @@ public class DbRepository {
 
     public void addReview(Review review) {
         try (Connection conn = dataSource.getConnection()) {
-            Queue<Review> reviews = new LinkedList<>();
             PreparedStatement statement = conn.prepareStatement("INSERT INTO userreviews(productID, score, review) VALUES (?,?,?)");
             statement.setInt(1, review.getProductID());
             statement.setInt(2, review.getScore());
