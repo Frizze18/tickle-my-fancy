@@ -36,6 +36,7 @@ public class FancyController {
     @RequestMapping("/customerpage")
     public String showPersonalPage(Model model, HttpSession session){
         Customer customer = (Customer) session.getAttribute("sessionCustomer");
+        handleAddSubCategories(model);
         handleLoginStatus(session, model);
         if(customer == null){
             return "redirect:/";
@@ -106,7 +107,7 @@ public class FancyController {
         }
 
         repository.registerCustomer(customer, new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()));
-        return new ModelAndView("index");
+        return new ModelAndView("redirect:/");
     }
 
     @GetMapping("/productinfo")
