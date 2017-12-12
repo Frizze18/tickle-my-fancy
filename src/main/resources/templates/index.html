@@ -28,11 +28,11 @@
                 <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
             </div>
             <div id="menu">
-                <span>Fransar</span>
-                <span>category2</span>
-                <span>category3</span>
-                <span>category4</span>
-                <span>category5</span>
+                <span>Hårvård</span>
+                <span>Hudvård</span>
+                <span>Smink</span>
+                <span>Damdoft</span>
+                <span>Herrdoft</span>
             </div>
         </div>
 
@@ -275,17 +275,17 @@
             </div>
         </div>
         <div id="topsellers">
-            <p> OUR TOPPSELLERS</p>
+            <p> Our Toppsellers</p>
             <div th:each="product : ${nails}">
                 <img class="productpic" th:src="${product.image}"/>
                 <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
-                <p th:text="${product.price +' kr'}">kr</p>
-                <div class="addProduct">
+                <span th:text="${product.price +' kr'}">kr</span>
+                <span class="addProduct">
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
-                        <input type="submit" value="Lägg till i varukorg"/>
+                        <input class="button" type="submit" value="&#128722;"/>
                     </form>
-                </div>
+                </span>
                 <p>&#x2767;</p>
             </div>
         </div>
