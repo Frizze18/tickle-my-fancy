@@ -20,11 +20,11 @@
         <!--<img src="https://i.ytimg.com/vi/e3Nl_TCQXuw/maxresdefault.jpg" id="logo"/>-->
         <img src="./img/logo.png" id="logo"/>
     </div>
+
     <div id="menubar">
         <div id="searchbar">
             <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
-            <button type="submit" id="searchButton"></button>
-
+            <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
         <div id="menu">
             <span>Fransar</span>
@@ -34,28 +34,30 @@
             <span>category5</span>
         </div>
     </div>
+
     <div id="cartbox">
         <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
         <div th:if="${isLogedIn} == false">
             <form action="/login" method="post">
-                <div>E-postadress:</div>
+                <div class="fontOne">E-postadress:</div>
                 <input name="email" type="text"/>
-                <div>Lösenord:</div>
+                <div class="fontOne">Lösenord:</div>
                 <input name="password" type="password"/>
-                <input type="submit" value="Logga in"/>
+                <input class="button" type="submit" value="Logga in"/>
                 <div th:text="${loginFail}"></div>
                 <div>
-                    <a href="registration.html">Skapa nytt konto</a>
+                    <a class="fontOne" href="registration.html" style="text-decoration:none">Skapa nytt konto</a>
                 </div>
             </form>
+
         </div>
         <div th:if="${isLogedIn} == true" id="login">
-        <a href="customerpage.html">
-            <img src="/img/mypagelogo.png" id="mypagelogo"/>
-        </a>
+            <a href="customerpage.html">
+                <img src="./img/mypagelogo.png" id="mypagelogo"/>
+            </a>
         </div>
         <div th:if="${isLogedIn} == true" id="cart">
-        <img src="/img/shopping-cart.png" id="cartlogo"/>
+            <img src="./img/shopping-cart.png" id="cartlogo"/>
         </div>
         <div th:if="${isLogedIn} == true" id="logoutbutton">
             <form action="/logout" method="post">
@@ -84,14 +86,13 @@
                 <p id="productPrice" th:text="${product.price + ' kr ' }">price</p>
                 <p id="productQuantity" th:text="${product.quantity + ' pcs '}">in stock</p>
                 <p id="productDescription" th:text="${product.shortDescription}"></p>
-                <!--<p id="productRating" th:text="${avg.score}"></p>-->
-
                 <div class="addProduct">
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
                         <input type="submit" value="Lägg till i varukorg"/>
                     </form>
                 </div>
+                <!--<p id="productRating" th:text="${avg.score}"></p>-->
             </div>
         </div>
         <h2> annons</h2>
