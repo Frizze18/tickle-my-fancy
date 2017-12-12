@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="Stylesheet" href="./css/registration.css"/>
     <link rel="Stylesheet" href="./css/style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
     </style>
@@ -20,8 +21,8 @@
     </div>
     <div id="menubar">
         <div id="searchbar">
-            <input type="text" class="searchTerm" placeholder="What are you looking for?"/>
-            <button type="submit" class="searchButton"></button>
+            <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
+            <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
         <div id="menu">
             <span>category1</span>
@@ -36,14 +37,14 @@
         <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
         <div th:if="${isLogedIn} == false">
             <form action="/login" method="post">
-                <div>E-postadress:</div>
+                <div class="fontOne">E-postadress:</div>
                 <input name="email" type="text"/>
-                <div>Lösenord:</div>
+                <div class="fontOne">Lösenord:</div>
                 <input name="password" type="password"/>
-                <input type="submit" value="Logga in"/>
+                <input class="button" type="submit" value="Logga in"/>
                 <div th:text="${loginFail}"></div>
                 <div>
-                    <a href="registration.html">Skapa nytt konto</a>
+                    <a class="fontOne" href="registration.html" style="text-decoration:none">Skapa nytt konto</a>
                 </div>
             </form>
 
@@ -58,7 +59,7 @@
         </div>
         <div th:if="${isLogedIn} == true" id="logoutbutton">
             <form action="/logout" method="post">
-                <input type="submit" value="logout"/>
+                <input class="button" type="submit" value="Logga ut"/>
             </form>
         </div>
     </div>
@@ -66,9 +67,7 @@
 <section id="pageContent">
 
     <div id="subcategoryMenu">
-        <p>
-            Here will we display a menu with subcategories
-        </p>
+
     </div>
 
 
@@ -89,7 +88,7 @@
             <div id="generateForm">
 
                 <div class="registrationInput">
-                    <h1> ny Kund</h1>
+                    <h1 id="regtext-two"> ny Kund</h1>
                     <form action="#" th:action="@{/registration}" th:object="${customer}" method="post">
                         <div class="input">
                             <input type="text" th:field="*{email}"/>
@@ -124,7 +123,7 @@
                             <input type="text" th:field="*{phone}"/>
                             <span th:if="${#fields.hasErrors('phone')}">Ange telefonnummer</span>
                         </div>
-                        <input type="submit" value="registrera"/>
+                        <input class="button" type="submit" value="Registrera"/>
 
                     </form>
                 </div>
@@ -132,7 +131,6 @@
         </div>
     </div>
     <div id="topsellers">
-        <p> Our topsellers</p>
         <div th:each="product : ${nails}">
             <p>
                 <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
