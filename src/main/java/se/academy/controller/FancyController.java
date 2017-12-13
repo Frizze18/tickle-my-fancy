@@ -27,9 +27,8 @@ public class FancyController {
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
         handleLoginStatus(session,model);
-        model.addAttribute("makeUp", repository.getBySubCategoryTop3("Herrdoft"));
-        model.addAttribute("nails", repository.getBySubCategoryTop3("Damdoft"));
-        model.addAttribute("eyes", repository.getBySubCategoryTop3("Hudvård"));
+        handleAddSubCategories(model);
+        pickRandomTopp(model);
         return "index";
     }
 
@@ -228,9 +227,23 @@ public class FancyController {
     }
 
     private void handleAddSubCategories(Model model){
-        model.addAttribute("makeUp", repository.getBySubCategoryTop3("Herrdoft"));
-        model.addAttribute("nails", repository.getBySubCategoryTop3("Damdoft"));
-        model.addAttribute("eyes", repository.getBySubCategoryTop3("Hudvård"));
+        model.addAttribute("herrdoft", repository.getBySubCategoryTop3("Herrdoft"));
+        model.addAttribute("damdoft", repository.getBySubCategoryTop3("Damdoft"));
+        model.addAttribute("hudvard", repository.getBySubCategoryTop3("Hudvård"));
+    }
+
+    private void pickRandomTopp(Model model){
+        Random random = new Random();
+        int nmbr = random.nextInt(5);
+        switch (nmbr){
+            case 1: model.addAttribute("randomTopp", repository.getBySubCategoryTop3("Hudvård"));
+            break;
+            case 2: model.addAttribute("randomTopp", repository.getBySubCategoryTop3("Herrdoft"));
+            break;
+            case 3: model.addAttribute("randomTopp", repository.getBySubCategoryTop3("Damdoft"));
+            break;
+            default: model.addAttribute("randomTopp", repository.getBySubCategoryTop3("Smink"));
+        }
     }
 
 }
