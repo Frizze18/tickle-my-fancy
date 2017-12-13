@@ -8,6 +8,7 @@
     <link rel="Stylesheet" href="./css/registration.css"/>
     <link rel="Stylesheet" href="./css/style.css"/>
     <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
     </style>
@@ -25,12 +26,11 @@
             <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
         <div id="menu">
-            <span>category1</span>
-            <span>category2</span>
-            <span>category3</span>
-            <span>category4</span>
-            <span>category5</span>
-            <span>category6</span>
+            <span>Hårvård</span>
+            <span>Hudvård</span>
+            <span>Smink</span>
+            <span>Damdoft</span>
+            <span>Herrdoft</span>
         </div>
     </div>
     <div id="cartbox">
@@ -43,8 +43,9 @@
                 <input name="password" type="password"/>
                 <input class="button" type="submit" value="Logga in"/>
                 <div th:text="${loginFail}"></div>
-                <div>
-                    <a class="fontOne" href="registration.html" style="text-decoration:none">Skapa nytt konto</a>
+                <div id = "registrationDiv">
+
+                    <!--<a class="fontOne" href="registration.html" style="text-decoration:none">Skapa nytt konto</a>-->
                 </div>
             </form>
 
@@ -66,9 +67,9 @@
 </header>
 <section id="pageContent">
 
-    <div id="subcategoryMenu">
+    <!--<div id="subcategoryMenu">-->
 
-    </div>
+    <!--</div>-->
 
 
     <div id="mainPage">
@@ -130,46 +131,54 @@
             </div>
         </div>
     </div>
-    <div id="topsellers">
-        <div th:each="product : ${nails}">
-            <p>
-                <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
-            </p>
-            <img class="productpic" th:src="${product.image}"/>
-            <p th:text="${product.price +' kr'}">kr</p>
+    <!--<div id="topsellers">-->
+        <!--<div th:each="product : ${nails}">-->
+            <!--<p>-->
+                <!--<a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>-->
+            <!--</p>-->
+            <!--<img class="productpic" th:src="${product.image}"/>-->
+            <!--<p th:text="${product.price +' kr'}">kr</p>-->
 
-        </div>
-    </div>
+        <!--</div>-->
+    <!--</div>-->
 </section>
 <section id="foot">
-    <div class="shopsection">
-        <ul id="shop">SHOP</ul>
-        <li>Women</li>
-        <li>Men</li>
-        <li>Makeup</li>
-        <li>lipstift</li>
-    </div>
+    <!--<div class="shopsection">-->
+    <!--<ul id="shop">SHOP</ul>-->
+    <!--<li>Kvinna</li>-->
+    <!--<li>Man</li>-->
+    <!--<li>Makeup</li>-->
+    <!--<li>lipstift</li>-->
+    <!--</div>-->
+
     <div class="informationsection">
-        <ul>information</ul>
-        <li>carrer at Beauty and the beast</li>
-        <li>aboute Beauty and the beast</li>
-        <li>information</li>
+        <p>Information</p>
+        <ul>
+            <li>Om oss</li>
+            <li>Jobba hos oss</li>
+        </ul>
+
     </div>
     <div class="helpsection">
-        <ul>help</ul>
-        <li>customer service</li>
-        <li>My profile</li>
-        <li>Gift Card</li>
-        <li>FAQ</li>
+        <p>Kundservice</p>
+        <ul>
+            <li>Kontakta kundservice</li>
+            <li>Vanliga frågor</li>
+            <li>Köpvillkor</li>
+        </ul>
     </div>
+
     <div class="socialsection">
-        <ul>social</ul>
-        <li>Facebook</li>
-        <li>Instagram</li>
-        <li>Twitter</li>
-        <li>Mail</li>
+        <p>Följ oss</p>
+        <div>
+            <a href="https://www.instagram.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390482322727763969/instagram.png"/></a>
+            <a href="https://sv-se.facebook.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390480664786632704/facebook.png"/></a>
+            <a href="https://twitter.com/?lang=sv" target="_blank"><img class="socialIcon" src="./img/Twitter.png"/></a>
+        </div>
+
     </div>
 </section>
+
 <script src="./script/bundle.js"></script>
 </body>
 </html>
