@@ -51,20 +51,16 @@
                         <a class="fontOne" href="registration.html" style="text-decoration:none">Skapa nytt konto</a>
                     </div>
                 </form>
-
-            </div>
-            <div th:if="${isLogedIn} == true" id="login">
-                <a href="customerpage.html">
-                    <img src="./img/mypagelogo.png" id="mypagelogo"/>
-                </a>
-            </div>
-            <div th:if="${isLogedIn} == true" id="cart">
-                <img src="./img/shopping-cart.png" id="cartlogo"/>
             </div>
             <div th:if="${isLogedIn} == true" id="logoutbutton">
                 <form action="/logout" method="post">
                     <input class="button" type="submit" value="logout"/>
                 </form>
+            </div>
+        </div>
+        <div id="iconbox">
+            <div><img src="./img/shopping-cart.png" id="cartlogo"/></div>
+            <div th:if="${isLogedIn} == true" id="login"><a href="customerpage.html"><img src="./img/mypagelogo.png" id="mypagelogo"/></a>
             </div>
         </div>
     </header>
@@ -284,7 +280,7 @@
         </div>
         <div id="topsellers">
             <p> Our Toppsellers</p>
-            <div th:each="product : ${randomTopp}">
+            <div class="toppProduct" th:each="product : ${randomTopp}">
                 <img class="productpic" th:src="${product.image}"/>
                 <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
 
