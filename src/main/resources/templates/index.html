@@ -8,6 +8,7 @@
     <link rel="Stylesheet" href="./css/style.css"/>
     <link rel="Stylesheet" href="./css/christmas.css"/>
     <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
     </style>
@@ -70,11 +71,11 @@
     <section id="pageContent">
 
         <div id="subcategoryMenu">
-            <div id="annons">
-                <a href="http://www.weatheryoulikeit.com/" target="_blank">
-            <img class="bannerhög" src="https://cdn.discordapp.com/attachments/378129316447256577/390133481344335872/wyli.png"/>
-                </a>
-            </div>
+            <!--<div id="annons">-->
+                <!--<a href="http://www.weatheryoulikeit.com/" target="_blank">-->
+            <!--<img class="bannerhög" src="https://cdn.discordapp.com/attachments/378129316447256577/390133481344335872/wyli.png"/>-->
+                <!--</a>-->
+            <!--</div>-->
         </div>
 
 
@@ -234,50 +235,56 @@
 
 
             <div class="recommendedCategory">
-                <h3>Makeup</h3>
+                <h3>Herrdoft</h3>
             </div>
             <div class="recommendedProduct" id="makeup">
 
-                <div th:each="product : ${makeUp}">
-                    <p>
+                <div th:each="product : ${herrdoft}" class="productBox">
+                    <img class="productpic" th:src="${product.image}"/>
+                    <p class="productLink">
                         <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
                     </p>
-                    <img class="productpic" th:src="${product.image}"/>
-                    <p th:text="${product.price +' kr'}">kr</p>
-                    <p class="productdescription" th:text="${product.shortDescription}"></p>
+                    <div class="productdescription">
+                        <p  th:text="${product.price +' kr'}">kr</p>
+                        <!--<p  th:text="${product.shortDescription}"></p>-->
+                    </div>
+
                 </div>
             </div>
             <div class="recommendedCategory">
-                <h3>Nail</h3>
+                <h3>Damdoft</h3>
             </div>
             <div class="recommendedProduct" id="nails">
-                <div th:each="product : ${nails}">
-                    <p>
+                <div th:each="product : ${damdoft}" class="productBox">
+                    <img class="productpic" th:src="${product.image}"/>
+                    <p class="productLink">
                         <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
                     </p>
-                    <img class="productpic" th:src="${product.image}"/>
-                    <p th:text="${product.price +' kr'}">kr</p>
-                    <p class="productdescription" th:text="${product.shortDescription}"></p>
+                    <div class="productdescription">
+                        <p  th:text="${product.price +' kr'}">kr</p>
+                        <!--<p  th:text="${product.shortDescription}"></p>-->
+                    </div>
                 </div>
             </div>
             <div class="recommendedCategory">
-                <h3>Eyes</h3>
+                <h3>hudvard</h3>
             </div>
             <div class="recommendedProduct" id="eyes">
-                <div th:each="product : ${eyes}">
-                    <p>
+                <div th:each="product : ${hudvard}" class="productBox">
+                    <img class="productpic" th:src="${product.image}"/>
+                    <p class="productLink" >
                         <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
                     </p>
-                    <img class="productpic" th:src="${product.image}"/>
-                    <p th:text="${product.price +' kr'}">kr</p>
-                    <p class="productdescription" th:text="${product.shortDescription}"></p>
-
+                    <div class="productdescription">
+                        <p  th:text="${product.price +' kr'}">kr</p>
+                        <!--<p  th:text="${product.shortDescription}"></p>-->
+                    </div>
                 </div>
             </div>
         </div>
         <div id="topsellers">
             <p> Our Toppsellers</p>
-            <div th:each="product : ${nails}">
+            <div th:each="product : ${randomTopp}">
                 <img class="productpic" th:src="${product.image}"/>
                 <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
 

@@ -8,6 +8,7 @@
  @whitesmoke: whitesmoke;
  @font-color: black;
  @font-one: 'Vollkorn SC', serif;
+ @font-sans:'Inconsolata', monospace;
  @font-size: 15px;
  @button-color: gray;
  @button-font-color: white;
@@ -21,7 +22,7 @@
   a{
     text-decoration: none;
     font-family: @font-one;
-    font-size: 18px;
+    font-size: 15px;
     color: black;
   }
 
@@ -99,7 +100,7 @@ a:hover{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 100%;
+  width: 85%;
   color: @font-color;
   font-family: @font-one;
   font-size: @font-size;
@@ -139,7 +140,7 @@ a:hover{
 }
 #subcategoryMenu{
    order: 1;
-   flex: 1;
+   flex: 0.3;
     background-color: @maincolor;
     border: 2px solid @maincolor;
 
@@ -149,10 +150,30 @@ a:hover{
    flex: 3;
     background-color: @maincolor;
     border: 2px solid @maincolor;
-    font-family: @font-one;
+    //font-family: @font-one;
+}
+.productLink{
+  height: 3em;
+}
+
+.productdescription{
+  font-family: @font-sans;
+  font-size: 14px;
+}
+.productBox{
+  width: 30%;
+}
+.recommendedCategory{
+  text-align: center;
+}
+.recommendedProduct{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  text-align: center;
 }
  .recommendedProduct > div > .productpic{
-  height: 200px;
+  height: 150px;
 }
 
  #topsellers > div > .productpic{
