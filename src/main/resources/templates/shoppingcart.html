@@ -23,7 +23,7 @@
     <div id="menubar">
         <div id="searchbar">
             <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
-            <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
+            <button type="submit" id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
         <div id="menu">
             <a href="/subcategory?sc=Hårvård">Hårvård</a>
@@ -63,13 +63,15 @@
 </header>
 <section id="pageContent">
 
+
     <div id="subcategoryMenu"></div>
 
-<!--=============================================================-->
+    <!--=============================================================-->
     <div id="mainPage">
         <h1>Varukorg</h1>
         <div class="shoppincart" th:if="${emptyCart} == true">Din varukorg är tom!</div>
         <div class="shoppincart" th:if="${emptyCart} == false">
+
                 <tr th:each="item : ${shoppingCart.shoppingmap}">
                     <!--<div th:text="${item.value.product.name}"></div>-->
                     <div><a th:href="'/productinfo?productID='+${item.value.product.productID}" th:text="${item.value.product.name}"></a></div>
@@ -79,21 +81,23 @@
                 </tr>
             <div id="pricebox" th:text="'Totalpris:  '+${shoppingCart.totalPrice}+'Kr'"></div>
             <div th:if="${emptyCart} == false">
-                <form action="/emptyShoppingCart" method="post">
-                    <input class="button" type="submit" value="Töm varukorg"/>
-                </form>
+                     <span id="paypal" class="hidden" th:text="${shoppingCart.totalPrice}"></span>
+                <div id="myContainerElement"></div>
+                    <button class="button" id="emptyCart">Töm varukorg</button>
                 <button id="checkoutBtn" class="buybutton">Köp</button>
+
             </div>
         </div>
         <p id="orderID" class="hidden" th:text="${orderID}"></p>
         <div id="my-checkout-container"></div>
         <img src="https://cdn.klarna.com/1.0/shared/image/generic/badge/sv_se/checkout/short-blue.png?width=312"/>
     </div>
-<!--==============================================================-->
+    <!--==============================================================-->
     <div id="topsellers">
         <p>Bästsäljare</p>
         <div class="toppProduct" th:each="product : ${randomTopp}">
             <img class="productpic" th:src="${product.image}"/>
+
             <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
 
             <div>
@@ -137,8 +141,12 @@
         </div>
     </div>
 </section>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script src="/script/paypal.js"></script>
+
 <script src="./script/bundle.js"></script>
 <script src="./script/checkout.js"></script>
+
 </body>
 </html>
 

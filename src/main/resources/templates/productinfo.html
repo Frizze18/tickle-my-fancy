@@ -69,7 +69,6 @@
     </div>
 </header>
 <section id="pageContent">
-
     <div id="mainPage">
 
         <div id="product">
@@ -87,8 +86,6 @@
                         <input class="button" type="submit" value="Lägg till i varukorg"/>
                     </form>
                 </div>
-
-
                 <!--<p id="productRating" th:text="${avg.score}"></p>-->
             </div>
 
@@ -182,10 +179,12 @@
                   th:text="${product.name}"></a></p>
             <p th:text="${product.price +' kr'}">kr</p>
             <div class="addProduct">
-                <form action="/addProduct" method="post">
-                    <input type="hidden" name="productID" th:value="${product.productID}"/>
-                    <input type="submit" value="Lägg till i varukorg"/>
-                </form>
+                <span class="addProduct">
+                    <form action="/addProduct" method="post">
+                        <input type="hidden" name="productID" th:value="${product.productID}"/>
+                        <input class="button" type="submit" value="&#128722;"/>
+                    </form>
+                </span>
             </div>
             <p>&#x2767;</p>
         </div>

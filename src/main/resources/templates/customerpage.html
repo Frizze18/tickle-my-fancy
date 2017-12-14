@@ -65,9 +65,7 @@
     <section id="pageContent">
 
         <div id="subcategoryMenu">
-            <p>
-                Here will we display a menu with subcategories
-            </p>
+
         </div>
         <!--===========================================================-->
         <div id="mainpage">
@@ -82,6 +80,12 @@
                 <img class="productpic" th:src="${product.image}"/>
                 <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
                 <p th:text="${product.price +' kr'}">kr</p>
+                <span class="addProduct">
+                    <form action="/addProduct" method="post">
+                        <input type="hidden" name="productID" th:value="${product.productID}"/>
+                        <input class="button" type="submit" value="&#128722;"/>
+                    </form>
+                </span>
                 <p>&#x2767;</p>
             </div>
         </div>
