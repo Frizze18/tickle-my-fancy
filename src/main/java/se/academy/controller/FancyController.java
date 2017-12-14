@@ -206,9 +206,11 @@ public class FancyController {
         }
         Queue<Product> topThree = repository.getBySubCategoryTop3(sc);
 
+        model.addAttribute("rubrik",sc);
         model.addAttribute("category", topThree.peek().getSubcategory());
         model.addAttribute("topProducts", topThree);
         model.addAttribute("productsInSubcategory", products);
+        pickRandomTopp(model);
 
         return "subcategory";
     }
