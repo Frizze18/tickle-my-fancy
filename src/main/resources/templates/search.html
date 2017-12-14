@@ -67,39 +67,36 @@
     <section id="pageContent">
 
         <div id="subcategoryMenu"></div>
+
         <div id="mainPage">
-            <table>
-                <tr class="productlist" th:each="product : ${products}">
-                    <td>
-
-                        <div id="product">
-                            <div id="productpicture">
-                                <img class="searchproductpic" th:src="${product.image}"/>
-                            </div>
-                            <div class="productinfo">
-
-                                <!--<img class="productpic" th:src="${product.image}"/>-->
-                                <h2><a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></h2>
-                                <p id="productPrice" th:text="${product.price + ' kr ' }">price</p>
-                                <p id="productQuantity" th:text="${product.quantity + ' pcs '}">in stock</p>
-                                <p id="productDescription" th:text="${product.shortDescription}"></p>
-
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <!--<p th:text="${product.inStorage}"></p>-->
-                    </td>
-                </tr>
-            </table>
+            <div class="recommendedCategory">
+                <h3>Sökresultat</h3>
+            </div>
+            <div id="searchresults">
+                <div class="productBox" th:each="product : ${products}">
+                    <div id="productpicture">
+                        <img class="searchproductpic" th:src="${product.image}"/>
+                    </div>
+                    <div class="productinfo">
+                        <p class="productLink" ><a class="productlink" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
+                        <p class="productdescription" th:text="${product.price + ' kr ' }">price</p>
+                        <span class="addProduct">
+                            <form action="/addProduct" method="post">
+                                <input type="hidden" name="productID" th:value="${product.productID}"/>
+                                <input class="button" type="submit" value="Lägg till i varukorg"/>
+                            </form>
+                        </span>
+                        <!--<p class="producttext" th:text="${product.shortDescription}"></p>-->
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div id="topsellers">
             <p>Bästsäljare</p>
             <div class="toppProduct" th:each="product : ${randomTopp}">
                 <img class="productpic" th:src="${product.image}"/>
                 <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
-
-
                 <div>
                     <span th:text="${product.price +' kr'}"></span>
                     <span class="addProduct">
@@ -107,7 +104,7 @@
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
                         <input class="button" type="submit" value="&#128722;"/>
                     </form>
-                </span>
+                    </span>
                 </div>
                 <p>&#x2767;</p>
             </div>
