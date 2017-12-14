@@ -32,8 +32,8 @@
                 <a href="/subcategory?sc=Hårvård">Hårvård</a>
                 <a href="/subcategory?sc=Hudvård">Hudvård</a>
                 <a href="/subcategory?sc=Smink">Smink</a>
-                <a href="/subcategory?sc=Hårvård">Damdoft</a>
-                <a href="/subcategory?sc=Hårvård">Herrdoft</a>
+                <a href="/subcategory?sc=Damdoft">Damdoft</a>
+                <a href="/subcategory?sc=Herrdoft">Herrdoft</a>
             </div>
         </div>
 
@@ -42,9 +42,9 @@
             <div th:if="${isLogedIn} == false">
                 <form action="/login" method="post">
                     <div class="fontOne">E-postadress:</div>
-                    <input name="email" type="text"/>
+                    <input class="regfield" name="email" type="text"/>
                     <div class="fontOne">Lösenord:</div>
-                    <input name="password" type="password"/>
+                    <input class="regfield" name="password" type="password"/>
                     <input class="button" type="submit" value="Logga in"/>
                     <div th:text="${loginFail}"></div>
                     <div>
@@ -125,13 +125,13 @@
             </div>
         </div>
         <div id="topsellers">
-            <p> Our Toppsellers</p>
+            <p>Bästsäljare</p>
             <div class="toppProduct" th:each="product : ${randomTopp}">
                 <img class="productpic" th:src="${product.image}"/>
                 <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
 
                 <div>
-                <span th:text="${product.price +' kr'}">kr</span>
+                <span th:text="${product.price +' kr'}"></span>
                 <span class="addProduct">
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>

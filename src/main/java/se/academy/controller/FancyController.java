@@ -61,9 +61,9 @@ public class FancyController {
 
     @GetMapping("/search")
     public String search(Model model, HttpSession session, @RequestParam String srch) {
-        model.addAttribute("products", repository.search(srch));
         handleLoginStatus(session, model);
-        model.addAttribute("eyes", repository.getBySubCategoryTop3("Hudvård"));
+        pickRandomTopp(model);
+        model.addAttribute("products", repository.search(srch));
         return "search";
     }
 
@@ -160,7 +160,7 @@ public class FancyController {
     @GetMapping("/shoppingcart")
     public String shoppingcart(Model model, HttpSession session){
         handleLoginStatus(session,model);
-        handleAddSubCategories(model);
+        pickRandomTopp(model);
         ShoppingCart shoppingCart;
         if(session.getAttribute("shoppingCart") != null){
             shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
