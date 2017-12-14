@@ -174,9 +174,15 @@ public class FancyController {
         model.addAttribute("shoppingCart",shoppingCart);
         return "shoppingcart";
     }
+    @GetMapping("/clearshoppingcart")
+    public String clear(HttpSession session){
+        buyShoppingCart(session);
+        session.removeAttribute("shoppingCart");
+        return "redirect:/shoppingcart";
+    }
 
     @PostMapping("/buyShoppingCart")
-    public String buyShoppingCart(Model model, HttpSession session){
+    public String buyShoppingCart( HttpSession session){
         List<Product> products = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
         Customer customer = (Customer) session.getAttribute("sessionCustomer");

@@ -33,6 +33,7 @@ paypal.Button.render({
     onAuthorize: function(data, actions) {
         return actions.payment.execute().then(function(response) {
             console.log('The payment was completed!');
+            window.location.replace("/clearshoppingcart");
         });
     },
     // Pass a function to be called when the customer cancels the payment

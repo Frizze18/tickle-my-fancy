@@ -20,7 +20,7 @@
     <div id="menubar">
         <div id="searchbar">
             <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
-            <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
+            <button type="submit" id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
         <div id="menu">
             <span>category1</span>
@@ -67,43 +67,46 @@
     <div id="subcategoryMenu">
         <div id="annons">
             <a href="http://www.weatheryoulikeit.com/" target="_blank">
-                <img class="bannerhög" src="https://cdn.discordapp.com/attachments/378129316447256577/390133481344335872/wyli.png"/>
+                <img class="bannerhög"
+                     src="https://cdn.discordapp.com/attachments/378129316447256577/390133481344335872/wyli.png"/>
             </a>
         </div>
     </div>
 
-<!--=============================================================-->
+    <!--=============================================================-->
     <div id="mainPage">
         <h1>Varukorg</h1>
         <div th:if="${emptyCart} == true">Din varukorg är tom!</div>
         <div class="shoppincart" th:if="${emptyCart} == false">
-                <tr th:each="item : ${shoppingCart.shoppingmap}">
-                    <div>
-                        <td th:text="${item.value.product.name}+':  '+${item.value.quantity}+' st  '+${item.value.priceOfProducts}+'kr'"></td>
-                        <a th:href="@{'/addProductInCart?productID=' + ${item.value.product.productID}}"><input class="button" type="submit" value="+"/></a>
-                        <a th:href="@{'/removeProductInCart?productID=' + ${item.value.product.productID}}"><input class="button" type="submit" value="-"/></a>
-                    </div>
-                </tr>
+            <tr th:each="item : ${shoppingCart.shoppingmap}">
+                <div>
+                    <td th:text="${item.value.product.name}+':  '+${item.value.quantity}+' st  '+${item.value.priceOfProducts}+'kr'"></td>
+                    <a th:href="@{'/addProductInCart?productID=' + ${item.value.product.productID}}"><input
+                            class="button" type="submit" value="+"/></a>
+                    <a th:href="@{'/removeProductInCart?productID=' + ${item.value.product.productID}}"><input
+                            class="button" type="submit" value="-"/></a>
+                </div>
+            </tr>
             <span id="pricebox" th:text="'Totalpris:  '+${shoppingCart.totalPrice}+'Kr'"></span>
             <span id="paypal" class="hidden" th:text="${shoppingCart.totalPrice}"></span>
             <div th:if="${emptyCart} == false">
                 <form action="/buyShoppingCart" method="post">
                     <input class="buybutton" type="submit" value="KÖP!"/>
                 </form>
-            <div id="myContainerElement">
-            </div>
+                <div id="myContainerElement"></div>
                 <form action="/emptyShoppingCart" method="post">
                     <input class="button" type="submit" value="Töm varukorg"/>
                 </form>
             </div>
         </div>
     </div>
-<!--==============================================================-->
+    <!--==============================================================-->
     <div id="topsellers">
         <h3> OUR TOPPSELLERS</h3>
         <div th:each="product : ${nails}">
             <img class="productpic" th:src="${product.image}"/>
-            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
+            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}"
+                  th:text="${product.name}"></a></p>
             <p th:text="${product.price +' kr'}">kr</p>
             <span class="addProduct">
                     <form action="/addProduct" method="post">
