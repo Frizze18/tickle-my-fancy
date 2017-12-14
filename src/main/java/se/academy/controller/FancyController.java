@@ -185,8 +185,9 @@ public class FancyController {
         return "shoppingcart";
     }
 
-    @PostMapping("/buyShoppingCart")
-    public String buyShoppingCart(Model model, HttpSession session) {
+
+    @GetMapping("/buyShoppingCart")
+    public String buyShoppingCart( HttpSession session){
         List<Product> products = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
         Customer customer = (Customer) session.getAttribute("sessionCustomer");
@@ -196,16 +197,16 @@ public class FancyController {
             products.add(entry.getValue().getProduct());
             quantities.add(entry.getValue().getQuantity());
         }
-        repository.addOrder(products, quantities, email, "Inget");
-        return "redirect:shoppingcart";
+
+  repository.addOrder(products, quantities, email, "Inget");
+        return "redirect:/emptyShoppingCart";
     }
 
-    @PostMapping("/emptyShoppingCart")
-    public String emptyShoppingCart(HttpSession session) {
-        session.removeAttribute("shoppingCart");
+    @GetMapping("/emptyShoppingCart")
+    public String emptyShoppingCart(HttpSession session){
+     session.removeAttribute("shoppingCart");
         return "redirect:shoppingcart";
     }
-
     @GetMapping("/subcategory")
     public String getSubcategory(Model model, HttpSession session, @RequestParam String sc) {
 
@@ -222,6 +223,7 @@ public class FancyController {
 
         return "subcategory";
     }
+
 
     @PostMapping("/checkout")
     @ResponseBody
@@ -287,7 +289,6 @@ public class FancyController {
 
         order.acknowledge();
     }
-
     private void handleLoginStatus(HttpSession session, Model model) {
         boolean isLogedIn;
         if (session.getAttribute("sessionCustomer") == null) {
@@ -320,7 +321,6 @@ public class FancyController {
             default: model.addAttribute("randomTopp", repository.getBySubCategoryTop3("Smink"));
         }
     }
-
     private CheckoutOrderData createOrderData(List<Product> products, List<Integer> quantities) {
         final List<OrderLine> lines = new ArrayList<>();
         long totalAmount = 0;

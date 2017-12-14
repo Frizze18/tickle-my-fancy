@@ -124,7 +124,7 @@
     <section id="pageContent">
 
         <div id="subcategoryMenu">
-            <p>Menu stuff</p>>
+            
         </div>
 
 
@@ -166,6 +166,12 @@
                 </p>
                 <img class="productpic" th:src="${product.image}" />
                 <p th:text="${product.price +' kr'}">kr</p>
+                <span class="addProduct">
+                    <form action="/addProduct" method="post">
+                        <input type="hidden" name="productID" th:value="${product.productID}"/>
+                        <input class="button" type="submit" value="&#128722;"/>
+                    </form>
+                </span>
 
             </div>
         </div>
