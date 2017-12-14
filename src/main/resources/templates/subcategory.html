@@ -17,112 +17,53 @@
 </head>
 
 <body>
-    <header id="header">
-        <div id="logoDiv">
-            <!--<img src="https://i.ytimg.com/vi/e3Nl_TCQXuw/maxresdefault.jpg" id="logo"/>-->
-            <img src="./img/logo.png" id="logo" />
+<header id="header">
+    <div id="logoDiv">
+        <!--<img src="https://i.ytimg.com/vi/e3Nl_TCQXuw/maxresdefault.jpg" id="logo"/>-->
+        <img src="./img/logo.png" id="logo"/>
+    </div>
+
+    <div id="menubar">
+        <div id="searchbar">
+            <input type="text" id="searchTerm" placeholder="Sök"/>
+            <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
-
-        <div id="menubar">
-            <div id="searchbar">
-                <input type="text" id="searchTerm" placeholder="What are you looking for?" />
-                <button type="submit" id="searchButton"></button>
-
-            </div>
-            <div id="menu">
-                <nav id="primary_nav_wrap">
-                    <ul>
-                        <li class="current-menu-item">
-                            <a href="#">Smink</a>
-                            <ul>
-                                <li>
-                                    <a href="/subcategory?sc=fransar">Fransar</a>
-                                    <ul>
-                                        <li>
-                                            <a href="/search?srch=ninjafransar">Ninjafransar</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="/subcategory?sc=läppstift">Läppstift</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Category 2</a>
-                            <ul>
-                                <li>
-                                    <a href="#">Flowers</a>
-                                </li>
-                                <li>
-                                    <a href="#">and</a>
-                                </li>
-                                <li>
-                                    <a href="#">stuff</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Category 3</a>
-                            <ul>
-                                <li>
-                                    <a href="#">Cool</a>
-                                </li>
-                                <li>
-                                    <a href="#">Stuff</a>
-                                    <ul>
-                                        <li>
-                                            <a href="#">And stuff</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="#">And more stuff</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Category 4</a>
-                        </li>
-                        <li>
-                            <a href="#">Category 5</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+        <div id="menu">
+            <a href="/subcategory?sc=Hårvård">Hårvård</a>
+            <a href="/subcategory?sc=Hudvård">Hudvård</a>
+            <a href="/subcategory?sc=Smink">Smink</a>
+            <a href="/subcategory?sc=Damdoft">Damdoft</a>
+            <a href="/subcategory?sc=Herrdoft">Herrdoft</a>
         </div>
+    </div>
 
-        <div id="cartbox">
-            <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
-            <div th:if="${isLogedIn} == false">
-                <form action="/login" method="post">
-                    <div>E-postadress:</div>
-                    <input name="email" type="text" />
-                    <div>Lösenord:</div>
-                    <input name="password" type="password" />
-                    <input type="submit" value="Logga in" />
-                    <div th:text="${loginFail}"></div>
-                    <div>
-                        <a href="registration.html">Skapa nytt konto</a>
-                    </div>
-                </form>
-
-            </div>
-            <div th:if="${isLogedIn} == true" id="login">
-                <a href="customerpage.html">
-                    <img src="./img/mypagelogo.png" id="mypagelogo" />
-                </a>
-            </div>
-            <div th:if="${isLogedIn} == true" id="cart">
-                <img src="./img/shopping-cart.png" id="cartlogo" />
-            </div>
-            <div th:if="${isLogedIn} == true" id="logoutbutton">
-                <form action="/logout" method="post">
-                    <input type="submit" value="logout" />
-                </form>
-            </div>
+    <div id="cartbox">
+        <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
+        <div th:if="${isLogedIn} == false">
+            <form action="/login" method="post">
+                <div class="fontOne">E-postadress:</div>
+                <input class="regfield" name="email" type="text"/>
+                <div class="fontOne">Lösenord:</div>
+                <input class="regfield" name="password" type="password"/>
+                <input class="button" type="submit" value="Logga in"/>
+                <div th:text="${loginFail}"></div>
+                <div>
+                    <a class="fontOne" href="registration.html" style="text-decoration:none">Skapa nytt konto</a>
+                </div>
+            </form>
         </div>
-    </header>
+        <div th:if="${isLogedIn} == true" id="logoutbutton">
+            <form action="/logout" method="post">
+                <input class="button" type="submit" value="Logga ut"/>
+            </form>
+        </div>
+    </div>
+    <div id="iconbox">
+        <div><img src="./img/shopping-cart.png" id="cartlogo"/></div>
+        <div th:if="${isLogedIn} == true" id="login"><a href="customerpage.html"><img src="./img/mypagelogo.png" id="mypagelogo"/></a>
+        </div>
+    </div>
+</header>
     <section id="pageContent">
 
         <div id="subcategoryMenu">
@@ -146,65 +87,66 @@
                     <p th:text="${product.price +' kr'}">kr</p>
                     <!--<p class="productdescription" th:text="${product.description}"></p>-->
                     </div>
+                    <span class="addProduct">
+                            <form action="/addProduct" method="post">
+                                <input type="hidden" name="productID" th:value="${product.productID}"/>
+                                <input class="button" type="submit" value="Lägg till i varukorg"/>
+                            </form>
+                    </span>
                 </div>
             </div>
 
         </div>
 
         <div id="topsellers">
-
-            <p> Our Toppsellers</p>
+            <p>Bästsäljare</p>
             <div class="toppProduct" th:each="product : ${randomTopp}">
                 <img class="productpic" th:src="${product.image}"/>
                 <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
 
                 <div class="topseller">
-                    <span th:text="${product.price +' kr'}">kr</span>
+                    <span th:text="${product.price +' kr'}"></span>
                     <span class="addProduct">
-
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
                         <input class="button" type="submit" value="&#128722;"/>
                     </form>
                 </span>
-
                 </div>
-                <p>&#x2767;</p>
+                <p>⎯⎯⎯⎯&nbsp;&nbsp;&nbsp;&nbsp;&#x2767;&nbsp;&nbsp;&nbsp;&nbsp;⎯⎯⎯⎯</p>
             </div>
         </div>
     </section>
 
-    <section id="foot">
-        <div class="shopsection">
-            <ul id="shop">SHOP</ul>
-            <li>Women</li>
-            <li>Men</li>
-            <li>Makeup</li>
-            <li>lipstift</li>
-        </div>
+<section id="foot">
 
-        <div class="informationsection">
-            <ul>information</ul>
-            <li>carrer at Beauty and the beast</li>
-            <li>aboute Beauty and the beast</li>
-            <li>information</li>
-        </div>
-        <div class="helpsection">
-            <ul>help</ul>
-            <li>customer service</li>
-            <li>My profile</li>
-            <li>Gift Card</li>
-            <li>FAQ</li>
-        </div>
+    <div class="informationsection">
+        <p>Information</p>
+        <ul>
+            <li><a>Om oss</a></li>
+            <li><a>Jobba hos oss</a></li>
+        </ul>
 
-        <div class="socialsection">
-            <ul>social</ul>
-            <li>Facebook</li>
-            <li>Instagram</li>
-            <li>Twitter</li>
-            <li>Mail</li>
+    </div>
+    <div class="helpsection">
+        <p>Kundservice</p>
+        <ul>
+            <li><a>Kontakta kundservice</a></li>
+            <li><a>Vanliga frågor</a></li>
+            <li><a>Köpvillkor</a></li>
+        </ul>
+    </div>
+
+    <div class="socialsection">
+        <p>Följ oss</p>
+        <div>
+            <a href="https://www.instagram.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390482322727763969/instagram.png"/></a>
+            <a href="https://sv-se.facebook.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390480664786632704/facebook.png"/></a>
+            <a href="https://twitter.com/?lang=sv" target="_blank"><img class="socialIcon" src="./img/Twitter.png"/></a>
+            <img class="socialIcon" src="./img/Kiwi.png"/>
         </div>
-    </section>
+    </div>
+</section>
 
     <script src="./script/bundle.js"></script>
 

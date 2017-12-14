@@ -4,7 +4,7 @@ public class ProductWrapper {
 
     private Product product;
     private int quantity;
-    private double priceOfProducts;
+    private int priceOfProducts;
 
     public ProductWrapper(){
     }
@@ -31,11 +31,11 @@ public class ProductWrapper {
         this.quantity = quantity;
     }
 
-    public double getPriceOfProducts() {
+    public int getPriceOfProducts() {
         return priceOfProducts;
     }
 
-    public void setPriceOfProducts(double priceOfProducts) {
+    public void setPriceOfProducts(int priceOfProducts) {
         this.priceOfProducts = priceOfProducts;
     }
 

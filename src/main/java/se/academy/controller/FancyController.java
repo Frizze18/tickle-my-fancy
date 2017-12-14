@@ -47,6 +47,7 @@ public class FancyController {
     public String showPersonalPage(Model model, HttpSession session) {
         Customer customer = (Customer) session.getAttribute("sessionCustomer");
         handleAddSubCategories(model);
+        pickRandomTopp(model);
         handleLoginStatus(session, model);
         if (customer == null) {
             return "redirect:/";
@@ -60,6 +61,7 @@ public class FancyController {
     public String showPersonalPage(Model model, HttpSession session, @RequestParam int orderID) {
         Customer customer = (Customer) session.getAttribute("sessionCustomer");
         handleAddSubCategories(model);
+        pickRandomTopp(model);
         handleLoginStatus(session, model);
         if (customer == null) {
             return "redirect:/";
@@ -229,7 +231,7 @@ public class FancyController {
     }
     @GetMapping("/subcategory")
     public String getSubcategory(Model model, HttpSession session, @RequestParam String sc) {
-
+        handleLoginStatus(session,model);
         Queue<Product> products = repository.getBySubCategory(sc);
         if (products.isEmpty()) {
             //Should never happen
@@ -280,6 +282,8 @@ public class FancyController {
 
     @GetMapping("/confirmation")
     public String confirmation(Model model, HttpSession session, @RequestParam String klarna_order_id) {
+        handleLoginStatus(session,model);
+        pickRandomTopp(model);
         Client client = DefaultClient.newInstance(
                 "PK00448_b783e776f1ae",
                 "Ra7CAQA0tSSU5uPM",
