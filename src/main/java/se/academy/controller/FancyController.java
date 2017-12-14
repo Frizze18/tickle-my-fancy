@@ -160,7 +160,7 @@ public class FancyController {
     @GetMapping("/shoppingcart")
     public String shoppingcart(Model model, HttpSession session){
         handleLoginStatus(session,model);
-        handleAddSubCategories(model);
+        pickRandomTopp(model);
         ShoppingCart shoppingCart;
         if(session.getAttribute("shoppingCart") != null){
             shoppingCart =  (ShoppingCart) session.getAttribute("shoppingCart");
