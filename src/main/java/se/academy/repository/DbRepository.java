@@ -90,24 +90,26 @@ public class DbRepository {
         try {
             Connection conn = dataSource.getConnection();
             Queue<Product> products = new LinkedList<>();
+            List<Integer> ids = new ArrayList<>();
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM products WHERE [name] = (?)");
             statement.setString(1, searchString);
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
             statement = conn.prepareStatement("SELECT * FROM products WHERE [name] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
             statement = conn.prepareStatement("SELECT * FROM products WHERE [subcategory] = (?)");
             statement.setString(1, searchString);
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
             statement = conn.prepareStatement("SELECT * FROM products WHERE [category] = (?)");
             statement.setString(1, searchString);
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
             statement = conn.prepareStatement("SELECT * FROM products WHERE [subcategory] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
             statement = conn.prepareStatement("SELECT * FROM products WHERE [category] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
+
 
             return products;
         } catch (SQLException e) {
@@ -179,7 +181,7 @@ public class DbRepository {
     }
 
 
-    public void searchHelper(Queue<Product> products, ResultSet rs) throws SQLException {
+    public void searchHelper(Queue<Product> products, ResultSet rs, List<Integer> ids) throws SQLException {
         while (rs.next()) {
             Product product = new Product
                     (rs.getInt("productID"),
@@ -190,7 +192,10 @@ public class DbRepository {
                             rs.getString("category"),
                             rs.getString("subcategory"),
                             rs.getInt("quantity"));
-            products.add(product);
+            if (!(ids.contains(product.getProductID()))) {
+                products.add(product);
+                ids.add(product.getProductID());
+            }
         }
     }
 

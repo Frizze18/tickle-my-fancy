@@ -190,8 +190,11 @@ public class FancyController {
     public String buyShoppingCart( HttpSession session){
         List<Product> products = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
-        Customer customer = (Customer) session.getAttribute("sessionCustomer");
-        String email = customer.getEmail();
+        String email = "default@default.com";
+        if (session.getAttribute("sessionCustomer") != null) {
+            Customer customer = (Customer) session.getAttribute("sessionCustomer");
+            email = customer.getEmail();
+        }
         ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
         for (Map.Entry<Integer, ProductWrapper> entry : shoppingCart.getShoppingmap().entrySet()) {
             products.add(entry.getValue().getProduct());
@@ -232,8 +235,6 @@ public class FancyController {
     public String checkout(HttpSession session) {
         List<Product> products = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
-        Customer customer = (Customer) session.getAttribute("sessionCustomer");
-        String email = customer.getEmail();
         ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
         for (Map.Entry<Integer, ProductWrapper> entry : shoppingCart.getShoppingmap().entrySet()) {
             products.add(entry.getValue().getProduct());
@@ -270,8 +271,11 @@ public class FancyController {
         CheckoutOrder checkout = client.newCheckoutOrder(klarna_order_id);
         CheckoutOrderData orderData = checkout.fetch();
         model.addAttribute("confirmation", orderData.getHtmlSnippet());
-        Customer customer = (Customer) session.getAttribute("sessionCustomer");
-        String email = customer.getEmail();
+        String email = "default@gmail.com";
+        if (session.getAttribute("sessionCustomer") != null) {
+            Customer customer = (Customer) session.getAttribute("sessionCustomer");
+            email = customer.getEmail();
+        }
         createOrder((ShoppingCart) session.getAttribute("shoppingCart"), email, klarna_order_id);
         session.removeAttribute("shoppingCart");
         session.removeAttribute("klarna_order_id");
