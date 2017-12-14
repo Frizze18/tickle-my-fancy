@@ -97,7 +97,7 @@
             <div class="toppProduct" th:each="product : ${randomTopp}">
                 <img class="productpic" th:src="${product.image}"/>
                 <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
-                <div>
+                <div class="topseller">
                     <span th:text="${product.price +' kr'}"></span>
                     <span class="addProduct">
                     <form action="/addProduct" method="post">
