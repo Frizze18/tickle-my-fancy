@@ -25,7 +25,7 @@
 
         <div id="menubar">
             <div id="searchbar">
-                <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
+                <input type="text" id="searchTerm" placeholder="Sök"/>
                 <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
             </div>
             <div id="menu">
@@ -54,7 +54,7 @@
             </div>
             <div th:if="${isLogedIn} == true" id="logoutbutton">
                 <form action="/logout" method="post">
-                    <input class="button" type="submit" value="logout"/>
+                    <input class="button" type="submit" value="Logga ut"/>
                 </form>
             </div>
         </div>
@@ -66,9 +66,7 @@
     </header>
     <section id="pageContent">
 
-        <div id="subcategoryMenu">
-
-        </div>
+        <div id="subcategoryMenu"></div>
 
 
         <div id="mainPage">
@@ -145,17 +143,17 @@
         <div class="informationsection">
             <p>Information</p>
             <ul>
-                <li>Om oss</li>
-                <li>Jobba hos oss</li>
+                <li><a>Om oss</a></li>
+                <li><a>Jobba hos oss</a></li>
             </ul>
 
         </div>
         <div class="helpsection">
             <p>Kundservice</p>
             <ul>
-            <li>Kontakta kundservice</li>
-            <li>Vanliga frågor</li>
-            <li>Köpvillkor</li>
+            <li><a>Kontakta kundservice</a></li>
+            <li><a>Vanliga frågor</a></li>
+            <li><a>Köpvillkor</a></li>
             </ul>
         </div>
 

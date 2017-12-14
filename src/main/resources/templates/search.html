@@ -24,7 +24,7 @@
 
     <div id="menubar">
         <div id="searchbar">
-            <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
+            <input type="text" id="searchTerm" placeholder="Sök"/>
             <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
         <div id="menu">
@@ -53,7 +53,7 @@
         </div>
         <div th:if="${isLogedIn} == true" id="logoutbutton">
             <form action="/logout" method="post">
-                <input class="button" type="submit" value="logout"/>
+                <input class="button" type="submit" value="Logga ut"/>
             </form>
         </div>
     </div>
@@ -97,6 +97,7 @@
             <div class="toppProduct" th:each="product : ${randomTopp}">
                 <img class="productpic" th:src="${product.image}"/>
                 <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
+
                 <div class="topseller">
                     <span th:text="${product.price +' kr'}"></span>
                     <span class="addProduct">
@@ -104,40 +105,41 @@
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
                         <input class="button" type="submit" value="&#128722;"/>
                     </form>
-                    </span>
+                </span>
                 </div>
-                <p>&#x2767;</p>
+                <p>⎯⎯⎯⎯&nbsp;&nbsp;&nbsp;&nbsp;&#x2767;&nbsp;&nbsp;&nbsp;&nbsp;⎯⎯⎯⎯</p>
             </div>
         </div>
     </section>
-    <section id="foot">
-        <div class="informationsection">
-            <p>Information</p>
-            <ul>
-                <li>Om oss</li>
-                <li>Jobba hos oss</li>
-            </ul>
+<section id="foot">
 
-        </div>
-        <div class="helpsection">
-            <p>Kundservice</p>
-            <ul>
-                <li>Kontakta kundservice</li>
-                <li>Vanliga frågor</li>
-                <li>Köpvillkor</li>
-            </ul>
-        </div>
+    <div class="informationsection">
+        <p>Information</p>
+        <ul>
+            <li><a>Om oss</a></li>
+            <li><a>Jobba hos oss</a></li>
+        </ul>
 
-        <div class="socialsection">
-            <p>Följ oss</p>
-            <div>
-                <a href="https://www.instagram.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390482322727763969/instagram.png"/></a>
-                <a href="https://sv-se.facebook.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390480664786632704/facebook.png"/></a>
-                <a href="https://twitter.com/?lang=sv" target="_blank"><img class="socialIcon" src="./img/Twitter.png"/></a>
-                <img class="socialIcon" src="./img/Kiwi.png"/>
-            </div>
+    </div>
+    <div class="helpsection">
+        <p>Kundservice</p>
+        <ul>
+            <li><a>Kontakta kundservice</a></li>
+            <li><a>Vanliga frågor</a></li>
+            <li><a>Köpvillkor</a></li>
+        </ul>
+    </div>
+
+    <div class="socialsection">
+        <p>Följ oss</p>
+        <div>
+            <a href="https://www.instagram.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390482322727763969/instagram.png"/></a>
+            <a href="https://sv-se.facebook.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390480664786632704/facebook.png"/></a>
+            <a href="https://twitter.com/?lang=sv" target="_blank"><img class="socialIcon" src="./img/Twitter.png"/></a>
+            <img class="socialIcon" src="./img/Kiwi.png"/>
         </div>
-    </section>
+    </div>
+</section>
     <script src="./script/bundle.js"></script>
 </body>
 

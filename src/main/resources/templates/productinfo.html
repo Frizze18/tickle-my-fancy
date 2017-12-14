@@ -25,15 +25,15 @@
 
     <div id="menubar">
         <div id="searchbar">
-            <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
-            <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
+            <input type="text" id="searchTerm" placeholder="Sök"/>
+            <button type="submit" id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
         <div id="menu">
             <a href="/subcategory?sc=Hårvård">Hårvård</a>
             <a href="/subcategory?sc=Hudvård">Hudvård</a>
             <a href="/subcategory?sc=Smink">Smink</a>
-            <a href="/subcategory?sc=Hårvård">Damdoft</a>
-            <a href="/subcategory?sc=Hårvård">Herrdoft</a>
+            <a href="/subcategory?sc=Damdoft">Damdoft</a>
+            <a href="/subcategory?sc=Herrdoft">Herrdoft</a>
         </div>
     </div>
 
@@ -42,33 +42,31 @@
         <div th:if="${isLogedIn} == false">
             <form action="/login" method="post">
                 <div class="fontOne">E-postadress:</div>
-                <input name="email" type="text"/>
+                <input class="regfield" name="email" type="text"/>
                 <div class="fontOne">Lösenord:</div>
-                <input name="password" type="password"/>
+                <input class="regfield" name="password" type="password"/>
                 <input class="button" type="submit" value="Logga in"/>
                 <div th:text="${loginFail}"></div>
                 <div>
                     <a class="fontOne" href="registration.html" style="text-decoration:none">Skapa nytt konto</a>
                 </div>
             </form>
-
-        </div>
-        <div th:if="${isLogedIn} == true" id="login">
-            <a href="customerpage.html">
-                <img src="./img/mypagelogo.png" id="mypagelogo"/>
-            </a>
-        </div>
-        <div th:if="${isLogedIn} == true" id="cart">
-            <img src="./img/shopping-cart.png" id="cartlogo"/>
         </div>
         <div th:if="${isLogedIn} == true" id="logoutbutton">
             <form action="/logout" method="post">
-                <input type="submit" value="logout"/>
+                <input class="button" type="submit" value="Logga ut"/>
             </form>
+        </div>
+    </div>
+    <div id="iconbox">
+        <div><img src="./img/shopping-cart.png" id="cartlogo"/></div>
+        <div th:if="${isLogedIn} == true" id="login"><a href="customerpage.html"><img src="./img/mypagelogo.png"
+                                                                                      id="mypagelogo"/></a>
         </div>
     </div>
 </header>
 <section id="pageContent">
+    <div id="subcategoryMenu"></div>
     <div id="mainPage">
 
         <div id="product">
@@ -93,25 +91,25 @@
 
         <p class="producttext" th:text="${product.description}"></p>
         <div class="recension-recensionerBox">
-        <div id="userReviewsBox">
-            <form action="#" th:action="@{/addreview}" th:object="${review}" method="post">
-                <h3 class="linksToTheRight">
-                    Skriv ny recension:
-                </h3>
-                <textarea name="recension" type="text" th:field="*{userReview}" cols="40" rows="10"></textarea>
-                <input th:field="*{productID}" class="hidden" type="hidden"/>
-                <input th:field="*{score}" id="score" class="hidden"/>
-                <div class="stars">
-                    <span id="1">&#9733;</span>
-                    <span id="2">&#9733;</span>
-                    <span id="3">&#9733;</span>
-                    <span id="4">&#9733;</span>
-                    <span id="5">&#9733;</span>
-                </div>
-                <input class="button" type="submit"/>
-            </form>
+            <div id="userReviewsBox">
+                <form action="#" th:action="@{/addreview}" th:object="${review}" method="post">
+                    <h3 class="linksToTheRight">
+                        Skriv ny recension:
+                    </h3>
+                    <textarea name="recension" type="text" th:field="*{userReview}" cols="40" rows="10"></textarea>
+                    <input th:field="*{productID}" class="hidden" type="hidden"/>
+                    <input th:field="*{score}" id="score" class="hidden"/>
+                    <div class="stars">
+                        <span id="1">&#9733;</span>
+                        <span id="2">&#9733;</span>
+                        <span id="3">&#9733;</span>
+                        <span id="4">&#9733;</span>
+                        <span id="5">&#9733;</span>
+                    </div>
+                    <input class="button" type="submit"/>
+                </form>
 
-        </div>
+            </div>
             <div id="Recensioner">
                 <h3 class="linksToTheRight">
                     Kundrecensioner:
@@ -132,13 +130,13 @@
                                 <span th:if="${review.score &lt; 5}">&#9733;</span>
                             </div>
                             <p th:text="${review.userReview}"></p>
-                            <p> </p>
+                            <p></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <h2 class="annonstext"> Annons</h2>
+        <!--<h2 class="annonstext"> Annons</h2>-->
         <div id="annons">
             <a href="http://www.weatheryoulikeit.com/" target="_blank">
                 <img src="/img/banner.jpg" id="annonsbild"/>
@@ -146,14 +144,14 @@
         </div>
 
         <!--<div id="moreInfo">-->
-            <!--<div id="information">-->
-                <!--<h3>-->
-                    <!--more information-->
-                <!--</h3>-->
-                <!--<p id="Description" th:text="${product.description}"></p>-->
+        <!--<div id="information">-->
+        <!--<h3>-->
+        <!--more information-->
+        <!--</h3>-->
+        <!--<p id="Description" th:text="${product.description}"></p>-->
 
 
-            <!--</div>-->
+        <!--</div>-->
 
         <!--</div>-->
         <h2 class="textothersbought">
@@ -177,15 +175,14 @@
         </div>
     </div>
     <div id="topsellers">
-        <p> Our Toppsellers</p>
-        <div th:each="product : ${randomTopp}">
+        <p>Bästsäljare</p>
+        <div class="toppProduct" th:each="product : ${randomTopp}">
             <img class="productpic" th:src="${product.image}"/>
-
-            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
+            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}"
+                  th:text="${product.name}"></a></p>
 
             <div class="topseller">
-                <span th:text="${product.price +' kr'}">kr</span>
-
+                <span th:text="${product.price +' kr'}"></span>
                 <span class="addProduct">
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
@@ -193,37 +190,39 @@
                     </form>
                 </span>
             </div>
-            <p>&#x2767;</p>
+            <p>⎯⎯⎯⎯&nbsp;&nbsp;&nbsp;&nbsp;&#x2767;&nbsp;&nbsp;&nbsp;&nbsp;⎯⎯⎯⎯</p>
         </div>
     </div>
 </section>
 <section id="foot">
-    <div class="shopsection">
-        <ul id="shop">SHOP</ul>
-        <li>Women</li>
-        <li>Men</li>
-        <li>Makeup</li>
-        <li>lipstift</li>
-    </div>
+
     <div class="informationsection">
-        <ul>information</ul>
-        <li>carrer at Beauty and the beast</li>
-        <li>aboute Beauty and the beast</li>
-        <li>information</li>
+        <p>Information</p>
+        <ul>
+            <li><a>Om oss</a></li>
+            <li><a>Jobba hos oss</a></li>
+        </ul>
+
     </div>
     <div class="helpsection">
-        <ul>help</ul>
-        <li>customer service</li>
-        <li>My profile</li>
-        <li>Gift Card</li>
-        <li>FAQ</li>
+        <p>Kundservice</p>
+        <ul>
+            <li><a>Kontakta kundservice</a></li>
+            <li><a>Vanliga frågor</a></li>
+            <li><a>Köpvillkor</a></li>
+        </ul>
     </div>
+
     <div class="socialsection">
-        <ul>social</ul>
-        <li>Facebook</li>
-        <li>Instagram</li>
-        <li>Twitter</li>
-        <li>Mail</li>
+        <p>Följ oss</p>
+        <div>
+            <a href="https://www.instagram.com/" target="_blank"><img class="socialIcon"
+                                                                      src="https://cdn.discordapp.com/attachments/385089277819879437/390482322727763969/instagram.png"/></a>
+            <a href="https://sv-se.facebook.com/" target="_blank"><img class="socialIcon"
+                                                                       src="https://cdn.discordapp.com/attachments/385089277819879437/390480664786632704/facebook.png"/></a>
+            <a href="https://twitter.com/?lang=sv" target="_blank"><img class="socialIcon" src="./img/Twitter.png"/></a>
+            <img class="socialIcon" src="./img/Kiwi.png"/>
+        </div>
     </div>
 </section>
 <script src="./script/bundle.js"></script>

@@ -7,7 +7,7 @@ import java.util.Map;
 public class ShoppingCart {
 
     private Map<Integer,ProductWrapper> shoppingmap; //key = productID is Integer
-    private double totalPrice;
+    private int totalPrice;
 
     public ShoppingCart(){
         this.shoppingmap = new HashMap<>();
@@ -22,11 +22,11 @@ public class ShoppingCart {
         this.shoppingmap = shoppingmap;
     }
 
-    public double getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
 
