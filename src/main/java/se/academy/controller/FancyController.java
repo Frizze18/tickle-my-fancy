@@ -52,7 +52,21 @@ public class FancyController {
             return "redirect:/";
         }
         model.addAttribute("customer", customer);
+        model.addAttribute("orders", repository.getOrdersForCustomer(customer.getEmail()));
         return "customerpage";
+    }
+
+    @GetMapping("/showOrder")
+    public String showPersonalPage(Model model, HttpSession session, @RequestParam int orderID) {
+        Customer customer = (Customer) session.getAttribute("sessionCustomer");
+        handleAddSubCategories(model);
+        handleLoginStatus(session, model);
+        if (customer == null) {
+            return "redirect:/";
+        }
+        model.addAttribute("orderID", orderID);
+        model.addAttribute("suborders", repository.getWholeOrder(orderID));
+        return "order";
     }
 
     @PostMapping("/login")

@@ -69,11 +69,10 @@
     </div>
     <!--===========================================================-->
     <div id="mainpage">
-        <p th:text="${'Hej ' + customer.firstname} +' '+ ${customer.lastname} + '!'"></p>
-        <p>Du är vår bästa kund ♥</p>
-            <ul>
-                <li th:each="order : ${orders}"><a th:href="'/showOrder?orderID='+*{order.orderID}" th:text="*{order.cost}+'kr'"></a></li>
-            </ul>
+        <p th:text="'Order ID '+${orderID}"></p>
+        <ul>
+            <li th:each="subOrder : ${suborders}"><p th:text="'ProduktID: '+*{subOrder.productID}+' '+*{subOrder.price}+'kr/st '+*{subOrder.quantity}+'st '+*{subOrder.cost}+'kr'"></p></li>
+        </ul>
     </div>
     <!--===========================================================-->
 
