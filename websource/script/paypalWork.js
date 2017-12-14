@@ -7,6 +7,15 @@ paypal.Button.render({
 
     env: 'sandbox',
 
+    locale: 'sv_SE',
+
+    style: {
+        size: 'medium',
+        color: 'gold',
+        shape: 'pill',
+        label: 'checkout'
+    },
+
     client: {
         sandbox:    'AWC1-PhJOrXvLj706s6WNEH856RNcRzEgkOpO4v1gB33p_YTS0oDMsGfZQor2r_7pl6dcf7H6v5x_9-V', // from https://developer.paypal.com/developer/applications/
        production: 'AWFTu3GK2q35ClZvhzsvhUdJurBAAIj2X-7CKSwSvIf1.RTUlTmImhFn'  // from https://developer.paypal.com/developer/applications/
