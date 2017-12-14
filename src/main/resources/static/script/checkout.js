@@ -11,7 +11,6 @@ function getCheckout() {
     httpRequest.open('POST', '/checkout');
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     httpRequest.send("klarna_order_id=" + encodeURIComponent(orderID));
-    console.log("send");
 }
 function getSnippet() {
     console.log("get");
