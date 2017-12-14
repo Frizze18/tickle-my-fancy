@@ -69,7 +69,6 @@
     </div>
 </header>
 <section id="pageContent">
-
     <div id="mainPage">
 
         <div id="product">
@@ -87,8 +86,6 @@
                         <input class="button" type="submit" value="Lägg till i varukorg"/>
                     </form>
                 </div>
-
-
                 <!--<p id="productRating" th:text="${avg.score}"></p>-->
             </div>
 
@@ -183,10 +180,12 @@
         <p> Our Toppsellers</p>
         <div th:each="product : ${randomTopp}">
             <img class="productpic" th:src="${product.image}"/>
+
             <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
 
             <div>
                 <span th:text="${product.price +' kr'}">kr</span>
+
                 <span class="addProduct">
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
