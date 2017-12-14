@@ -61,9 +61,9 @@ public class FancyController {
 
     @GetMapping("/search")
     public String search(Model model, HttpSession session, @RequestParam String srch) {
-        model.addAttribute("products", repository.search(srch));
         handleLoginStatus(session, model);
-        model.addAttribute("eyes", repository.getBySubCategoryTop3("Hudvård"));
+        pickRandomTopp(model);
+        model.addAttribute("products", repository.search(srch));
         return "search";
     }
 
