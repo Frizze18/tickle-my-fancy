@@ -32,7 +32,7 @@ public class ControllerApplicationTests {
 
     @Test
     public void searchTest() {
-        Queue<Product> products = repository.search("fransar");
+        Queue<Product> products = repository.search("damdoft");
 
         Assert.notNull(products, "Must get a productlist");
         Assert.notEmpty(products, "Productlist must not be empty");
