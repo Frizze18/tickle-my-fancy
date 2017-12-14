@@ -8,7 +8,6 @@ import com.klarna.rest.api.model.CheckoutOrderData;
 import com.klarna.rest.api.model.MerchantUrls;
 import com.klarna.rest.api.model.OrderData;
 import com.klarna.rest.api.model.OrderLine;
-import com.sun.deploy.util.SessionState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
