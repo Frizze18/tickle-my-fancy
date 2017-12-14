@@ -83,6 +83,7 @@
             <img class="productpic" th:src="${product.image}"/>
             <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}"
                   th:text="${product.name}"></a></p>
+            <div class="topseller">
             <p th:text="${product.price +' kr'}">kr</p>
             <span class="addProduct">
                     <form action="/addProduct" method="post">
@@ -90,6 +91,7 @@
                         <input class="button" type="submit" value="&#128722;"/>
                     </form>
                 </span>
+            </div>
             <p>&#x2767;</p>
         </div>
     </div>
