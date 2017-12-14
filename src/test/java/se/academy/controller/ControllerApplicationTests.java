@@ -40,8 +40,8 @@ public class ControllerApplicationTests {
 
     @Test
     public void getBySubcategoryTest() {
-        String result = restTemplate.getForObject("/subcategory?sc=fransar", String.class);
-        Assert.isTrue(result.contains("fransar"), "Must contain category header");
+        String result = restTemplate.getForObject("/subcategory?sc=herrdoft", String.class);
+        Assert.isTrue(result.contains("Diesel"), "Must contain Diesel dofter");
     }
 
     @Test
