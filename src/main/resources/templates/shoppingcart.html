@@ -57,7 +57,8 @@
     </div>
     <div id="iconbox">
         <div><img src="./img/shopping-cart.png" id="cartlogo"/></div>
-        <div th:if="${isLogedIn} == true" id="login"><a href="customerpage.html"><img src="./img/mypagelogo.png" id="mypagelogo"/></a>
+        <div th:if="${isLogedIn} == true" id="login"><a href="customerpage.html"><img src="./img/mypagelogo.png"
+                                                                                      id="mypagelogo"/></a>
         </div>
     </div>
 </header>
@@ -72,25 +73,33 @@
         <div class="shoppincart" th:if="${emptyCart} == true">Din varukorg är tom!</div>
         <div class="shoppincart" th:if="${emptyCart} == false">
 
-                <tr th:each="item : ${shoppingCart.shoppingmap}">
-                    <!--<div th:text="${item.value.product.name}"></div>-->
-                    <div><a th:href="'/productinfo?productID='+${item.value.product.productID}" th:text="${item.value.product.name}"></a></div>
-                    <div th:text="${item.value.quantity}+' st  '+${item.value.priceOfProducts}+'kr'"></div>
-                    <a th:href="@{'/addProductInCart?productID=' + ${item.value.product.productID}}"><input class="plusminusbutton" type="submit" value="+"/></a>
-                    <a th:href="@{'/removeProductInCart?productID=' + ${item.value.product.productID}}"><input class="plusminusbutton" type="submit" value="-"/></a>
-                </tr>
+            <tr th:each="item : ${shoppingCart.shoppingmap}">
+                <!--<div th:text="${item.value.product.name}"></div>-->
+                <div><a th:href="'/productinfo?productID='+${item.value.product.productID}"
+                        th:text="${item.value.product.name}"></a></div>
+                <div th:text="${item.value.quantity}+' st  '+${item.value.priceOfProducts}+'kr'"></div>
+                <a th:href="@{'/addProductInCart?productID=' + ${item.value.product.productID}}"><input
+                        class="plusminusbutton" type="submit" value="+"/></a>
+                <a th:href="@{'/removeProductInCart?productID=' + ${item.value.product.productID}}"><input
+                        class="plusminusbutton" type="submit" value="-"/></a>
+            </tr>
             <div id="pricebox" th:text="'Totalpris:  '+${shoppingCart.totalPrice}+'Kr'"></div>
+            <button class="button" id="emptyCart">Töm varukorg</button>
             <div th:if="${emptyCart} == false">
-                     <span id="paypal" class="hidden" th:text="${shoppingCart.totalPrice}"></span>
-                <div id="myContainerElement"></div>
-                    <button class="button" id="emptyCart">Töm varukorg</button>
-                <button id="checkoutBtn" class="buybutton">Köp</button>
+                <span id="paypal" class="hidden" th:text="${shoppingCart.totalPrice}"></span>
+              <div id="paybuttons">
+                  <div id="myContainerElement"></div>
+                <button id="checkoutBtn" class="buybutton"><img id="klarnabutton" src="https://cdn.klarna.com/1.0/shared/image/generic/logo/en_gb/basic/logo_white.png"/></button>
+              </div>
+
 
             </div>
         </div>
         <p id="orderID" class="hidden" th:text="${orderID}"></p>
-        <div id="my-checkout-container"></div>
-        <img src="https://cdn.klarna.com/1.0/shared/image/generic/badge/sv_se/checkout/short-blue.png?width=312"/>
+        <div th:if="${isLogedIn} == true">
+            <div id="my-checkout-container"></div>
+            <img src="https://cdn.klarna.com/1.0/shared/image/generic/badge/sv_se/checkout/short-blue.png?width=312"/>
+        </div>
     </div>
     <!--==============================================================-->
     <div id="topsellers">
@@ -98,7 +107,8 @@
         <div class="toppProduct" th:each="product : ${randomTopp}">
             <img class="productpic" th:src="${product.image}"/>
 
-            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
+            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}"
+                  th:text="${product.name}"></a></p>
 
             <div>
                 <span th:text="${product.price +' kr'}"></span>
@@ -134,8 +144,10 @@
     <div class="socialsection">
         <p>Följ oss</p>
         <div>
-            <a href="https://www.instagram.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390482322727763969/instagram.png"/></a>
-            <a href="https://sv-se.facebook.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390480664786632704/facebook.png"/></a>
+            <a href="https://www.instagram.com/" target="_blank"><img class="socialIcon"
+                                                                      src="https://cdn.discordapp.com/attachments/385089277819879437/390482322727763969/instagram.png"/></a>
+            <a href="https://sv-se.facebook.com/" target="_blank"><img class="socialIcon"
+                                                                       src="https://cdn.discordapp.com/attachments/385089277819879437/390480664786632704/facebook.png"/></a>
             <a href="https://twitter.com/?lang=sv" target="_blank"><img class="socialIcon" src="./img/Twitter.png"/></a>
             <img class="socialIcon" src="./img/Kiwi.png"/>
         </div>
