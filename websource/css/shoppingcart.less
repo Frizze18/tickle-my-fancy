@@ -1,9 +1,11 @@
 @deepPurple: #7B008D;
+@button-color: gray;
 @font-one: 'Vollkorn SC', serif;
+@font-sans:'Inconsolata', monospace;
 
 #pricebox{
-    border: 1px solid black;
-    background-color: whitesmoke;
+    margin-top: 1em;
+    font-weight: bold;
 }
 
 .buybutton{
@@ -14,9 +16,25 @@
     height: 30px;
     width: 60px;
     font-family: @font-one;
+    margin-top: 2em;
+}
+.plusminusbutton{
+    border-radius: 5px;
+    border: 2px @button-color;
+    background-color: @button-color;
+    color: white;
+    height: 20px;
+    font-family: @font-one;
     margin-top: 5px;
+    margin-bottom: 1em;
+}
+.shoppincart{
+    font-family: @font-sans;
 }
 
-//#mainPage{
-//    font-family: @font-one;
-//}
+h1{
+    font-family: @font-one;
+    font-size: 23px;
+    font-weight: bold;
+}
+

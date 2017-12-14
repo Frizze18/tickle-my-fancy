@@ -126,6 +126,7 @@
     <section id="pageContent">
 
         <div id="subcategoryMenu">
+
         </div>
 
 
@@ -151,6 +152,7 @@
         </div>
 
         <div id="topsellers">
+
             <p> Our Toppsellers</p>
             <div class="toppProduct" th:each="product : ${randomTopp}">
                 <img class="productpic" th:src="${product.image}"/>
@@ -159,11 +161,13 @@
                 <div>
                     <span th:text="${product.price +' kr'}">kr</span>
                     <span class="addProduct">
+
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
                         <input class="button" type="submit" value="&#128722;"/>
                     </form>
                 </span>
+
                 </div>
                 <p>&#x2767;</p>
             </div>

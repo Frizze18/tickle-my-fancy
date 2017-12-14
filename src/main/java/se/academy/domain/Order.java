@@ -5,12 +5,14 @@ public class Order {
     private int customerID;
     private double cost;
     private int quantity;
+    private String klarna_order_id;
 
-    public Order(int orderID, int customerID, double cost, int quantity) {
+    public Order(int orderID, int customerID, double cost, int quantity, String klarna_order_id) {
         this.orderID = orderID;
         this.customerID = customerID;
         this.cost = cost;
         this.quantity = quantity;
+        this.klarna_order_id = klarna_order_id;
     }
 
     public int getOrderID() {
@@ -43,5 +45,13 @@ public class Order {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getKlarna_order_id() {
+        return klarna_order_id;
+    }
+
+    public void setKlarna_order_id(String klarna_order_id) {
+        this.klarna_order_id = klarna_order_id;
     }
 }
