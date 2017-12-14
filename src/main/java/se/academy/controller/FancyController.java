@@ -174,14 +174,8 @@ public class FancyController {
         model.addAttribute("shoppingCart",shoppingCart);
         return "shoppingcart";
     }
-    @GetMapping("/clearshoppingcart")
-    public String clear(HttpSession session){
-        buyShoppingCart(session);
-        session.removeAttribute("shoppingCart");
-        return "redirect:/shoppingcart";
-    }
 
-    @PostMapping("/buyShoppingCart")
+    @GetMapping("/buyShoppingCart")
     public String buyShoppingCart( HttpSession session){
         List<Product> products = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
@@ -193,10 +187,10 @@ public class FancyController {
             quantities.add(entry.getValue().getQuantity());
         }
         repository.addOrder(products,quantities,email);
-        return "redirect:shoppingcart";
+        return "redirect:/emptyShoppingCart";
     }
 
-    @PostMapping("/emptyShoppingCart")
+    @GetMapping("/emptyShoppingCart")
     public String emptyShoppingCart(HttpSession session){
         session.removeAttribute("shoppingCart");
         return "redirect:shoppingcart";

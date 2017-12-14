@@ -90,13 +90,8 @@
             <span id="pricebox" th:text="'Totalpris:  '+${shoppingCart.totalPrice}+'Kr'"></span>
             <span id="paypal" class="hidden" th:text="${shoppingCart.totalPrice}"></span>
             <div th:if="${emptyCart} == false">
-                <form action="/buyShoppingCart" method="post">
-                    <input class="buybutton" type="submit" value="KÖP!"/>
-                </form>
                 <div id="myContainerElement"></div>
-                <form action="/emptyShoppingCart" method="post">
-                    <input class="button" type="submit" value="Töm varukorg"/>
-                </form>
+                    <button class="button" id="emptyCart">Töm varukorg</button>
             </div>
         </div>
     </div>
