@@ -219,7 +219,7 @@ public class DbRepository {
         return null;
     }
 
-    public int addOrder(List<Product> products, List<Integer> quantities, String email) {
+    public int addOrder(List<Product> products, List<Integer> quantities, String email, String klarna_order_id) {
         try (Connection conn = dataSource.getConnection()) {
             if (!(products.size() == quantities.size())) {
                 return 0;
@@ -247,10 +247,11 @@ public class DbRepository {
                 customerID = rs.getInt("customerID");
             }
 
-            statement = conn.prepareStatement("INSERT INTO orders(customerID, cost, quantity) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            statement = conn.prepareStatement("INSERT INTO orders(customerID, cost, quantity, klarnaID) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, customerID);
             statement.setInt(2, cost);
             statement.setInt(3, totalQuantity);
+            statement.setString(4, klarna_order_id);
             int result = statement.executeUpdate();
             if (result == 0) {
                 throw new SQLException("Creating order failed, no rows affected.");
@@ -327,7 +328,8 @@ public class DbRepository {
                         resultSet.getInt("orderID"),
                         resultSet.getInt("customerID"),
                         resultSet.getDouble("cost"),
-                        resultSet.getInt("quantity"));
+                        resultSet.getInt("quantity"),
+                        resultSet.getString("klarnaID"));
             }
             return order;
         } catch (SQLException e) {
@@ -376,11 +378,12 @@ public class DbRepository {
         }
         return null;
     }
+
     public String getAvg(int productID) {
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("SELECT AVG (score) FROM userreviews WHERE [productID] = (?)");
             statement.setInt(1, productID);
-            String avgStar="";
+            String avgStar = "";
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 avgStar = resultSet.getString("score");
@@ -406,5 +409,26 @@ public class DbRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Order getOrderByKlarna(String klarna_order_id) {
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM orders WHERE [klarnaID] = (?)");
+            statement.setString(1, klarna_order_id);
+            ResultSet resultSet = statement.executeQuery();
+            Order order = null;
+            if (resultSet.next()) {
+                order = new Order(
+                        resultSet.getInt("orderID"),
+                        resultSet.getInt("customerID"),
+                        resultSet.getDouble("cost"),
+                        resultSet.getInt("quantity"),
+                        resultSet.getString("klarnaID"));
+            }
+            return order;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
