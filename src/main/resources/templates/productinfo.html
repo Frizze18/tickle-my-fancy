@@ -80,7 +80,7 @@
 
                 <!--<img class="productpic" th:src="${product.image}"/>-->
                 <h2 class="productdescription" th:text="${product.name}"></h2>
-                <p id="productPrice" th:text="${product.price + ' kr ' }">price</p>
+                <p class="productdescription" th:text="${product.price + ' kr ' }">price</p>
                 <div class="addProduct">
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
@@ -93,48 +93,35 @@
             </div>
 
         </div>
+
         <p class="producttext" th:text="${product.description}"></p>
-        <h2> annons</h2>
-        <div id="annons">
-            <a href="http://www.weatheryoulikeit.com/" target="_blank">
-                <img src="/img/banner.jpg" id="annonsbild"/>
-            </a>
-        </div>
-
-
-        <div id="moreInfo">
-            <div id="information">
-                <h3>
-                    more information
+        <div class="recension-recensionerBox">
+        <div id="userReviewsBox">
+            <form action="#" th:action="@{/addreview}" th:object="${review}" method="post">
+                <h3 class="linksToTheRight">
+                    Skriv ny recension:
                 </h3>
-                <p id="Description" th:text="${product.description}"></p>
-                <div id="userReview">
-                    <form action="#" th:action="@{/addreview}" th:object="${review}" method="post">
-                        <input th:field="*{productID}" class="hidden" type="hidden"/>
-                        <input th:field="*{score}" id="score" class="hidden"/>
-                        <div class="stars">
-                            <span id="1">&#9733;</span>
-                            <span id="2">&#9733;</span>
-                            <span id="3">&#9733;</span>
-                            <span id="4">&#9733;</span>
-                            <span id="5">&#9733;</span>
-                        </div>
-                        <div>
-                            Recension:
-                        </div>
-                        <textarea name="recension" type="text" th:field="*{userReview}" cols="40" rows="5"></textarea>
-                        <input type="submit"/>
-                    </form>
+                <textarea name="recension" type="text" th:field="*{userReview}" cols="40" rows="10"></textarea>
+                <input th:field="*{productID}" class="hidden" type="hidden"/>
+                <input th:field="*{score}" id="score" class="hidden"/>
+                <div class="stars">
+                    <span id="1">&#9733;</span>
+                    <span id="2">&#9733;</span>
+                    <span id="3">&#9733;</span>
+                    <span id="4">&#9733;</span>
+                    <span id="5">&#9733;</span>
                 </div>
+                <input class="button" type="submit"/>
+            </form>
 
-            </div>
+        </div>
             <div id="Recensioner">
-                <h3>
-                    Recensioner
+                <h3 class="linksToTheRight">
+                    Kund recensioner:
                 </h3>
                 <div id="reviews">
                     <div th:if="${review!=null}">
-                        <div th:each="review : ${reviews}">
+                        <div class="sizeLettersInReviews" th:each="review : ${reviews}">
                             <div class="stars">
                                 <span th:if="${review.score &gt; 0}" class="filled">&#9733;</span>
                                 <span th:if="${review.score &lt; 1}">&#9733;</span>
@@ -154,20 +141,38 @@
                 </div>
             </div>
         </div>
-        <h2>
-            Otters has bought
+        <h2 class="annonstext"> Annons</h2>
+        <div id="annons">
+            <a href="http://www.weatheryoulikeit.com/" target="_blank">
+                <img src="/img/banner.jpg" id="annonsbild"/>
+            </a>
+        </div>
+
+        <!--<div id="moreInfo">-->
+            <!--<div id="information">-->
+                <!--<h3>-->
+                    <!--more information-->
+                <!--</h3>-->
+                <!--<p id="Description" th:text="${product.description}"></p>-->
+
+
+            <!--</div>-->
+
+        <!--</div>-->
+        <h2 class="textothersbought">
+            Andra har också köpt
         </h2>
         <div id="othersHasBougth">
-            <div th:each="product:${makeUp}">
-                <p>
+            <div class="boughtBox" th:each="product:${makeUp}">
+                <img class="productpic" th:src="${product.image}"/>
+                <p class="productLink">
                     <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
                 </p>
-                <img class="productpic" th:src="${product.image}"/>
-                <p th:text="${product.price +' kr'}">kr</p>
+                <p class="productdescription" th:text="${product.price +' kr'}">kr</p>
                 <div class="addProduct">
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
-                        <input type="submit" value="Lägg till i varukorg"/>
+                        <input class="button" type="submit" value="Lägg till i varukorg"/>
                     </form>
                 </div>
             </div>
@@ -175,17 +180,19 @@
         </div>
     </div>
     <div id="topsellers">
-        <p> OUR TOPPSELLERS</p>
-        <div th:each="product : ${nails}">
+        <p> Our Toppsellers</p>
+        <div th:each="product : ${randomTopp}">
             <img class="productpic" th:src="${product.image}"/>
-            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}"
-                  th:text="${product.name}"></a></p>
-            <p th:text="${product.price +' kr'}">kr</p>
-            <div class="addProduct">
-                <form action="/addProduct" method="post">
-                    <input type="hidden" name="productID" th:value="${product.productID}"/>
-                    <input type="submit" value="Lägg till i varukorg"/>
-                </form>
+            <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
+
+            <div>
+                <span th:text="${product.price +' kr'}">kr</span>
+                <span class="addProduct">
+                    <form action="/addProduct" method="post">
+                        <input type="hidden" name="productID" th:value="${product.productID}"/>
+                        <input class="button" type="submit" value="&#128722;"/>
+                    </form>
+                </span>
             </div>
             <p>&#x2767;</p>
         </div>

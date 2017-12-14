@@ -111,6 +111,7 @@ public class FancyController {
 
     @GetMapping("/productinfo")
     public String productInfo (Model model, HttpSession session, @RequestParam int productID){
+        pickRandomTopp(model);
         model.addAttribute("product", repository.getProduct(productID));
         model.addAttribute("makeUp", repository.getBySubCategoryTop3("Herrdoft"));
         model.addAttribute("review", new Review(productID, 0, ""));
