@@ -32,7 +32,7 @@ public class ControllerApplicationTests {
 
     @Test
     public void searchTest() {
-        Queue<Product> products = repository.search("fransar");
+        Queue<Product> products = repository.search("damdoft");
 
         Assert.notNull(products, "Must get a productlist");
         Assert.notEmpty(products, "Productlist must not be empty");
@@ -40,8 +40,8 @@ public class ControllerApplicationTests {
 
     @Test
     public void getBySubcategoryTest() {
-        String result = restTemplate.getForObject("/subcategory?sc=fransar", String.class);
-        Assert.isTrue(result.contains("Fransar"), "Must contain category header");
+        String result = restTemplate.getForObject("/subcategory?sc=herrdoft", String.class);
+        Assert.isTrue(result.contains("Diesel"), "Must contain Diesel dofter");
     }
 
     @Test
@@ -72,7 +72,7 @@ public class ControllerApplicationTests {
         Assert.notNull(customer, "Customer must not be null");
         Assert.isTrue(customer.getEmail().equals("test@test.com"), "Customer email must equal input email");
 
-        int orderID = repository.addOrder(products, quantities, customer.getEmail());
+        int orderID = repository.addOrder(products, quantities, customer.getEmail(), "Inget");
         Assert.isTrue(orderID != 0, "Must get a valid orderID");
 
         Order order = repository.getOrder(orderID);

@@ -61,8 +61,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>com.klarna</groupId>
+            <artifactId>kco-rest</artifactId>
+            <version>2.2.0</version>
+        </dependency>
 
-    </dependencies>
+
+	</dependencies>
 
 	<build>
 		<plugins>

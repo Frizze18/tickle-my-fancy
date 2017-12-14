@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="Stylesheet" href="./css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
     </style>
@@ -26,11 +28,11 @@
             <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
         <div id="menu">
-            <span>Fransar</span>
-            <span>category2</span>
-            <span>category3</span>
-            <span>category4</span>
-            <span>category5</span>
+            <a href="/subcategory?sc=Hårvård">Hårvård</a>
+            <a href="/subcategory?sc=Hudvård">Hudvård</a>
+            <a href="/subcategory?sc=Smink">Smink</a>
+            <a href="/subcategory?sc=Damdoft">Damdoft</a>
+            <a href="/subcategory?sc=Herrdoft">Herrdoft</a>
         </div>
     </div>
 
@@ -39,39 +41,32 @@
         <div th:if="${isLogedIn} == false">
             <form action="/login" method="post">
                 <div class="fontOne">E-postadress:</div>
-                <input name="email" type="text"/>
+                <input class="regfield" name="email" type="text"/>
                 <div class="fontOne">Lösenord:</div>
-                <input name="password" type="password"/>
+                <input class="regfield" name="password" type="password"/>
                 <input class="button" type="submit" value="Logga in"/>
                 <div th:text="${loginFail}"></div>
                 <div>
                     <a class="fontOne" href="registration.html" style="text-decoration:none">Skapa nytt konto</a>
                 </div>
             </form>
-
-        </div>
-        <div th:if="${isLogedIn} == true" id="login">
-            <a href="customerpage.html">
-                <img src="./img/mypagelogo.png" id="mypagelogo"/>
-            </a>
-        </div>
-        <div th:if="${isLogedIn} == true" id="cart">
-            <img src="./img/shopping-cart.png" id="cartlogo"/>
         </div>
         <div th:if="${isLogedIn} == true" id="logoutbutton">
             <form action="/logout" method="post">
-                <input type="submit" value="logout"/>
+                <input class="button" type="submit" value="logout"/>
             </form>
+        </div>
+    </div>
+    <div id="iconbox">
+        <div><img src="./img/shopping-cart.png" id="cartlogo"/></div>
+        <div th:if="${isLogedIn} == true" id="login"><a href="customerpage.html"><img src="./img/mypagelogo.png" id="mypagelogo"/></a>
         </div>
     </div>
 </header>
 
     <section id="pageContent">
 
-        <div id="subcategoryMenu">
-        </div>
-
-
+        <div id="subcategoryMenu"></div>
         <div id="mainPage">
             <table>
                 <tr class="productlist" th:each="product : ${products}">
@@ -99,12 +94,14 @@
             </table>
         </div>
         <div id="topsellers">
-            <p> OUR TOPPSELLERS</p>
-            <div th:each="product : ${eyes}">
+            <p>Bästsäljare</p>
+            <div class="toppProduct" th:each="product : ${randomTopp}">
                 <img class="productpic" th:src="${product.image}"/>
                 <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
-                <p th:text="${product.price +' kr'}">kr</p>
-                <div class="addProduct">
+
+
+                <div>
+                    <span th:text="${product.price +' kr'}"></span>
                     <span class="addProduct">
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
@@ -117,32 +114,31 @@
         </div>
     </section>
     <section id="foot">
-        <div class="shopsection">
-            <ul id="shop">SHOP</ul>
-            <li>Women</li>
-            <li>Men</li>
-            <li>Makeup</li>
-            <li>lipstift</li>
-        </div>
         <div class="informationsection">
-            <ul>information</ul>
-            <li>carrer at Beauty and the beast</li>
-            <li>aboute Beauty and the beast</li>
-            <li>information</li>
+            <p>Information</p>
+            <ul>
+                <li>Om oss</li>
+                <li>Jobba hos oss</li>
+            </ul>
+
         </div>
         <div class="helpsection">
-            <ul>help</ul>
-            <li>customer service</li>
-            <li>My profile</li>
-            <li>Gift Card</li>
-            <li>FAQ</li>
+            <p>Kundservice</p>
+            <ul>
+                <li>Kontakta kundservice</li>
+                <li>Vanliga frågor</li>
+                <li>Köpvillkor</li>
+            </ul>
         </div>
+
         <div class="socialsection">
-            <ul>social</ul>
-            <li>Facebook</li>
-            <li>Instagram</li>
-            <li>Twitter</li>
-            <li>Mail</li>
+            <p>Följ oss</p>
+            <div>
+                <a href="https://www.instagram.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390482322727763969/instagram.png"/></a>
+                <a href="https://sv-se.facebook.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390480664786632704/facebook.png"/></a>
+                <a href="https://twitter.com/?lang=sv" target="_blank"><img class="socialIcon" src="./img/Twitter.png"/></a>
+                <img class="socialIcon" src="./img/Kiwi.png"/>
+            </div>
         </div>
     </section>
     <script src="./script/bundle.js"></script>

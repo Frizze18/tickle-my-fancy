@@ -22,8 +22,12 @@
     "bundle": "webpack",
     "copychristmas": "cp websource/script/christmasWork.js src/main/resources/static/script/christmas.js",
     "copystars": "cp websource/script/starsWork.js src/main/resources/static/script/stars.js",
+
     "copypaypal": "cp websource/script/paypal.js src/main/resources/static/script/paypal.js",
-    "build": "npm run lint && npm run bundle && npm run less && npm run copychristmas && npm run copystars && npm run copypaypal"
+
+    "copycheckout": "cp websource/script/checkoutWork.js src/main/resources/static/script/checkout.js",
+    "copy": "npm run copychristmas && npm run copystars && npm run copycheckout && npm run copypaypal",
+    "build": "npm run lint && npm run bundle && npm run less && npm run copy"
   },
   "repository": {
     "type": "git",
