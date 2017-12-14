@@ -13,6 +13,7 @@ public class DbRepository {
 
     @Autowired
     private DataSource dataSource;
+    private ResultSet rs;
 
     public DbRepository() {
 
@@ -90,24 +91,26 @@ public class DbRepository {
         try {
             Connection conn = dataSource.getConnection();
             Queue<Product> products = new LinkedList<>();
+            List<Integer> ids = new ArrayList<>();
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM products WHERE [name] = (?)");
             statement.setString(1, searchString);
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
             statement = conn.prepareStatement("SELECT * FROM products WHERE [name] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
             statement = conn.prepareStatement("SELECT * FROM products WHERE [subcategory] = (?)");
             statement.setString(1, searchString);
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
             statement = conn.prepareStatement("SELECT * FROM products WHERE [category] = (?)");
             statement.setString(1, searchString);
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
             statement = conn.prepareStatement("SELECT * FROM products WHERE [subcategory] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
             statement = conn.prepareStatement("SELECT * FROM products WHERE [category] LIKE (?)");
             statement.setString(1, "%" + searchString + "%");
-            searchHelper(products, statement.executeQuery());
+            searchHelper(products, statement.executeQuery(), ids);
+
 
             return products;
         } catch (SQLException e) {
@@ -179,7 +182,7 @@ public class DbRepository {
     }
 
 
-    public void searchHelper(Queue<Product> products, ResultSet rs) throws SQLException {
+    public void searchHelper(Queue<Product> products, ResultSet rs, List<Integer> ids) throws SQLException {
         while (rs.next()) {
             Product product = new Product
                     (rs.getInt("productID"),
@@ -190,7 +193,10 @@ public class DbRepository {
                             rs.getString("category"),
                             rs.getString("subcategory"),
                             rs.getInt("quantity"));
-            products.add(product);
+            if (!(ids.contains(product.getProductID()))) {
+                products.add(product);
+                ids.add(product.getProductID());
+            }
         }
     }
 
@@ -427,6 +433,75 @@ public class DbRepository {
             }
             return order;
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<List<SubOrder>> getWholeOrderForCustomer(String email) {
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("SELECT customerID FROM customer WHERE email = ?;");
+            statement.setString(1, email);
+            ResultSet rs = statement.executeQuery();
+            int customerID = 0;
+            if (!rs.next()) {
+                return null;
+            } else {
+                customerID = rs.getInt("customerID");
+            }
+
+            List<Integer> orderIDs = new ArrayList<>();
+            statement = conn.prepareStatement("SELECT orderID FROM orders WHERE customerID = ?;");
+            statement.setInt(1, customerID);
+            rs = statement.executeQuery();
+
+            while (rs.next()) {
+                orderIDs.add(rs.getInt("orderID"));
+            }
+
+            List<List<SubOrder>> orders = new ArrayList<>();
+
+            for (int i : orderIDs) {
+                orders.add(getWholeOrder(i));
+            }
+
+            return orders;
+        } catch (SQLException e) {
+            System.err.println("ERROR IN getWHoleOrderForCustomer");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<Order> getOrdersForCustomer(String email) {
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("SELECT customerID FROM customer WHERE email = ?;");
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            int customerID = 0;
+            if (!resultSet.next()) {
+                return null;
+            } else {
+                customerID = resultSet.getInt("customerID");
+            }
+
+            List<Order> orders = new ArrayList<>();
+            statement = conn.prepareStatement("SELECT * FROM orders WHERE customerID = ?;");
+            statement.setInt(1, customerID);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Order order = new Order(
+                        resultSet.getInt("orderID"),
+                        resultSet.getInt("customerID"),
+                        resultSet.getDouble("cost"),
+                        resultSet.getInt("quantity"),
+                        resultSet.getString("klarnaID"));
+                orders.add(order);
+            }
+
+            return orders;
+        } catch (SQLException e) {
+            System.err.println("ERROR IN getWHoleOrderForCustomer");
             e.printStackTrace();
         }
         return null;

@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="Stylesheet" href="./css/style.css" />
     <link rel="Stylesheet" href="./css/subcategory.css" />
+    <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
     </style>
@@ -124,55 +126,50 @@
     <section id="pageContent">
 
         <div id="subcategoryMenu">
-            
+
         </div>
 
 
         <div id="mainPage">
-            <div>
-                <h3 th:text="${category}"></h3>
+            <div class="recommendedCategory">
+                <h3 th:text="${rubrik}">Hårvård</h3>
             </div>
-            <div class="topIncategory">
-                <div class="topProducts" th:each="product: ${topProducts}">
-                    <p>
+
+            <div class="displayProducts">
+                <div class="productBox" th:each="product: ${productsInSubcategory}">
+
+                    <img class="productpic" th:src="${product.image}" />
+                    <p class="productLink">
                         <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
                     </p>
-                    <img class="productpic" th:src="${product.image}" />
+                    <div class="productdescription">
                     <p th:text="${product.price +' kr'}">kr</p>
-                    <p class="productdescription" th:text="${product.description}"></p>
+                    <!--<p class="productdescription" th:text="${product.description}"></p>-->
+                    </div>
                 </div>
             </div>
 
-            <table>
-                <tr th:each="product: ${productsInSubcategory}">
-                    <td>
-                        <p>
-                            <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
-                        </p>
-                        <img class="productpic" th:src="${product.image}" />
-                        <p th:text="${product.price +' kr'}">kr</p>
-                        <p class="productdescription" th:text="${product.description}"></p>
-                    </td>
-                </tr>
-            </table>
         </div>
 
-
         <div id="topsellers">
-            <p> Our topsellers</p>
-            <div th:each="product : ${nails}">
-                <p>
-                    <a th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a>
-                </p>
-                <img class="productpic" th:src="${product.image}" />
-                <p th:text="${product.price +' kr'}">kr</p>
-                <span class="addProduct">
+
+            <p> Our Toppsellers</p>
+            <div class="toppProduct" th:each="product : ${randomTopp}">
+                <img class="productpic" th:src="${product.image}"/>
+                <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
+
+                <div>
+                    <span th:text="${product.price +' kr'}">kr</span>
+                    <span class="addProduct">
+
                     <form action="/addProduct" method="post">
                         <input type="hidden" name="productID" th:value="${product.productID}"/>
                         <input class="button" type="submit" value="&#128722;"/>
                     </form>
                 </span>
 
+                </div>
+                <p>&#x2767;</p>
             </div>
         </div>
     </section>
