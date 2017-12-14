@@ -1,35 +1,45 @@
-@deepPurple: #7B008D;
-@lightPurple: #C18DB2;
-@yellow: #F3B606;
-@brown: #56320F;
-@dirtyWhite: #D8C5AA;
-
-
+@maincolor: white;
+@whitesmoke: whitesmoke;
+@font-color: black;
+@font-one: 'Vollkorn SC', serif;
+@font-sans:'Inconsolata', monospace;
+@font-size: 15px;
+@button-color: gray;
+@button-font-color: white;
 
 .productinfo {
   text-align: center;
-  order:2;
+  order: 2;
   width: 50%;
-
+  margin-top: 20%;
+  margin-right: 17%;
 }
 #productpicture{
   display: flex;
   flex-direction: column;
   order:1;
+  margin-left: 15%;
+  margin-top: 15%;
 }
 .bigproductpic {
-  max-height: 85%;
-  max-width: 85%;
+  width: 50%;
   border-radius: 10px;
 }
 .productpic {
-  max-width: 100px;
-  max-height: 100px;
+  max-width: 80px;
+  max-height: 80px;
   border-radius: 10px;
 }
 .addProduct{
   order: 3;
   text-align: center;
+}
+.producttext{
+  font-family: @font-sans;
+  font-size: 15px;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 5%;
 }
 #mainPage{
   display: flex;
