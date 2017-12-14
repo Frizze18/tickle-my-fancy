@@ -53,8 +53,8 @@ public class Product {
     }
 
     public String getShortDescription() {
-        int length = 30;
-        if (this.description.length() < 30) {
+        int length = 100;
+        if (this.description.length() < 100) {
             length = this.description.length();
         }
         return this.description.substring(0, length);
