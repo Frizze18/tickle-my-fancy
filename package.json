@@ -8,22 +8,23 @@
     "lintless": "stylelint websource/css/*.less",
     "lintts": "tslint -c tslint.json 'websource/**/*.ts'",
     "lint": "npm run lintless && npm run lintts",
+
     "lessproduct": "lessc websource/css/productinfo.less src/main/resources/static/css/productinfo.css",
     "styleless": "lessc websource/css/style.less src/main/resources/static/css/style.css",
     "customerless": "lessc websource/css/customer.less src/main/resources/static/css/customer.css",
     "regless": "lessc websource/css/registration.less src/main/resources/static/css/registration.css",
     "christmasless": "lessc websource/css/christmas.less src/main/resources/static/css/christmas.css",
-
     "cartless": "lessc websource/css/shoppingcart.less src/main/resources/static/css/shoppingcart.css",
-
     "subcategoryless": "lessc websource/css/subcategory.less src/main/resources/static/css/subcategory.css",
     "less": "npm run styleless && npm run customerless && npm run lessproduct && npm run christmasless && npm run regless && npm run subcategoryless && npm run cartless",
 
     "bundle": "webpack",
     "copychristmas": "cp websource/script/christmasWork.js src/main/resources/static/script/christmas.js",
     "copystars": "cp websource/script/starsWork.js src/main/resources/static/script/stars.js",
+    "copypaypal": "cp websource/script/paypalWork.js src/main/resources/static/script/paypal.js",
     "copycheckout": "cp websource/script/checkoutWork.js src/main/resources/static/script/checkout.js",
-    "copy": "npm run copychristmas && npm run copystars && npm run copycheckout",
+    "copy": "npm run copychristmas && npm run copystars && npm run copycheckout && npm run copypaypal",
+
     "build": "npm run lint && npm run bundle && npm run less && npm run copy"
   },
   "repository": {

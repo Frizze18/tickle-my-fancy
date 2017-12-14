@@ -8,6 +8,7 @@
     <link rel="Stylesheet" href="./css/shoppingcart.css"/>
     <link rel="Stylesheet" href="./css/style.css"/>
     <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet"/>
     <style>@import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');</style>
     <title>Beauty and the beasts</title>
 
@@ -15,45 +16,38 @@
 <body>
 <header id="header">
     <div id="logoDiv">
+        <!--<img src="https://i.ytimg.com/vi/e3Nl_TCQXuw/maxresdefault.jpg" id="logo"/>-->
         <img src="./img/logo.png" id="logo"/>
     </div>
+
     <div id="menubar">
         <div id="searchbar">
             <input type="text" id="searchTerm" placeholder="What are you looking for?"/>
-            <button type="submit"  id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
+            <button type="submit" id="searchButton"><img id="searclogo" src="/img/searchwhite.png"/></button>
         </div>
         <div id="menu">
-            <span>category1</span>
-            <span>category2</span>
-            <span>category3</span>
-            <span>category4</span>
-            <span>category5</span>
-            <span>category6</span>
+            <a href="/subcategory?sc=Hårvård">Hårvård</a>
+            <a href="/subcategory?sc=Hudvård">Hudvård</a>
+            <a href="/subcategory?sc=Smink">Smink</a>
+            <a href="/subcategory?sc=Damdoft">Damdoft</a>
+            <a href="/subcategory?sc=Herrdoft">Herrdoft</a>
         </div>
     </div>
+
     <div id="cartbox">
         <!-- here we have som links to both the login in site and to the cart. these doesn't need to be links, we can use SPA if we want. -->
         <div th:if="${isLogedIn} == false">
             <form action="/login" method="post">
-                <div>E-postadress:</div>
-                <input name="email" type="text"/>
-                <div>Lösenord:</div>
-                <input name="password" type="password"/>
+                <div class="fontOne">E-postadress:</div>
+                <input class="regfield" name="email" type="text"/>
+                <div class="fontOne">Lösenord:</div>
+                <input class="regfield" name="password" type="password"/>
                 <input class="button" type="submit" value="Logga in"/>
                 <div th:text="${loginFail}"></div>
                 <div>
-                    <a href="registration.html">Skapa nytt konto</a>
+                    <a class="fontOne" href="registration.html" style="text-decoration:none">Skapa nytt konto</a>
                 </div>
             </form>
-
-        </div>
-        <div th:if="${isLogedIn} == true" id="login">
-            <a href="customerpage.html">
-                <img src="./img/mypagelogo.png" id="mypagelogo"/>
-            </a>
-        </div>
-        <div th:if="${isLogedIn} == true" id="cart">
-            <img src="./img/shopping-cart.png" id="cartlogo"/>
         </div>
         <div th:if="${isLogedIn} == true" id="logoutbutton">
             <form action="/logout" method="post">
@@ -61,81 +55,98 @@
             </form>
         </div>
     </div>
+    <div id="iconbox">
+        <div><img src="./img/shopping-cart.png" id="cartlogo"/></div>
+        <div th:if="${isLogedIn} == true" id="login"><a href="customerpage.html"><img src="./img/mypagelogo.png" id="mypagelogo"/></a>
+        </div>
+    </div>
 </header>
 <section id="pageContent">
 
-    <div id="subcategoryMenu">
-        <p>
-            Here will we display a menu with subcategories
-        </p>
-    </div>
 
-<!--=============================================================-->
+    <div id="subcategoryMenu"></div>
+
+    <!--=============================================================-->
     <div id="mainPage">
         <h1>Varukorg</h1>
-        <div th:if="${emptyCart} == true">Din varukorg är tom!</div>
+        <div class="shoppincart" th:if="${emptyCart} == true">Din varukorg är tom!</div>
         <div class="shoppincart" th:if="${emptyCart} == false">
+
                 <tr th:each="item : ${shoppingCart.shoppingmap}">
-                    <div>
-                        <td th:text="${item.value.product.name}+':  '+${item.value.quantity}+' st  '+${item.value.priceOfProducts}+'kr'"></td>
-                        <a th:href="@{'/addProductInCart?productID=' + ${item.value.product.productID}}"><input class="button" type="submit" value="+"/></a>
-                        <a th:href="@{'/removeProductInCart?productID=' + ${item.value.product.productID}}"><input class="button" type="submit" value="-"/></a>
-                    </div>
+                    <!--<div th:text="${item.value.product.name}"></div>-->
+                    <div><a th:href="'/productinfo?productID='+${item.value.product.productID}" th:text="${item.value.product.name}"></a></div>
+                    <div th:text="${item.value.quantity}+' st  '+${item.value.priceOfProducts}+'kr'"></div>
+                    <a th:href="@{'/addProductInCart?productID=' + ${item.value.product.productID}}"><input class="plusminusbutton" type="submit" value="+"/></a>
+                    <a th:href="@{'/removeProductInCart?productID=' + ${item.value.product.productID}}"><input class="plusminusbutton" type="submit" value="-"/></a>
                 </tr>
-            <span id="pricebox" th:text="'Totalpris:  '+${shoppingCart.totalPrice}+'Kr'"></span>
+            <div id="pricebox" th:text="'Totalpris:  '+${shoppingCart.totalPrice}+'Kr'"></div>
             <div th:if="${emptyCart} == false">
-                <form action="/emptyShoppingCart" method="post">
-                    <input class="button" type="submit" value="Töm varukorg"/>
-                </form>
+                     <span id="paypal" class="hidden" th:text="${shoppingCart.totalPrice}"></span>
+                <div id="myContainerElement"></div>
+                    <button class="button" id="emptyCart">Töm varukorg</button>
                 <button id="checkoutBtn" class="buybutton">Köp</button>
+
             </div>
         </div>
         <p id="orderID" class="hidden" th:text="${orderID}"></p>
         <div id="my-checkout-container"></div>
         <img src="https://cdn.klarna.com/1.0/shared/image/generic/badge/sv_se/checkout/short-blue.png?width=312"/>
     </div>
-<!--==============================================================-->
+    <!--==============================================================-->
     <div id="topsellers">
-        <h3> OUR TOPPSELLERS</h3>
-        <div th:each="product : ${nails}">
+        <p>Bästsäljare</p>
+        <div class="toppProduct" th:each="product : ${randomTopp}">
             <img class="productpic" th:src="${product.image}"/>
+
             <p><a class="linksToTheRight" th:href="'/productinfo?productID='+${product.productID}" th:text="${product.name}"></a></p>
-            <p th:text="${product.price +' kr'}">kr</p>
+
+            <div>
+                <span th:text="${product.price +' kr'}"></span>
+                <span class="addProduct">
+                    <form action="/addProduct" method="post">
+                        <input type="hidden" name="productID" th:value="${product.productID}"/>
+                        <input class="button" type="submit" value="&#128722;"/>
+                    </form>
+                </span>
+            </div>
             <p>&#x2767;</p>
         </div>
     </div>
 </section>
 <section id="foot">
-    <div class="shopsection">
-        <ul id="shop">SHOP</ul>
-        <li>Women</li>
-        <li>Men</li>
-        <li>Makeup</li>
-        <li>lipstift</li>
-    </div>
     <div class="informationsection">
-        <ul>information</ul>
-        <li>carrer at Beauty and the beast</li>
-        <li>aboute Beauty and the beast</li>
-        <li>information</li>
+        <p>Information</p>
+        <ul>
+            <li>Om oss</li>
+            <li>Jobba hos oss</li>
+        </ul>
+
     </div>
     <div class="helpsection">
-        <ul>help</ul>
-        <li>customer service</li>
-        <li>My profile</li>
-        <li>Gift Card</li>
-        <li>FAQ</li>
+        <p>Kundservice</p>
+        <ul>
+            <li>Kontakta kundservice</li>
+            <li>Vanliga frågor</li>
+            <li>Köpvillkor</li>
+        </ul>
     </div>
+
     <div class="socialsection">
-        <ul>social</ul>
-        <li>Facebook</li>
-        <li>Instagram</li>
-        <li>Twitter</li>
-        <li>Mail</li>
+        <p>Följ oss</p>
+        <div>
+            <a href="https://www.instagram.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390482322727763969/instagram.png"/></a>
+            <a href="https://sv-se.facebook.com/" target="_blank"><img class="socialIcon" src="https://cdn.discordapp.com/attachments/385089277819879437/390480664786632704/facebook.png"/></a>
+            <a href="https://twitter.com/?lang=sv" target="_blank"><img class="socialIcon" src="./img/Twitter.png"/></a>
+            <img class="socialIcon" src="./img/Kiwi.png"/>
+        </div>
     </div>
 </section>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script src="/script/paypal.js"></script>
+
 <script src="./script/bundle.js"></script>
 <script src="./script/checkout.js"></script>
+
 </body>
 </html>
 
