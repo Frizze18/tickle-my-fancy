@@ -41,7 +41,7 @@ public class ControllerApplicationTests {
     @Test
     public void getBySubcategoryTest() {
         String result = restTemplate.getForObject("/subcategory?sc=fransar", String.class);
-        Assert.isTrue(result.contains("Fransar"), "Must contain category header");
+        Assert.isTrue(result.contains("fransar"), "Must contain category header");
     }
 
     @Test
@@ -72,7 +72,7 @@ public class ControllerApplicationTests {
         Assert.notNull(customer, "Customer must not be null");
         Assert.isTrue(customer.getEmail().equals("test@test.com"), "Customer email must equal input email");
 
-        int orderID = repository.addOrder(products, quantities, customer.getEmail());
+        int orderID = repository.addOrder(products, quantities, customer.getEmail(), "Inget");
         Assert.isTrue(orderID != 0, "Must get a valid orderID");
 
         Order order = repository.getOrder(orderID);

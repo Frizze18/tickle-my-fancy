@@ -70,31 +70,11 @@
         </p>
     </div>
 
-<!--=============================================================-->
-    <div id="mainPage">
-        <h1>Varukorg</h1>
-        <div th:if="${emptyCart} == true">Din varukorg är tom!</div>
-        <div class="shoppincart" th:if="${emptyCart} == false">
-                <tr th:each="item : ${shoppingCart.shoppingmap}">
-                    <div>
-                        <td th:text="${item.value.product.name}+':  '+${item.value.quantity}+' st  '+${item.value.priceOfProducts}+'kr'"></td>
-                        <a th:href="@{'/addProductInCart?productID=' + ${item.value.product.productID}}"><input class="button" type="submit" value="+"/></a>
-                        <a th:href="@{'/removeProductInCart?productID=' + ${item.value.product.productID}}"><input class="button" type="submit" value="-"/></a>
-                    </div>
-                </tr>
-            <span id="pricebox" th:text="'Totalpris:  '+${shoppingCart.totalPrice}+'Kr'"></span>
-            <div th:if="${emptyCart} == false">
-                <form action="/emptyShoppingCart" method="post">
-                    <input class="button" type="submit" value="Töm varukorg"/>
-                </form>
-                <button id="checkoutBtn" class="buybutton">Köp</button>
-            </div>
-        </div>
-        <p id="orderID" class="hidden" th:text="${orderID}"></p>
-        <div id="my-checkout-container"></div>
-        <img src="https://cdn.klarna.com/1.0/shared/image/generic/badge/sv_se/checkout/short-blue.png?width=312"/>
+    <!--=============================================================-->
+    <div id="mainPage" th:utext="${confirmation}">
+
     </div>
-<!--==============================================================-->
+    <!--==============================================================-->
     <div id="topsellers">
         <h3> OUR TOPPSELLERS</h3>
         <div th:each="product : ${nails}">
