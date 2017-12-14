@@ -213,7 +213,6 @@ public class FancyController {
 
         return "subcategory";
     }
-
     private void handleLoginStatus(HttpSession session, Model model){
         boolean isLogedIn;
         if(session.getAttribute("sessionCustomer") == null){
@@ -232,5 +231,4 @@ public class FancyController {
         model.addAttribute("nails", repository.getBySubCategoryTop3("Damdoft"));
         model.addAttribute("eyes", repository.getBySubCategoryTop3("Hudvård"));
     }
-
 }
